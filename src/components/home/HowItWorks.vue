@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
@@ -68,8 +68,9 @@ const steps = computed(() => [
 
 useIntersectionObserver(
   sectionRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting) {
       isVisible.value = true
     }
   },

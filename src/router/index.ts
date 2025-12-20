@@ -75,7 +75,7 @@ const router = createRouter({
       redirect: '/'
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, _from, savedPosition) {
     // 如果有保存的位置（浏览器前进/后退），使用保存的位置
     if (savedPosition) {
       return savedPosition

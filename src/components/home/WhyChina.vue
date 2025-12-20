@@ -34,8 +34,9 @@ const reasons = computed(() => [
 
 useIntersectionObserver(
   sectionRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting) {
       isVisible.value = true
     }
   },

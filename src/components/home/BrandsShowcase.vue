@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
@@ -27,8 +27,9 @@ const brands = [
 
 useIntersectionObserver(
   sectionRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting) {
       isVisible.value = true
     }
   },

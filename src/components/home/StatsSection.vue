@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
@@ -45,7 +45,7 @@ const animateCounters = () => {
     // Easing function for smooth animation
     const easeOutQuart = 1 - Math.pow(1 - progress, 4)
     
-    animatedValues.value = stats.value.map((stat, i) => {
+    animatedValues.value = stats.value.map((stat) => {
       return Math.floor(stat.value * easeOutQuart)
     })
     
@@ -59,8 +59,9 @@ const animateCounters = () => {
 
 useIntersectionObserver(
   sectionRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting && !isVisible.value) {
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting && !isVisible.value) {
       isVisible.value = true
       animateCounters()
     }

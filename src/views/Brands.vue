@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 
 const heroRef = ref<HTMLElement | null>(null)
 const isHeroVisible = ref(false)
@@ -34,8 +34,9 @@ const categories = computed(() => [
 
 useIntersectionObserver(
   heroRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) isHeroVisible.value = true
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting) isHeroVisible.value = true
   },
   { threshold: 0.2 }
 )

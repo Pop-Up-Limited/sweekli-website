@@ -28,8 +28,9 @@ const values = computed(() => [
 
 useIntersectionObserver(
   heroRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) isHeroVisible.value = true
+  (entries) => {
+    const entry = entries[0]
+    if (entry?.isIntersecting) isHeroVisible.value = true
   },
   { threshold: 0.2 }
 )
