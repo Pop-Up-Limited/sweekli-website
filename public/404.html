@@ -30,34 +30,3 @@
   </body>
 </html>
 
-
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sweekli</title>
-    <script>
-      // GitHub Pages 404 处理 - SPA 路由重定向
-      // 单页应用需要将所有路由重定向到 index.html
-      const base = '/sweekli-website/';
-      const path = window.location.pathname;
-      
-      // 如果当前路径不是 index.html，重定向
-      if (!path.endsWith('index.html') && !path.endsWith('/')) {
-        const redirectPath = base + 'index.html' + window.location.search + window.location.hash;
-        window.location.replace(redirectPath);
-      } else {
-        // 加载应用
-        window.location.replace(base + 'index.html');
-      }
-    </script>
-  </head>
-  <body>
-    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: system-ui; color: #282E45;">
-      <div style="text-align: center;">
-        <h1>Loading...</h1>
-        <p>Redirecting to homepage...</p>
-      </div>
-    </div>
-  </body>
-</html>
-

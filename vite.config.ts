@@ -18,16 +18,3 @@ export default defineConfig({
     assetsDir: 'assets',
   }
 })
-
-  // 只在生产环境（GitHub Pages）使用子路径，开发环境使用根路径
-  base: process.env.NODE_ENV === 'production' ? '/sweekli-website/' : '/',
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-  }
-})
