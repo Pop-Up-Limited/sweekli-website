@@ -61,7 +61,7 @@ async function testContentful() {
     console.log('4️⃣ 测试获取文章（中文）...')
     const entriesZh = await client.getEntries({
       content_type: 'blogPost',
-      locale: 'zh-CN',
+      locale: 'zh',
       limit: 10,
     })
     console.log(`✅ 找到 ${entriesZh.total} 篇文章`)

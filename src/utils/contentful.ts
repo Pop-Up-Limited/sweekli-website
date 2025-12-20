@@ -81,8 +81,7 @@ function transformArticle(
   locale: string = 'en-US'
 ): BlogArticle {
   const fields = entry.fields
-  // 先使用 en-US，等 Contentful 添加中文语言后再支持
-  const contentLocale = 'en-US' // locale === 'zh' ? 'zh-CN' : 'en-US'
+  const contentLocale = locale === 'zh' ? 'zh' : 'en-US'
   
   // 获取封面图片
   const coverImageAsset = fields.coverImage?.[contentLocale] || fields.coverImage?.['en-US']
@@ -116,7 +115,7 @@ export async function getBlogArticles(
     const query: any = {
       content_type: 'blogPost',
       order: options?.orderBy === 'date' ? '-fields.publishDateTime' : '-sys.createdAt',
-      locale: 'en-US', // 先使用 en-US，等添加中文语言后再支持
+      locale: locale === 'zh' ? 'zh-CN' : 'en-US',
     }
 
     if (options?.limit) {
@@ -151,7 +150,7 @@ export async function getBlogArticleBySlug(
   locale: string = 'en-US'
 ): Promise<BlogArticle | null> {
   try {
-    const contentLocale = locale === 'zh' ? 'zh-CN' : 'en-US'
+    const contentLocale = locale === 'zh' ? 'zh' : 'en-US'
     
     const response = await contentfulClient.getEntries<ContentfulBlogPostFields>({
       content_type: 'blogPost',

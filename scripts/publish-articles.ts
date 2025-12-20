@@ -8,15 +8,14 @@
  * 3. 运行：npx tsx scripts/publish-articles.ts
  */
 
-import * as contentfulManagement from 'contentful-management'
+import { createClient } from 'contentful-management'
 
 const SPACE_ID = 'wbpsfgfg62v2'
 const ENVIRONMENT = 'master'
 const CONTENT_TYPE_ID = 'blogPost'
 
-// 需要从环境变量获取 Management API Token
-// 注意：Content Preview API Token 不能用于创建内容，需要 Management API Token
-const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN || ''
+// Management API Token
+const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN || 'CFPAT-M5hBhkZGc1pH0KslULtoNlMyAjsTPvEnlYFKhUpcMVs'
 
 if (!MANAGEMENT_TOKEN) {
   console.error('❌ 错误：需要设置 CONTENTFUL_MANAGEMENT_TOKEN 环境变量')
@@ -42,7 +41,7 @@ const articles = [
       'en-US': 'Anta and MUSINSA: Leading the Next Wave of Fashion in China',
       'zh-CN': '安踏与MUSINSA：引领中国时尚新浪潮'
     },
-    excerpt: {
+    summary: {
       'en-US': 'Exploring how these brands are reshaping the fashion landscape in China through innovative strategies and consumer engagement.',
       'zh-CN': '探索这些品牌如何通过创新策略和消费者参与重塑中国时尚格局。'
     },
@@ -84,7 +83,7 @@ const articles = [
         ]
       }
     },
-    publishDate: '2025-09-19T00:00:00Z',
+    publishDateTime: '2025-09-19T00:00:00Z',
     category: {
       'en-US': 'Fashion',
       'zh-CN': '时尚'
@@ -204,7 +203,7 @@ async function publishArticles() {
   try {
     console.log('🚀 开始连接到 Contentful...')
     
-    const client = contentfulManagement.createClient({
+    const client = createClient({
       accessToken: MANAGEMENT_TOKEN,
     })
 
@@ -242,16 +241,17 @@ async function publishArticles() {
               'en-US': article.title['en-US'],
               'zh-CN': article.title['zh-CN'],
             },
-            excerpt: {
-              'en-US': article.excerpt['en-US'],
-              'zh-CN': article.excerpt['zh-CN'],
+            summary: {
+              'en-US': article.summary['en-US'],
+              'zh-CN': article.summary['zh-CN'],
             },
             content: {
               'en-US': article.content['en-US'],
               'zh-CN': article.content['zh-CN'],
             },
-            publishDate: {
-              'en-US': article.publishDate,
+            publishDateTime: {
+              'en-US': article.publishDateTime,
+              'zh-CN': article.publishDateTime,
             },
             category: {
               'en-US': article.category['en-US'],
