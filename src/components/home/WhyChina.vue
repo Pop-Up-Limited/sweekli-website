@@ -198,8 +198,7 @@ useIntersectionObserver(
 }
 
 .reason-card:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(111, 123, 212, 0.12);
-  transform: translateY(-6px) scale(1.01);
+  transform: translateY(-4px) scale(1.01);
   border-color: var(--color-accent-purple-light);
 }
 

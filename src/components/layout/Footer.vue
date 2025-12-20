@@ -12,6 +12,7 @@ const quickLinks = computed(() => [
   { path: '/about', label: t('nav.about') },
   { path: '/services', label: t('nav.services') },
   { path: '/brands', label: t('nav.brands') },
+  { path: '/insights', label: t('nav.insights') },
   { path: '/contact', label: t('nav.contact') }
 ])
 
@@ -75,11 +76,23 @@ const socialLinks = [
             <li>
               <a href="mailto:contact@sweekli.com" class="footer__link">contact@sweekli.com</a>
             </li>
-            <li class="footer__address">
-              {{ locale === 'en' ? 'Shanghai, China' : '中国上海' }}
+            <li>
+              <a href="tel:+8675586525700" class="footer__link">+86 755 86525700</a>
             </li>
             <li class="footer__address">
-              {{ locale === 'en' ? 'Los Angeles, USA' : '美国洛杉矶' }}
+              {{ locale === 'en' 
+                ? 'Shenzhen HQ - Block 6, Cloud Park, Bantian Street, Shenzhen'
+                : '深圳总部 - 深圳市坂田街道云里6号' }}
+            </li>
+            <li class="footer__address">
+              {{ locale === 'en' 
+                ? 'Shanghai - Floor 2, 588 East Yan\'an Road, Shanghai'
+                : '上海 - 上海市延安东路588号2楼' }}
+            </li>
+            <li class="footer__address">
+              {{ locale === 'en' 
+                ? 'Hong Kong - 11F, 200 Hennessy Road, Wan Chai, Hong Kong'
+                : '香港 - 香港湾仔轩尼诗道200号11楼' }}
             </li>
           </ul>
         </div>

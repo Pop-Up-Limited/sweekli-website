@@ -15,6 +15,7 @@ const navLinks = computed(() => {
     { path: '/about', label: t('nav.about') },
     { path: '/services', label: t('nav.services') },
     { path: '/brands', label: t('nav.brands') },
+    { path: '/insights', label: t('nav.insights') },
     { path: '/contact', label: t('nav.contact') }
   ]
   
@@ -68,20 +69,18 @@ onUnmounted(() => {
       </RouterLink>
 
       <!-- Navigation -->
-      <Transition name="slide">
-        <nav v-if="isMobileMenuOpen" class="header__nav is-open">
-          <RouterLink 
-            v-for="link in navLinks" 
-            :key="link.path"
-            :to="link.path"
-            class="header__link"
-            :class="{ 'is-active': route.path === link.path }"
-            @click="closeMobileMenu"
-          >
-            {{ link.label }}
-          </RouterLink>
-        </nav>
-      </Transition>
+      <nav class="header__nav" :class="{ 'is-open': isMobileMenuOpen }">
+        <RouterLink 
+          v-for="link in navLinks" 
+          :key="link.path"
+          :to="link.path"
+          class="header__link"
+          :class="{ 'is-active': route.path === link.path }"
+          @click="closeMobileMenu"
+        >
+          {{ link.label }}
+        </RouterLink>
+      </nav>
 
       <!-- Actions -->
       <div class="header__actions">
@@ -108,11 +107,26 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <!-- Mobile Menu Overlay - 使用 Teleport 传送到 body，确保覆盖整个页面 -->
+  <!-- Mobile Menu Overlay 和 Sidebar - 使用 Teleport 传送到 body -->
   <Teleport to="body">
+    <!-- 遮罩层 - 先渲染，z-index 较低 -->
     <Transition name="fade">
       <div v-if="isMobileMenuOpen" class="header__overlay" @click="closeMobileMenu"></div>
     </Transition>
+    
+    <!-- 侧边栏 - 后渲染，z-index 较高，确保在遮罩层之上 -->
+    <nav class="header__nav header__nav--mobile" :class="{ 'is-open': isMobileMenuOpen }">
+      <RouterLink 
+        v-for="link in navLinks" 
+        :key="link.path"
+        :to="link.path"
+        class="header__link"
+        :class="{ 'is-active': route.path === link.path }"
+        @click="closeMobileMenu"
+      >
+        {{ link.label }}
+      </RouterLink>
+    </nav>
   </Teleport>
 </template>
 
@@ -294,7 +308,18 @@ onUnmounted(() => {
 
 /* Mobile Menu */
 @media (max-width: 1023px) {
-  .header__nav.is-open {
+  /* 隐藏桌面端导航 */
+  .header__nav:not(.header__nav--mobile) {
+    display: none;
+  }
+
+  /* 移动端导航默认隐藏 */
+  .header__nav--mobile {
+    display: none;
+  }
+
+  /* 移动端导航打开时显示 */
+  .header__nav--mobile.is-open {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -306,26 +331,19 @@ onUnmounted(() => {
     background: #faf8f3;
     padding: calc(var(--spacing-20) + 60px) var(--spacing-8) var(--spacing-8);
     gap: var(--spacing-1);
-    z-index: calc(var(--z-header) + 2);
-    pointer-events: auto;
+    z-index: 10002 !important;
+    pointer-events: auto !important;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* 使用 Vue Transition 的 slide 动画 */
-  .slide-enter-active {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .slide-leave-active {
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .slide-enter-from {
-    transform: translateX(100%);
-  }
-
-  .slide-leave-to {
-    transform: translateX(100%);
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 
   .header__nav.is-open .header__link {
@@ -346,7 +364,7 @@ onUnmounted(() => {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: calc(var(--z-header) + 1);
+  z-index: 10000;
   cursor: pointer;
   pointer-events: auto;
   backdrop-filter: blur(2px);

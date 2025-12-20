@@ -130,7 +130,10 @@ onMounted(() => {
         
         <div class="hero__actions">
           <RouterLink to="/contact" class="hero__cta hero__cta--primary">
-            <span>{{ t('hero.cta') }}</span>
+            <span class="hero__cta-text-wrapper">
+              <span class="hero__cta-text hero__cta-text--default">{{ t('hero.cta') }}</span>
+              <span class="hero__cta-text hero__cta-text--hover">{{ t('hero.cta') }}</span>
+            </span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"/>
               <polyline points="12 5 19 12 12 19"/>
@@ -358,7 +361,11 @@ onMounted(() => {
   font-weight: var(--font-weight-semibold);
   border-radius: 9999px;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-sizing: border-box;
+  position: relative;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .hero__cta--primary {
@@ -367,12 +374,51 @@ onMounted(() => {
   box-shadow: 0 4px 12px rgba(111, 123, 212, 0.2);
 }
 
+.hero__cta--primary .hero__cta-text {
+  color: var(--color-white);
+}
+
 .hero__cta--primary:hover {
   box-shadow: 0 6px 16px rgba(111, 123, 212, 0.3);
 }
 
-.hero__cta--primary:hover span {
-  letter-spacing: 0.02em;
+.hero__cta-text-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.5em;
+  line-height: 1.5em;
+  vertical-align: middle;
+  min-width: 100px;
+}
+
+.hero__cta-text {
+  display: block;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  line-height: 1.5em;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+.hero__cta-text--default {
+  top: 0;
+  transform: translateY(0);
+}
+
+.hero__cta-text--hover {
+  top: -1.5em;
+  transform: translateY(0);
+}
+
+.hero__cta--primary:hover .hero__cta-text--default {
+  transform: translateY(100%);
+}
+
+.hero__cta--primary:hover .hero__cta-text--hover {
+  transform: translateY(1.5em);
 }
 
 .hero__cta--primary svg {
@@ -387,15 +433,11 @@ onMounted(() => {
   background: var(--color-white);
   color: var(--color-primary);
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1), letter-spacing 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__cta--secondary:hover {
   background: var(--color-gray-50);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.hero__cta--secondary:hover {
   letter-spacing: 0.02em;
 }
 

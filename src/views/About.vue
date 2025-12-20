@@ -201,7 +201,7 @@ useIntersectionObserver(
   display: inline-block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-orange);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-bottom: var(--spacing-4);

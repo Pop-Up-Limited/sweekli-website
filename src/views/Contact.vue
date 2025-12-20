@@ -122,25 +122,37 @@ useIntersectionObserver(
             <h3 class="contact-info__title">{{ t('contact.offices.title') }}</h3>
             
             <div class="office-card">
+              <h4 class="office-card__name">{{ t('contact.offices.shenzhen') }}</h4>
+              <p class="office-card__address">
+                {{ locale === 'en' 
+                  ? 'Block 6, Cloud Park, Bantian Street, Shenzhen'
+                  : '深圳市坂田街道云里6号'
+                }}
+              </p>
+              <a href="mailto:contact@sweekli.com" class="office-card__email">contact@sweekli.com</a>
+              <a href="tel:+8675586525700" class="office-card__phone">+86 755 86525700</a>
+            </div>
+
+            <div class="office-card">
               <h4 class="office-card__name">{{ t('contact.offices.shanghai') }}</h4>
               <p class="office-card__address">
                 {{ locale === 'en' 
-                  ? '123 Business District, Jing\'an District, Shanghai, China 200040'
-                  : '上海市静安区商业区123号 200040'
+                  ? 'Floor 2, 588 East Yan\'an Road, Shanghai'
+                  : '上海市延安东路588号2楼'
                 }}
               </p>
               <a href="mailto:shanghai@sweekli.com" class="office-card__email">shanghai@sweekli.com</a>
             </div>
 
             <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.la') }}</h4>
+              <h4 class="office-card__name">{{ t('contact.offices.hongkong') }}</h4>
               <p class="office-card__address">
                 {{ locale === 'en'
-                  ? '456 Wilshire Blvd, Los Angeles, CA 90017, USA'
-                  : '美国加州洛杉矶威尔希尔大道456号 90017'
+                  ? '11F, 200 Hennessy Road, Wan Chai, Hong Kong'
+                  : '香港湾仔轩尼诗道200号11楼'
                 }}
               </p>
-              <a href="mailto:la@sweekli.com" class="office-card__email">la@sweekli.com</a>
+              <a href="mailto:hk@sweekli.com" class="office-card__email">hk@sweekli.com</a>
             </div>
 
             <div class="contact-info__general">
@@ -335,6 +347,26 @@ useIntersectionObserver(
 .office-card__email {
   font-size: var(--font-size-sm);
   color: var(--color-accent-purple);
+  display: block;
+  margin-bottom: var(--spacing-2);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.office-card__email:hover {
+  color: var(--color-primary);
+}
+
+.office-card__phone {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent-purple);
+  display: block;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.office-card__phone:hover {
+  color: var(--color-primary);
 }
 
 .contact-info__general {

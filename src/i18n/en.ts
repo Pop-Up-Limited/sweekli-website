@@ -5,6 +5,7 @@ export default {
     about: 'About Us',
     services: 'Services',
     brands: 'Brands',
+    insights: 'Insights',
     contact: 'Contact',
     careers: 'Careers',
     auth: 'Verify Product'
@@ -221,8 +222,9 @@ export default {
     },
     offices: {
       title: 'Our Offices',
+      shenzhen: 'Shenzhen HQ',
       shanghai: 'Shanghai, China',
-      la: 'Los Angeles, USA'
+      hongkong: 'Hong Kong'
     }
   },
 
@@ -247,5 +249,56 @@ export default {
     positions: 'Open Positions',
     culture: 'Our Culture',
     apply: 'Apply Now'
+  },
+
+  // Insights Page
+  insights: {
+    hero: {
+      title: 'Market Insights & Trends',
+      subtitle: 'Stay updated with the latest trends, strategies, and insights from China\'s e-commerce market.'
+    }
+  },
+
+  // Solutions Pages
+  solutions: {
+    distribution: {
+      hero: {
+        title: 'Omnichannel Distribution',
+        subtitle: 'Comprehensive distribution network across all retail channels in China.'
+      },
+      capabilities: {
+        title: 'Our Distribution Capabilities'
+      },
+      channels: {
+        title: 'Distribution Channels',
+        subtitle: 'We partner with leading retailers across all major channels.'
+      }
+    },
+    ecommerce: {
+      hero: {
+        title: 'E-Commerce Operations',
+        subtitle: 'Full-service e-commerce management across all major Chinese platforms.'
+      },
+      capabilities: {
+        title: 'Our E-Commerce Capabilities'
+      },
+      works: {
+        title: 'E-Commerce Flagship Stores',
+        subtitle: 'See our work managing successful online stores for global brands.'
+      }
+    },
+    marketing: {
+      hero: {
+        title: 'Digital Marketing',
+        subtitle: 'Integrated marketing campaigns that connect brands with Chinese consumers.'
+      },
+      capabilities: {
+        title: 'Our Marketing Capabilities'
+      },
+      works: {
+        title: 'Marketing Campaigns',
+        subtitle: 'Successful campaigns across social media, events, and influencer partnerships.'
+      }
+    }
   }
 }

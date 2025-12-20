@@ -2,6 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { RouterLink } from 'vue-router'
+import CTASection from '@/components/home/CTASection.vue'
 
 const { t, locale } = useI18n()
 
@@ -10,24 +12,26 @@ const isHeroVisible = ref(false)
 
 const services = computed(() => [
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-38.png',
+    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png',
     title: t('services.items.strategy.title'),
     desc: t('services.items.strategy.desc'),
     features: [
       t('services.items.strategy.features.0'),
       t('services.items.strategy.features.1'),
       t('services.items.strategy.features.2')
-    ]
+    ],
+    link: null
   },
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-39.png',
+    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png',
     title: t('services.items.ecommerce.title'),
     desc: t('services.items.ecommerce.desc'),
     features: [
       t('services.items.ecommerce.features.0'),
       t('services.items.ecommerce.features.1'),
       t('services.items.ecommerce.features.2')
-    ]
+    ],
+    link: '/solutions/ecommerce'
   },
   {
     icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-40.png',
@@ -37,7 +41,8 @@ const services = computed(() => [
       t('services.items.marketing.features.0'),
       t('services.items.marketing.features.1'),
       t('services.items.marketing.features.2')
-    ]
+    ],
+    link: '/solutions/marketing'
   },
   {
     icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/53 -53.png',
@@ -47,7 +52,8 @@ const services = computed(() => [
       t('services.items.operations.features.0'),
       t('services.items.operations.features.1'),
       t('services.items.operations.features.2')
-    ]
+    ],
+    link: '/solutions/distribution'
   }
 ])
 
@@ -102,6 +108,13 @@ useIntersectionObserver(
                   {{ feature }}
                 </li>
               </ul>
+              <RouterLink v-if="service.link" :to="service.link" class="service-card__link">
+                {{ locale === 'en' ? 'Learn More' : '了解更多' }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -167,21 +180,7 @@ useIntersectionObserver(
     </section>
 
     <!-- CTA -->
-    <section class="services-cta">
-      <div class="container">
-        <div class="cta-content">
-          <h2>{{ t('services.cta.title') }}</h2>
-          <p>{{ t('services.cta.subtitle') }}</p>
-          <router-link to="/contact" class="cta-button">
-            {{ t('services.cta.button') }}
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </router-link>
-        </div>
-      </div>
-    </section>
+    <CTASection />
   </main>
 </template>
 
@@ -255,7 +254,7 @@ useIntersectionObserver(
   display: inline-block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-orange);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-bottom: var(--spacing-4);
@@ -299,7 +298,6 @@ useIntersectionObserver(
 
 .service-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-xl);
   border-color: var(--color-accent-purple);
 }
 
@@ -354,6 +352,31 @@ useIntersectionObserver(
   flex-shrink: 0;
 }
 
+.service-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent-purple);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.service-card__link:hover {
+  gap: var(--spacing-3);
+  color: var(--color-primary);
+}
+
+.service-card__link svg {
+  transition: transform var(--transition-fast);
+}
+
+.service-card__link:hover svg {
+  transform: translateX(4px);
+}
+
 /* Platforms */
 .platforms-section {
   padding: var(--spacing-24) 0;
@@ -369,7 +392,7 @@ useIntersectionObserver(
   display: inline-block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-purple);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   margin-bottom: var(--spacing-3);
@@ -407,7 +430,6 @@ useIntersectionObserver(
 
 .platform-card:hover {
   border-color: var(--color-accent-purple);
-  box-shadow: var(--shadow-lg);
 }
 
 .platform-name {
@@ -432,7 +454,7 @@ useIntersectionObserver(
   display: inline-block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-purple);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   margin-bottom: var(--spacing-3);
@@ -481,57 +503,4 @@ useIntersectionObserver(
   line-height: 1.6;
 }
 
-/* CTA */
-.services-cta {
-  padding: var(--spacing-24) 0;
-  background: linear-gradient(135deg, #282E45 0%, #3D4565 50%, #6F7BD4 100%);
-}
-
-.cta-content {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.cta-content h2 {
-  font-family: var(--font-family-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-white);
-  margin-bottom: var(--spacing-4);
-}
-
-.cta-content p {
-  font-size: var(--font-size-lg);
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: var(--spacing-8);
-}
-
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-3);
-  background: var(--color-accent-orange);
-  color: var(--color-white);
-  padding: var(--spacing-4) var(--spacing-8);
-  border-radius: var(--radius-full);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-lg);
-  text-decoration: none;
-  transition: all var(--transition-base);
-}
-
-.cta-button:hover {
-  background: #e85b32;
-  transform: translateX(4px);
-  text-decoration: none;
-}
-
-.cta-button svg {
-  transition: transform var(--transition-base);
-}
-
-.cta-button:hover svg {
-  transform: translateX(4px);
-}
 </style>

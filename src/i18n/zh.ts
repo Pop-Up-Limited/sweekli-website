@@ -5,6 +5,7 @@ export default {
     about: '关于我们',
     services: '服务内容',
     brands: '合作品牌',
+    insights: '行业洞察',
     contact: '联系我们',
     careers: '加入我们',
     auth: '正品查询'
@@ -221,8 +222,9 @@ export default {
     },
     offices: {
       title: '我们的办公室',
+      shenzhen: '深圳总部',
       shanghai: '中国上海',
-      la: '美国洛杉矶'
+      hongkong: '香港'
     }
   },
 
@@ -253,6 +255,57 @@ export default {
       growth: '职业发展机会',
       environment: '国际化工作环境',
       vacation: '带薪年假'
+    }
+  },
+
+  // 行业洞察页面
+  insights: {
+    hero: {
+      title: '市场洞察与趋势',
+      subtitle: '了解中国电商市场的最新趋势、策略和洞察。'
+    }
+  },
+
+  // 解决方案页面
+  solutions: {
+    distribution: {
+      hero: {
+        title: '全渠道分销',
+        subtitle: '覆盖中国所有零售渠道的全面分销网络。'
+      },
+      capabilities: {
+        title: '我们的分销能力'
+      },
+      channels: {
+        title: '分销渠道',
+        subtitle: '我们与各主要渠道的领先零售商合作。'
+      }
+    },
+    ecommerce: {
+      hero: {
+        title: '电商运营',
+        subtitle: '在中国所有主流平台提供全方位电商管理服务。'
+      },
+      capabilities: {
+        title: '我们的电商能力'
+      },
+      works: {
+        title: '电商旗舰店',
+        subtitle: '查看我们为全球品牌管理成功在线店铺的案例。'
+      }
+    },
+    marketing: {
+      hero: {
+        title: '数字营销',
+        subtitle: '连接品牌与中国消费者的整合营销活动。'
+      },
+      capabilities: {
+        title: '我们的营销能力'
+      },
+      works: {
+        title: '营销活动',
+        subtitle: '在社交媒体、活动和网红合作方面的成功案例。'
+      }
     }
   }
 }

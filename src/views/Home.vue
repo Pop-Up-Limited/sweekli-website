@@ -5,6 +5,7 @@ import HowItWorks from '@/components/home/HowItWorks.vue'
 import WhyChina from '@/components/home/WhyChina.vue'
 import BrandsShowcase from '@/components/home/BrandsShowcase.vue'
 import SuccessStories from '@/components/home/SuccessStories.vue'
+import InsightsSection from '@/components/home/InsightsSection.vue'
 import CTASection from '@/components/home/CTASection.vue'
 </script>
 
@@ -16,6 +17,7 @@ import CTASection from '@/components/home/CTASection.vue'
     <WhyChina />
     <BrandsShowcase />
     <SuccessStories />
+    <InsightsSection />
     <CTASection />
   </main>
 </template>

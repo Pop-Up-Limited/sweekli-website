@@ -127,7 +127,7 @@ useIntersectionObserver(
   display: inline-block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-orange);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-bottom: var(--spacing-4);
@@ -167,7 +167,11 @@ useIntersectionObserver(
   font-weight: var(--font-weight-semibold);
   border-radius: 9999px;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-sizing: border-box;
+  position: relative;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .cta__btn--primary {
@@ -178,6 +182,11 @@ useIntersectionObserver(
 
 .cta__btn--primary:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cta__btn--primary span {
+  display: inline-block;
+  transition: letter-spacing 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cta__btn--primary:hover span {
@@ -200,6 +209,10 @@ useIntersectionObserver(
 
 .cta__btn--secondary:hover {
   background: rgba(255, 255, 255, 0.25);
+}
+
+.cta__btn--secondary {
+  transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s cubic-bezier(0.22, 1, 0.36, 1), letter-spacing 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cta__btn--secondary:hover {

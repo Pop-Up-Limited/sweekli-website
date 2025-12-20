@@ -1,10 +1,12 @@
 import { onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 /**
  * Spring Scroll Animation - 非线性滚动效果
  * 参考 kungfudata.com 的滚动体验
  */
 export function useSmoothScroll() {
+  const router = useRouter()
   let rafId: number | null = null
   let isScrolling = false
   let currentScroll = 0
@@ -35,6 +37,20 @@ export function useSmoothScroll() {
   }
 
   const smoothScroll = spring(0.08, 0.75)
+
+  // 重置滚动状态
+  const resetScroll = () => {
+    if (rafId) {
+      cancelAnimationFrame(rafId)
+      rafId = null
+    }
+    isScrolling = false
+    currentScroll = 0
+    targetScroll = 0
+    velocity = 0
+    // 立即滚动到顶部
+    window.scrollTo(0, 0)
+  }
 
   const animate = () => {
     if (!isScrolling) return
@@ -72,14 +88,27 @@ export function useSmoothScroll() {
     }
   }
 
+  let removeAfterEach: (() => void) | null = null
+
   onMounted(() => {
+    // 初始化时重置滚动位置
+    resetScroll()
+    
     window.addEventListener('wheel', handleWheel, { passive: false })
+    
+    // 监听路由变化，在路由切换时重置滚动状态
+    removeAfterEach = router.afterEach(() => {
+      resetScroll()
+    })
   })
 
   onUnmounted(() => {
     window.removeEventListener('wheel', handleWheel)
     if (rafId) {
       cancelAnimationFrame(rafId)
+    }
+    if (removeAfterEach) {
+      removeAfterEach()
     }
   })
 }

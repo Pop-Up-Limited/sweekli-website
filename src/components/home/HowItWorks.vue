@@ -183,6 +183,7 @@ useIntersectionObserver(
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-8);
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {
@@ -203,6 +204,8 @@ useIntersectionObserver(
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: calc(var(--index) * 0.1s + 0.2s);
+  display: flex;
+  flex-direction: column;
 }
 
 .steps.is-visible .step {
@@ -213,10 +216,12 @@ useIntersectionObserver(
 .step__number {
   display: block;
   font-family: var(--font-family-display);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-gray-400);
-  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-purple);
+  margin-bottom: var(--spacing-6);
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .step__content {
@@ -226,11 +231,14 @@ useIntersectionObserver(
   border: 1px solid var(--color-gray-100);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
 }
 
 .step:hover .step__content {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(111, 123, 212, 0.1);
-  transform: translateY(-12px) scale(1.02);
+  transform: translateY(-8px);
   border-color: var(--color-accent-purple-light);
 }
 
@@ -267,6 +275,9 @@ useIntersectionObserver(
 
 .step__text {
   padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .step__title {
@@ -284,5 +295,6 @@ useIntersectionObserver(
   color: var(--color-gray-600);
   line-height: 1.75;
   margin: 0;
+  flex: 1;
 }
 </style>
