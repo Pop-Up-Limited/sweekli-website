@@ -327,7 +327,6 @@ onUnmounted(() => {
   .slide-leave-to {
     transform: translateX(100%);
   }
-}
 
   .header__nav.is-open .header__link {
     color: var(--color-primary);
