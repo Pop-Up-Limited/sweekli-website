@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 
@@ -38,7 +39,7 @@ const steps = computed(() => [
     desc: locale.value === 'en' 
       ? "We don't work with just anyone. You're a strong global brand. We're your perfect China partner. If we're a fit — we move."
       : '我们只与具有明确竞争优势的品牌合作。当愿景一致时，我们建立战略合作伙伴关系。',
-    image: '/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg'
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
   },
   {
     num: '02',
@@ -46,7 +47,7 @@ const steps = computed(() => [
     desc: locale.value === 'en'
       ? 'You ship us inventory at wholesale. That\'s it. No setup. No team. No risk on your side.'
       : '您只需以批发价向我们供货。无需设置团队，无需承担风险。',
-    image: '/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_02.jpg'
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_02.jpg')
   },
   {
     num: '03',
@@ -54,7 +55,7 @@ const steps = computed(() => [
     desc: locale.value === 'en'
       ? 'We launch, price, promote, and manage your entire online presence across multiple platforms.'
       : '我们负责上市、定价、推广，并在多个平台管理您的整个线上业务。',
-    image: '/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_03.jpg'
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_03.jpg')
   },
   {
     num: '04',
@@ -62,7 +63,7 @@ const steps = computed(() => [
     desc: locale.value === 'en'
       ? 'We grow your brand, protect your equity, and send you the results — without you lifting a finger in-market.'
       : '我们发展您的品牌，保护您的权益，并向您交付成果——您无需在市场上操心任何事。',
-    image: '/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
   }
 ])
 

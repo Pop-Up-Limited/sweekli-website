@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 

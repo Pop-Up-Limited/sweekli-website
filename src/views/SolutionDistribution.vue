@@ -12,28 +12,28 @@ const isHeroVisible = ref(false)
 
 const capabilities = computed(() => [
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_01.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_01.jpg'),
     title: locale.value === 'en' ? 'Omnichannel Distribution' : '全渠道分销',
     desc: locale.value === 'en' 
       ? 'Comprehensive distribution network across department stores, concept stores, and specialty retailers.'
       : '覆盖百货商店、概念店和专业零售商的全方位分销网络。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_02.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_02.jpg'),
     title: locale.value === 'en' ? 'Retail Partnerships' : '零售合作',
     desc: locale.value === 'en'
       ? 'Strategic partnerships with leading retail chains and independent stores.'
       : '与领先零售连锁店和独立商店的战略合作。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_03.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_03.jpg'),
     title: locale.value === 'en' ? 'Inventory Management' : '库存管理',
     desc: locale.value === 'en'
       ? 'Advanced inventory tracking and optimization systems.'
       : '先进的库存跟踪和优化系统。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_04.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/Our Distribution Capabilities/Distribution_04.jpg'),
     title: locale.value === 'en' ? 'Channel Strategy' : '渠道策略',
     desc: locale.value === 'en'
       ? 'Data-driven channel selection and optimization.'

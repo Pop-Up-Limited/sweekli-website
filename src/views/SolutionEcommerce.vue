@@ -12,28 +12,28 @@ const isHeroVisible = ref(false)
 
 const capabilities = computed(() => [
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_01.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_01.jpg'),
     title: locale.value === 'en' ? 'Store Management' : '店铺管理',
     desc: locale.value === 'en' 
       ? 'Full-service management of Tmall, JD, and other major platforms.'
       : '天猫、京东等主流平台的全方位店铺管理。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_02.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_02.jpg'),
     title: locale.value === 'en' ? 'Product Optimization' : '产品优化',
     desc: locale.value === 'en'
       ? 'SEO-optimized listings and conversion-focused product pages.'
       : 'SEO优化的产品列表和转化导向的产品页面。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_03.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_03.jpg'),
     title: locale.value === 'en' ? 'Customer Service' : '客户服务',
     desc: locale.value === 'en'
       ? '24/7 Chinese-language customer support.'
       : '24/7中文客户支持服务。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_04.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/2 Our E-Commerce Capabilities/5_04.jpg'),
     title: locale.value === 'en' ? 'Data Analytics' : '数据分析',
     desc: locale.value === 'en'
       ? 'Comprehensive performance tracking and insights.'
@@ -43,15 +43,15 @@ const capabilities = computed(() => [
 
 const works = computed(() => [
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/4.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/4.jpg'),
     title: locale.value === 'en' ? 'Tmall Flagship Store' : '天猫旗舰店'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/5.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/5.jpg'),
     title: locale.value === 'en' ? 'JD Store' : '京东店铺'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/6.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/3 Our Works  E-commerce Flagship Stores/6.jpg'),
     title: locale.value === 'en' ? 'Cross-Platform Management' : '跨平台管理'
   }
 ])
