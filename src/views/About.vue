@@ -42,7 +42,7 @@ useIntersectionObserver(
     <section ref="heroRef" class="about-hero">
       <div class="about-hero__bg">
         <img 
-          src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG" 
+          :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
           alt="Sweekli Team" 
           loading="eager"
         />
@@ -66,7 +66,7 @@ useIntersectionObserver(
           </div>
           <div class="about-card__image">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')" 
               alt="Mission"
               loading="lazy"
             />
@@ -86,7 +86,7 @@ useIntersectionObserver(
           </div>
           <div class="about-card__image">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG')" 
               alt="Our Story"
               loading="lazy"
             />
@@ -118,23 +118,23 @@ useIntersectionObserver(
     <section class="about-gallery">
       <div class="gallery-track">
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG" alt="Team" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" alt="Team" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG" alt="Office" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" alt="Office" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG" alt="Culture" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')" alt="Culture" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG" alt="Work" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG')" alt="Work" loading="lazy" />
         </div>
         <!-- Duplicate for seamless loop -->
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG" alt="Team" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" alt="Team" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <img src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG" alt="Office" loading="lazy" />
+          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" alt="Office" loading="lazy" />
         </div>
       </div>
     </section>

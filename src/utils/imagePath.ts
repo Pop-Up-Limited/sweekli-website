@@ -17,10 +17,15 @@ export function getImagePath(path: string): string {
   // 获取 base URL（例如：'/sweekli-website/'）
   const base = import.meta.env.BASE_URL
   
+  // 如果 base 是 '/'，直接返回路径
+  if (base === '/') {
+    return path
+  }
+  
   // 确保路径以 / 开头
   const normalizedPath = path.startsWith('/') ? path : `/${path}`
   
-  // 组合 base URL 和路径
+  // 组合 base URL 和路径（移除开头的 /，因为 base 已经以 / 结尾）
   return `${base}${normalizedPath.slice(1)}`
 }
 

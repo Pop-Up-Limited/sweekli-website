@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 
@@ -16,8 +17,8 @@ const stories = computed(() => [
       ? '"Sweekli transformed our China presence. In just 18 months, they took us from zero to a recognized brand."'
       : '"Sweekli改变了我们在中国的存在。仅用18个月，他们就将我们从零打造成知名品牌。"',
     result: locale.value === 'en' ? '300% YoY Growth' : '同比增长300%',
-    image: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png',
-    productImage: '/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png'
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png'),
+    productImage: getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png')
   },
   {
     brand: 'Case-Mate',
@@ -25,8 +26,8 @@ const stories = computed(() => [
       ? '"Their platform expertise and market insights have been invaluable for our expansion into China."'
       : '"他们的平台专业知识和市场洞察力对我们进入中国至关重要。"',
     result: locale.value === 'en' ? 'Top 10 on Tmall' : '天猫前10名',
-    image: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png',
-    productImage: '/images/Sweekli 英文 PDF内图片素材/4 E-Commerce Case Studies/1.jpg'
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png'),
+    productImage: getImagePath('/images/Sweekli 英文 PDF内图片素材/4 E-Commerce Case Studies/1.jpg')
   },
   {
     brand: 'Native Union',
@@ -34,8 +35,8 @@ const stories = computed(() => [
       ? '"The team at Sweekli truly understands both Western brands and Chinese consumers."'
       : '"Sweekli团队真正理解西方品牌和中国消费者。"',
     result: locale.value === 'en' ? '150% Revenue Increase' : '收入增长150%',
-    image: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png',
-    productImage: '/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Native Union 0.png'
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png'),
+    productImage: getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Native Union 0.png')
   }
 ])
 

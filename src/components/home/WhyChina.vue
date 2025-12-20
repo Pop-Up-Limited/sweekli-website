@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 
@@ -14,21 +15,21 @@ const reasons = computed(() => [
     desc: locale.value === 'en' 
       ? 'China has over 1.4 billion consumers with a rapidly growing middle class eager for quality international products.'
       : '中国拥有超过14亿消费者，中产阶级快速增长，对优质国际产品需求旺盛。',
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png'
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png')
   },
   {
     title: locale.value === 'en' ? 'Unique E-commerce Ecosystem' : '独特电商生态',
     desc: locale.value === 'en'
       ? 'Navigate complex platforms like Tmall, JD, Douyin, and WeChat with our platform expertise and established relationships.'
       : '凭借我们的平台专业知识和建立的关系，驾驭天猫、京东、抖音、微信等复杂平台。',
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png'
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png')
   },
   {
     title: locale.value === 'en' ? 'Cultural & Regulatory Complexity' : '文化与法规复杂性',
     desc: locale.value === 'en'
       ? 'We handle cross-border compliance, localization, and cultural adaptation — all the things that trip up brands going solo.'
       : '我们处理跨境合规、本地化和文化适应——这些都是品牌独自进入时会遇到的问题。',
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png'
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png')
   }
 ])
 
@@ -62,7 +63,7 @@ useIntersectionObserver(
           <div class="why-china__image">
             <img 
               ref="imageRef"
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
               alt="China Market" 
               loading="lazy"
               class="parallax-image"

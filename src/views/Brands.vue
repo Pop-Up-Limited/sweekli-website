@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t } = useI18n()
 
@@ -48,7 +49,7 @@ useIntersectionObserver(
     <section ref="heroRef" class="brands-hero">
       <div class="brands-hero__bg">
         <img 
-          src="/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png" 
+          :src="getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png')" 
           alt="Partner Brands"
         />
         <div class="brands-hero__overlay"></div>

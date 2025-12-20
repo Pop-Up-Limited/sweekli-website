@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import CTASection from '@/components/home/CTASection.vue'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 
@@ -71,7 +72,7 @@ useIntersectionObserver(
     <section ref="heroRef" class="solution-hero">
       <div class="solution-hero__bg">
         <img 
-          src="/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg" 
+          :src="getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')" 
           alt="E-Commerce"
           loading="eager"
         />

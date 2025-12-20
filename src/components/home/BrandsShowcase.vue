@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 
@@ -10,20 +11,20 @@ const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
 
 // Brand data with logo paths
-const brands = [
-  { name: 'wildflower', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png' },
-  { name: 'CASE·MATE', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png' },
-  { name: 'String Ting', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png' },
-  { name: 'holdit', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png' },
-  { name: 'IDEAL OF SWEDEN', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png' },
-  { name: 'VICXXO', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/vicxxo.png' },
-  { name: 'twelvesouth', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png' },
-  { name: 'SATECHI', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png' },
-  { name: 'Native Union', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png' },
-  { name: 'notabag', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png' },
-  { name: 'URTH', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png' },
-  { name: 'SPINGLE', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png' }
-]
+const brands = computed(() => [
+  { name: 'wildflower', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png') },
+  { name: 'CASE·MATE', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png') },
+  { name: 'String Ting', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png') },
+  { name: 'holdit', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png') },
+  { name: 'IDEAL OF SWEDEN', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png') },
+  { name: 'VICXXO', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/vicxxo.png') },
+  { name: 'twelvesouth', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png') },
+  { name: 'SATECHI', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png') },
+  { name: 'Native Union', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png') },
+  { name: 'notabag', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png') },
+  { name: 'URTH', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png') },
+  { name: 'SPINGLE', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png') }
+])
 
 useIntersectionObserver(
   sectionRef,
@@ -49,7 +50,7 @@ useIntersectionObserver(
       <div class="brands__marquee" :class="{ 'is-visible': isVisible }">
         <div class="brands__track">
           <div 
-            v-for="(brand, index) in [...brands, ...brands]" 
+            v-for="(brand, index) in [...brands.value, ...brands.value]" 
             :key="`${brand.name}-${index}`"
             class="brand-item"
           >

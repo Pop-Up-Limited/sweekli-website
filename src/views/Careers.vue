@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t } = useI18n()
 
@@ -60,7 +61,7 @@ useIntersectionObserver(
     <section ref="heroRef" class="careers-hero">
       <div class="careers-hero__bg">
         <img 
-          src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG" 
+          :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
           alt="Join Sweekli"
         />
         <div class="careers-hero__overlay"></div>
@@ -78,28 +79,28 @@ useIntersectionObserver(
         <div class="culture-grid">
           <div class="culture-item">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')" 
               alt="Team collaboration"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG')" 
               alt="Office environment"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" 
               alt="Team activities"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG" 
+              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" 
               alt="Work life"
               loading="lazy"
             />

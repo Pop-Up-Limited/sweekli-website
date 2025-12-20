@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import CTASection from '@/components/home/CTASection.vue'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 
@@ -11,28 +12,28 @@ const isHeroVisible = ref(false)
 
 const capabilities = computed(() => [
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_01.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_01.jpg'),
     title: locale.value === 'en' ? 'KOL & Influencer Marketing' : 'KOL与网红营销',
     desc: locale.value === 'en' 
       ? 'Strategic partnerships with top influencers and KOLs across platforms.'
       : '与各平台顶级影响者和KOL的战略合作。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_02.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_02.jpg'),
     title: locale.value === 'en' ? 'Social Media Management' : '社交媒体管理',
     desc: locale.value === 'en'
       ? 'Comprehensive social media strategy and content creation.'
       : '全面的社交媒体策略和内容创作。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_03.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_03.jpg'),
     title: locale.value === 'en' ? 'Livestream Commerce' : '直播电商',
     desc: locale.value === 'en'
       ? 'Engaging livestream shopping experiences that drive sales.'
       : '吸引人的直播购物体验，推动销售增长。'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_04.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/2 Our Marketing Capabilities/6_04.jpg'),
     title: locale.value === 'en' ? 'Brand Events' : '品牌活动',
     desc: locale.value === 'en'
       ? 'Pop-up stores, exhibitions, and experiential marketing events.'
@@ -42,27 +43,27 @@ const capabilities = computed(() => [
 
 const works = computed(() => [
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/博主推荐-1.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/博主推荐-1.jpg'),
     title: locale.value === 'en' ? 'Influencer Campaigns' : '网红推广'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/4 快闪.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/4 快闪.jpg'),
     title: locale.value === 'en' ? 'Pop-up Events' : '快闪活动'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/4 展会 3.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/4 展会 3.jpg'),
     title: locale.value === 'en' ? 'Exhibitions' : '展会活动'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/明星-01.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/明星-01.jpg'),
     title: locale.value === 'en' ? 'Celebrity Partnerships' : '明星合作'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/微博-小红书-得物.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/微博-小红书-得物.jpg'),
     title: locale.value === 'en' ? 'Social Media Content' : '社交媒体内容'
   },
   {
-    image: '/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/新闻报道 0.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/3 Our Works/新闻报道 0.jpg'),
     title: locale.value === 'en' ? 'Press Coverage' : '媒体报道'
   }
 ])
@@ -83,7 +84,7 @@ useIntersectionObserver(
     <section ref="heroRef" class="solution-hero">
       <div class="solution-hero__bg">
         <img 
-          src="/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/PC.jpg" 
+          :src="getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/3 Marketing/PC.jpg')" 
           alt="Marketing"
           loading="eager"
         />

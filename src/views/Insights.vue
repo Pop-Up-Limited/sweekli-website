@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useRouter } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -22,7 +23,7 @@ const articles = computed(() => [
       : '探索这些品牌如何通过创新策略和消费者参与重塑中国时尚格局。',
     date: '2025-09-19',
     category: locale.value === 'en' ? 'Fashion' : '时尚',
-    image: '/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg'),
     slug: 'anta-musinsa-leading-next-wave-fashion-china'
   },
   {
@@ -35,7 +36,7 @@ const articles = computed(() => [
       : '如今，"户外"不再只是关于露营、徒步、攀岩或钓鱼。这个概念现在延伸到家庭户外生活、露营风格的咖啡店和酒吧，以及更融合的商业生态系统。',
     date: '2025-08-13',
     category: locale.value === 'en' ? 'Lifestyle' : '生活方式',
-    image: '/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_03.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_03.jpg'),
     slug: '10-new-outdoor-lifestyle-brands-spring-summer'
   },
   {
@@ -48,7 +49,7 @@ const articles = computed(() => [
       : '深入探讨奢侈品牌如何调整策略，以新的、有意义的方式与中国消费者建立联系。',
     date: '2025-06-27',
     category: locale.value === 'en' ? 'Luxury' : '奢侈品',
-    image: '/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_02.jpg',
+    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_02.jpg'),
     slug: 'louis-vuitton-deepening-brand-influence-china'
   }
 ])
