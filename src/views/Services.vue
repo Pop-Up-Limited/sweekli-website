@@ -409,3 +409,413 @@ const platforms = [
 }
 
 </style>
+
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
+import CTASection from '@/components/home/CTASection.vue'
+import PageHero from '@/components/common/PageHero.vue'
+
+const { t, locale } = useI18n()
+
+const services = computed(() => [
+  {
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png'),
+    title: t('services.items.strategy.title'),
+    desc: t('services.items.strategy.desc'),
+    features: [
+      t('services.items.strategy.features.0'),
+      t('services.items.strategy.features.1'),
+      t('services.items.strategy.features.2')
+    ],
+    link: null
+  },
+  {
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png'),
+    title: t('services.items.ecommerce.title'),
+    desc: t('services.items.ecommerce.desc'),
+    features: [
+      t('services.items.ecommerce.features.0'),
+      t('services.items.ecommerce.features.1'),
+      t('services.items.ecommerce.features.2')
+    ],
+    link: '/solutions/ecommerce'
+  },
+  {
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-40.png'),
+    title: t('services.items.marketing.title'),
+    desc: t('services.items.marketing.desc'),
+    features: [
+      t('services.items.marketing.features.0'),
+      t('services.items.marketing.features.1'),
+      t('services.items.marketing.features.2')
+    ],
+    link: '/solutions/marketing'
+  },
+  {
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/53 -53.png'),
+    title: t('services.items.operations.title'),
+    desc: t('services.items.operations.desc'),
+    features: [
+      t('services.items.operations.features.0'),
+      t('services.items.operations.features.1'),
+      t('services.items.operations.features.2')
+    ],
+    link: '/solutions/distribution'
+  }
+])
+
+const platforms = [
+  { name: 'Tmall', logo: '/images/platform-logos/tmall.svg' },
+  { name: 'JD', logo: '/images/platform-logos/jd.svg' },
+  { name: 'Douyin', logo: '/images/platform-logos/douyin.svg' },
+  { name: 'WeChat', logo: '/images/platform-logos/wechat.svg' },
+  { name: 'RED', logo: '/images/platform-logos/xiaohongshu.svg' }
+]
+
+</script>
+
+<template>
+  <main class="services-page">
+    <!-- Hero Section -->
+    <PageHero
+      :label="locale === 'en' ? 'OUR SERVICES' : '我们的服务'"
+      :title="t('services.hero.title')"
+      :subtitle="t('services.hero.subtitle')"
+      background-type="gradient"
+    />
+
+    <!-- Services Grid -->
+    <section class="services-section">
+      <div class="container">
+        <div class="services-grid">
+          <div v-for="(service, index) in services" :key="index" class="service-card">
+            <div class="service-card__icon">
+              <img :src="service.icon" :alt="service.title" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">{{ service.title }}</h3>
+              <p class="service-card__desc">{{ service.desc }}</p>
+              <ul class="service-card__features">
+                <li v-for="(feature, idx) in service.features" :key="idx">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  {{ feature }}
+                </li>
+              </ul>
+              <RouterLink v-if="service.link" :to="service.link" class="service-card__link">
+                {{ locale === 'en' ? 'Learn More' : '了解更多' }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platforms -->
+    <section class="platforms-section">
+      <div class="container">
+        <div class="platforms-header">
+          <span class="platforms-label">{{ locale === 'en' ? 'PLATFORMS' : '平台生态' }}</span>
+          <h2 class="platforms-title">{{ t('services.platforms.title') }}</h2>
+          <p class="platforms-subtitle">{{ t('services.platforms.subtitle') }}</p>
+        </div>
+        <div class="platforms-grid">
+          <div class="platform-card" v-for="platform in platforms" :key="platform.name">
+            <div class="platform-card__logo">
+              <span class="platform-name">{{ platform.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process-section">
+      <div class="container">
+        <div class="process-header">
+          <span class="process-label">{{ locale === 'en' ? 'OUR PROCESS' : '服务流程' }}</span>
+          <h2 class="process-title">{{ t('services.process.title') }}</h2>
+        </div>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>{{ t('services.process.steps.discovery.title') }}</h3>
+              <p>{{ t('services.process.steps.discovery.desc') }}</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>{{ t('services.process.steps.strategy.title') }}</h3>
+              <p>{{ t('services.process.steps.strategy.desc') }}</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>{{ t('services.process.steps.execution.title') }}</h3>
+              <p>{{ t('services.process.steps.execution.desc') }}</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>{{ t('services.process.steps.optimization.title') }}</h3>
+              <p>{{ t('services.process.steps.optimization.desc') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <CTASection />
+  </main>
+</template>
+
+<style scoped>
+.services-page {
+  padding-top: 0;
+}
+
+/* Services Grid */
+.services-section {
+  padding: var(--spacing-24) 0;
+  background: var(--color-white);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-8);
+}
+
+.service-card {
+  background: var(--color-gray-50);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-8);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 1px solid var(--color-gray-100);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent-purple);
+}
+
+.service-card__icon {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.service-card__icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.service-card__title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.service-card__desc {
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-5);
+  line-height: 1.6;
+}
+
+.service-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.service-card__features li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-2);
+}
+
+.service-card__features svg {
+  color: var(--color-accent-purple);
+  flex-shrink: 0;
+}
+
+.service-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent-purple);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.service-card__link:hover {
+  gap: var(--spacing-3);
+  color: var(--color-primary);
+}
+
+.service-card__link svg {
+  transition: transform var(--transition-fast);
+}
+
+.service-card__link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Platforms */
+.platforms-section {
+  padding: var(--spacing-24) 0;
+  background: var(--color-gray-50);
+}
+
+.platforms-header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.platforms-label {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-3);
+}
+
+.platforms-title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.platforms-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.platforms-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-6);
+}
+
+.platform-card {
+  background: var(--color-white);
+  padding: var(--spacing-6) var(--spacing-10);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-200);
+  transition: all var(--transition-base);
+}
+
+.platform-card:hover {
+  border-color: var(--color-accent-purple);
+}
+
+.platform-name {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+/* Process */
+.process-section {
+  padding: var(--spacing-24) 0;
+  background: var(--color-white);
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: var(--spacing-16);
+}
+
+.process-label {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-3);
+}
+
+.process-title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-8);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .process-timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.process-step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  font-family: var(--font-family-display);
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-purple);
+  opacity: 0.3;
+  margin-bottom: var(--spacing-4);
+}
+
+.step-content h3 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.step-content p {
+  color: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+</style>

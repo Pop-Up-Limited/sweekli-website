@@ -4,27 +4,29 @@
  */
 
 import { createClient, Entry, Asset } from 'contentful'
+import { createClient as createPreviewClient } from 'contentful/dist/es-modules/contentful-preview'
 
 // Contentful 配置
 const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID || 'wbpsfgfg62v2'
-const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'DN_cZeDWpTQcwTgML-lYyvDkLOemgEAOcQXsIlcACsk'
+const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'SC3uHU9IpDRUupw9kgCNwYibHVDetHX42LEheBRnxwU'
 const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT || 'master'
 
-// 创建 Contentful Client
+// 创建 Contentful Preview Client (支持草稿和未发布内容)
 export const contentfulClient = createClient({
   space: SPACE_ID,
   accessToken: ACCESS_TOKEN,
   environment: ENVIRONMENT,
+  host: 'preview.contentful.com', // 使用 Preview API
 })
 
-// Contentful 文章字段类型
+// Contentful 文章字段类型（匹配实际 Content Model）
 interface ContentfulBlogPostFields {
-  slug: { [locale: string]: string }
+  slug: string // slug 通常不本地化
   title: { [locale: string]: string }
-  excerpt: { [locale: string]: string }
+  summary: { [locale: string]: string } // 实际字段名是 summary，不是 excerpt
   content: { [locale: string]: any } // Rich text
   coverImage: { [locale: string]: Asset }
-  publishDate: { [locale: string]: string }
+  publishDateTime: { [locale: string]: string } // 实际字段名是 publishDateTime
   category: { [locale: string]: string }
 }
 
@@ -79,7 +81,8 @@ function transformArticle(
   locale: string = 'en-US'
 ): BlogArticle {
   const fields = entry.fields
-  const contentLocale = locale === 'zh' ? 'zh-CN' : 'en-US'
+  // 先使用 en-US，等 Contentful 添加中文语言后再支持
+  const contentLocale = 'en-US' // locale === 'zh' ? 'zh-CN' : 'en-US'
   
   // 获取封面图片
   const coverImageAsset = fields.coverImage?.[contentLocale] || fields.coverImage?.['en-US']
@@ -88,12 +91,12 @@ function transformArticle(
   return {
     id: entry.sys.id,
     title: getLocalizedField(fields.title, contentLocale),
-    excerpt: getLocalizedField(fields.excerpt, contentLocale),
+    excerpt: getLocalizedField(fields.summary, contentLocale), // 使用 summary 字段
     content: fields.content?.[contentLocale] || fields.content?.['en-US'],
-    date: fields.publishDate?.[contentLocale] || fields.publishDate?.['en-US'] || entry.sys.createdAt,
+    date: fields.publishDateTime?.[contentLocale] || fields.publishDateTime?.['en-US'] || entry.sys.createdAt,
     category: getLocalizedField(fields.category, contentLocale),
     image: imageUrl,
-    slug: fields.slug?.[contentLocale] || fields.slug?.['en-US'] || entry.sys.id,
+    slug: typeof fields.slug === 'string' ? fields.slug : (fields.slug?.[contentLocale] || fields.slug?.['en-US'] || entry.sys.id),
   }
 }
 
@@ -112,8 +115,8 @@ export async function getBlogArticles(
   try {
     const query: any = {
       content_type: 'blogPost',
-      order: options?.orderBy === 'date' ? '-fields.publishDate' : '-sys.createdAt',
-      locale: locale === 'zh' ? 'zh-CN' : 'en-US',
+      order: options?.orderBy === 'date' ? '-fields.publishDateTime' : '-sys.createdAt',
+      locale: 'en-US', // 先使用 en-US，等添加中文语言后再支持
     }
 
     if (options?.limit) {
@@ -183,4 +186,5 @@ export async function getBlogArticlesCount(): Promise<number> {
     return 0
   }
 }
+
 
