@@ -8,7 +8,7 @@
  * 3. 运行：npx tsx scripts/publish-articles.ts
  */
 
-import { createClient } from 'contentful-management'
+import * as contentfulManagement from 'contentful-management'
 
 const SPACE_ID = 'wbpsfgfg62v2'
 const ENVIRONMENT = 'master'
@@ -204,7 +204,7 @@ async function publishArticles() {
   try {
     console.log('🚀 开始连接到 Contentful...')
     
-    const client = createClient({
+    const client = contentfulManagement.createClient({
       accessToken: MANAGEMENT_TOKEN,
     })
 

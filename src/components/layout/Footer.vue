@@ -1,48 +1,23 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
-import { computed, ref } from 'vue'
-import { subscribeNewsletter } from '@/utils/saas-integration'
+import { computed, onMounted } from 'vue'
 
 const { t, locale } = useI18n()
 
 const currentYear = new Date().getFullYear()
-const newsletterEmail = ref('')
-const isSubscribing = ref(false)
-const newsletterMessage = ref('')
 
-const handleNewsletterSubmit = async (e: Event) => {
-  e.preventDefault()
-  if (!newsletterEmail.value.trim()) return
-
-  isSubscribing.value = true
-  newsletterMessage.value = ''
-
-  try {
-    const response = await subscribeNewsletter(newsletterEmail.value)
-    
-    if (response.ok) {
-      newsletterMessage.value = locale.value === 'en' 
-        ? 'Subscribed successfully!' 
-        : '订阅成功！'
-      newsletterEmail.value = ''
-      setTimeout(() => {
-        newsletterMessage.value = ''
-      }, 3000)
-    } else {
-      newsletterMessage.value = locale.value === 'en' 
-        ? 'Subscription failed. Please try again.' 
-        : '订阅失败，请稍后重试。'
-    }
-  } catch (error) {
-    console.error('Newsletter error:', error)
-    newsletterMessage.value = locale.value === 'en' 
-      ? 'Network error. Please try again.' 
-      : '网络错误，请稍后重试。'
-  } finally {
-    isSubscribing.value = false
+onMounted(() => {
+  // 加载 Tally 嵌入脚本（如果还没加载）
+  if (typeof window !== 'undefined' && !(window as any).TallyLoaded) {
+    const script = document.createElement('script')
+    script.innerHTML = `
+      var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+    `
+    document.body.appendChild(script)
+    ;(window as any).TallyLoaded = true
   }
-}
+})
 
 const quickLinks = computed(() => [
   { path: '/', label: t('nav.home') },
@@ -134,27 +109,23 @@ const socialLinks = [
           </ul>
         </div>
 
-        <!-- Newsletter -->
+        <!-- Newsletter - Tally Form -->
         <div class="footer__col footer__newsletter">
           <h4 class="footer__title">{{ t('footer.stayUpdated') }}</h4>
           <p class="footer__newsletter-desc">{{ t('footer.newsletterDesc') }}</p>
-          <form class="footer__form" @submit="handleNewsletterSubmit">
-            <input 
-              v-model="newsletterEmail"
-              type="email" 
-              :placeholder="t('footer.emailPlaceholder')" 
-              class="footer__input"
-              required
-              :disabled="isSubscribing"
-            />
-            <button type="submit" class="footer__submit" :disabled="isSubscribing">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </button>
-          </form>
-          <p v-if="newsletterMessage" class="footer__newsletter-message">{{ newsletterMessage }}</p>
+          <div class="footer__tally-form">
+            <iframe
+              data-tally-src="https://tally.so/embed/lbqLJB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+              loading="lazy"
+              width="100%"
+              height="276"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              title="Newsletter Subscription"
+              class="footer__tally-iframe"
+            ></iframe>
+          </div>
         </div>
       </div>
 
@@ -279,7 +250,7 @@ const socialLinks = [
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Newsletter */
+/* Newsletter - Tally Form */
 .footer__newsletter-desc {
   font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.7);
@@ -287,60 +258,16 @@ const socialLinks = [
   margin-bottom: var(--spacing-4);
 }
 
-.footer__form {
-  display: flex;
-  gap: var(--spacing-2);
+.footer__tally-form {
+  width: 100%;
+  min-height: 276px;
 }
 
-.footer__input {
-  flex: 1;
-  padding: var(--spacing-3) var(--spacing-4);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-lg);
-  color: var(--color-white);
-  font-size: var(--font-size-sm);
-  transition: all var(--transition-fast);
-}
-
-.footer__input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.footer__input:focus {
-  outline: none;
-  border-color: var(--color-accent-purple);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.footer__submit {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #6f7bd4 0%, #434dc4 100%);
+.footer__tally-iframe {
+  width: 100%;
+  min-height: 276px;
   border: none;
-  border-radius: var(--radius-lg);
-  color: var(--color-white);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.footer__submit:hover {
-  transform: translateX(2px);
-}
-
-.footer__submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.footer__newsletter-message {
-  margin-top: var(--spacing-2);
-  font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.8);
-  text-align: center;
+  display: block;
 }
 
 /* Bottom Bar */

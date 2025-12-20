@@ -1,29 +1,17 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted } from 'vue'
 import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-// Handle Tally form height updates
-let iframe: HTMLIFrameElement | null = null
-
-const handleMessage = (event: MessageEvent) => {
-  // Tally sends height updates via postMessage
-  if (event.origin === 'https://tally.so' && iframe) {
-    if (typeof event.data === 'object' && event.data.type === 'tally-form-height') {
-      iframe.style.height = `${event.data.height}px`
-    }
-  }
-}
-
 onMounted(() => {
-  window.addEventListener('message', handleMessage)
-  iframe = document.querySelector('.tally-form-iframe') as HTMLIFrameElement
-})
-
-onUnmounted(() => {
-  window.removeEventListener('message', handleMessage)
+  // 加载 Tally 嵌入脚本
+  const script = document.createElement('script')
+  script.innerHTML = `
+    var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+  `
+  document.body.appendChild(script)
 })
 
 </script>
@@ -46,12 +34,14 @@ onUnmounted(() => {
           <div class="contact-form-wrapper">
             <div class="tally-form-container">
               <iframe
-                src="https://tally.so/embed/lbqLJB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                frameborder="0"
-                scrolling="no"
+                data-tally-src="https://tally.so/embed/lbqLJB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy"
                 width="100%"
-                height="100%"
-                title="Contact Form"
+                height="276"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                title="Sweekli's Contact Form"
                 class="tally-form-iframe"
               ></iframe>
             </div>
@@ -137,7 +127,7 @@ onUnmounted(() => {
 
 .tally-form-iframe {
   width: 100%;
-  min-height: 600px;
+  min-height: 276px;
   border: none;
   display: block;
 }
