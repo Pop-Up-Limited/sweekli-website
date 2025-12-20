@@ -177,9 +177,11 @@ useIntersectionObserver(
 }
 
 .cta__btn--primary:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  animation: buttonBounce 0.6s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cta__btn--primary:hover span {
+  letter-spacing: 0.02em;
 }
 
 .cta__btn--primary svg {
@@ -187,7 +189,7 @@ useIntersectionObserver(
 }
 
 .cta__btn--primary:hover svg {
-  transform: translateX(4px);
+  transform: translateX(2px);
 }
 
 .cta__btn--secondary {
@@ -198,17 +200,10 @@ useIntersectionObserver(
 
 .cta__btn--secondary:hover {
   background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-6px) scale(1.05);
-  animation: buttonBounce 0.6s ease;
 }
 
-@keyframes buttonBounce {
-  0%, 100% {
-    transform: translateY(-6px) scale(1.05);
-  }
-  50% {
-    transform: translateY(-10px) scale(1.08);
-  }
+.cta__btn--secondary:hover {
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 640px) {

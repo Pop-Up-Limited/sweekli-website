@@ -68,18 +68,20 @@ onUnmounted(() => {
       </RouterLink>
 
       <!-- Navigation -->
-      <nav class="header__nav" :class="{ 'is-open': isMobileMenuOpen }">
-        <RouterLink 
-          v-for="link in navLinks" 
-          :key="link.path"
-          :to="link.path"
-          class="header__link"
-          :class="{ 'is-active': route.path === link.path }"
-          @click="closeMobileMenu"
-        >
-          {{ link.label }}
-        </RouterLink>
-      </nav>
+      <Transition name="slide">
+        <nav v-if="isMobileMenuOpen" class="header__nav is-open">
+          <RouterLink 
+            v-for="link in navLinks" 
+            :key="link.path"
+            :to="link.path"
+            class="header__link"
+            :class="{ 'is-active': route.path === link.path }"
+            @click="closeMobileMenu"
+          >
+            {{ link.label }}
+          </RouterLink>
+        </nav>
+      </Transition>
 
       <!-- Actions -->
       <div class="header__actions">
@@ -304,20 +306,28 @@ onUnmounted(() => {
     background: #faf8f3;
     padding: calc(var(--spacing-20) + 60px) var(--spacing-8) var(--spacing-8);
     gap: var(--spacing-1);
-    animation: slideIn 0.3s ease;
     z-index: calc(var(--z-header) + 2);
     pointer-events: auto;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
   }
 
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  /* 使用 Vue Transition 的 slide 动画 */
+  .slide-enter-active {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  .slide-leave-active {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-enter-from {
+    transform: translateX(100%);
+  }
+
+  .slide-leave-to {
+    transform: translateX(100%);
+  }
+}
 
   .header__nav.is-open .header__link {
     color: var(--color-primary);
@@ -327,31 +337,28 @@ onUnmounted(() => {
   }
 }
 
-/* Overlay - 只覆盖左侧区域，不覆盖侧边栏 */
+/* Overlay - 覆盖整个屏幕，但侧边栏在遮罩之上 */
 .header__overlay {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   bottom: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: var(--z-header);
+  z-index: calc(var(--z-header) + 1);
   cursor: pointer;
   pointer-events: auto;
+  backdrop-filter: blur(2px);
 }
 
-@media (max-width: 1023px) {
-  /* 移动端：遮罩层只覆盖左侧区域，不覆盖右侧侧边栏 */
-  .header__overlay {
-    right: 20%;
-    max-width: calc(100vw - 320px);
-  }
+.fade-enter-active {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fade-enter-from,
