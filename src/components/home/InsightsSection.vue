@@ -1,57 +1,42 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
-import { getImagePath } from '@/utils/imagePath'
+import { getBlogArticles, type BlogArticle } from '@/utils/contentful'
 
 const { locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
+const articles = ref<BlogArticle[]>([])
+const isLoading = ref(true)
 
-// Latest articles - show first 3
-const articles = computed(() => [
-  {
-    id: 1,
-    title: locale.value === 'en' 
-      ? 'Anta and MUSINSA: Leading the Next Wave of Fashion in China'
-      : '安踏与MUSINSA：引领中国时尚新浪潮',
-    excerpt: locale.value === 'en'
-      ? 'Exploring how these brands are reshaping the fashion landscape in China through innovative strategies and consumer engagement.'
-      : '探索这些品牌如何通过创新策略和消费者参与重塑中国时尚格局。',
-    date: '2025-09-19',
-    category: locale.value === 'en' ? 'Fashion' : '时尚',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg'),
-    slug: 'anta-musinsa-leading-next-wave-fashion-china'
-  },
-  {
-    id: 2,
-    title: locale.value === 'en'
-      ? 'Here\'s What 10 New Outdoor Lifestyle Brands Are Bringing for Spring/Summer'
-      : '10个新户外生活方式品牌为春夏带来的新趋势',
-    excerpt: locale.value === 'en'
-      ? 'Today, "outdoors" is no longer just about camping, hiking, climbing, or fishing. The concept now stretches to outdoor living at home...'
-      : '如今，"户外"不再只是关于露营、徒步、攀岩或钓鱼。这个概念现在延伸到家庭户外生活...',
-    date: '2025-08-13',
-    category: locale.value === 'en' ? 'Lifestyle' : '生活方式',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_03.jpg'),
-    slug: '10-new-outdoor-lifestyle-brands-spring-summer'
-  },
-  {
-    id: 3,
-    title: locale.value === 'en'
-      ? 'How Is Louis Vuitton Deepening Its Brand Influence in China?'
-      : '路易威登如何深化其在中国的影响力？',
-    excerpt: locale.value === 'en'
-      ? 'An in-depth look at how luxury brands are adapting their strategies to connect with Chinese consumers in new and meaningful ways.'
-      : '深入探讨奢侈品牌如何调整策略，以新的、有意义的方式与中国消费者建立联系。',
-    date: '2025-06-27',
-    category: locale.value === 'en' ? 'Luxury' : '奢侈品',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-12_02.jpg'),
-    slug: 'louis-vuitton-deepening-brand-influence-china'
+// 获取最新 3 篇文章
+const fetchLatestArticles = async () => {
+  try {
+    const localeCode = locale.value === 'zh' ? 'zh' : 'en'
+    const fetchedArticles = await getBlogArticles(localeCode, {
+      limit: 3,
+      orderBy: 'date'
+    })
+    articles.value = fetchedArticles
+  } catch (error) {
+    console.error('Failed to fetch latest articles:', error)
+    articles.value = []
+  } finally {
+    isLoading.value = false
   }
-])
+}
+
+// 监听语言变化
+watch(locale, () => {
+  fetchLatestArticles()
+})
+
+onMounted(() => {
+  fetchLatestArticles()
+})
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)
@@ -91,16 +76,29 @@ useIntersectionObserver(
       </div>
 
       <!-- Articles Grid -->
-      <div class="insights-section__grid" :class="{ 'is-visible': isVisible }">
+      <div v-if="!isLoading && articles.length > 0" class="insights-section__grid" :class="{ 'is-visible': isVisible }">
         <article 
           v-for="(article, index) in articles" 
           :key="article.id"
           class="insight-card"
           :style="{ '--delay': index * 0.1 + 's' }"
         >
-          <RouterLink :to="`/insights#${article.slug}`" class="insight-card__link">
+          <RouterLink :to="`/insights/${article.slug}`" class="insight-card__link">
             <div class="insight-card__image">
-              <img :src="article.image" :alt="article.title" loading="lazy" />
+              <img 
+                v-if="article.image" 
+                :src="article.image" 
+                :alt="article.title" 
+                loading="lazy"
+                @error="($event.target as HTMLImageElement).src = '/images/placeholder.jpg'"
+              />
+              <div v-else class="insight-card__image-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
               <div class="insight-card__category">{{ article.category }}</div>
             </div>
             <div class="insight-card__content">
@@ -117,6 +115,11 @@ useIntersectionObserver(
             </div>
           </RouterLink>
         </article>
+      </div>
+      
+      <!-- Loading State -->
+      <div v-else-if="isLoading" class="insights-section__loading">
+        <p>{{ locale === 'en' ? 'Loading...' : '加载中...' }}</p>
       </div>
 
       <!-- View All Link -->
@@ -363,6 +366,23 @@ useIntersectionObserver(
 
 .insights-section__cta:hover svg {
   transform: translateX(4px);
+}
+
+/* Loading State */
+.insights-section__loading {
+  text-align: center;
+  padding: var(--spacing-12);
+  color: var(--color-gray-600);
+}
+
+.insight-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-400);
 }
 </style>
 

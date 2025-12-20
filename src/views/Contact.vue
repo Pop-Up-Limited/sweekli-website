@@ -1,57 +1,30 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
-import { submitContactForm } from '@/utils/saas-integration'
+import { onMounted, onUnmounted } from 'vue'
 import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-// Form state
-const form = ref({
-  name: '',
-  email: '',
-  company: '',
-  message: ''
-})
+// Handle Tally form height updates
+let iframe: HTMLIFrameElement | null = null
 
-const isSubmitting = ref(false)
-const isSubmitted = ref(false)
-const errorMessage = ref('')
-
-const handleSubmit = async () => {
-  if (!form.value.name || !form.value.email || !form.value.message) {
-    return
-  }
-
-  isSubmitting.value = true
-  errorMessage.value = ''
-  
-  try {
-    const response = await submitContactForm({
-      name: form.value.name,
-      email: form.value.email,
-      company: form.value.company,
-      message: form.value.message
-    })
-
-    if (response.ok) {
-      isSubmitted.value = true
-      form.value = { name: '', email: '', company: '', message: '' }
-    } else {
-      const data = await response.json().catch(() => ({}))
-      errorMessage.value = data.error || (locale.value === 'en' 
-        ? 'Failed to send message. Please try again.' 
-        : '发送失败，请稍后重试。')
+const handleMessage = (event: MessageEvent) => {
+  // Tally sends height updates via postMessage
+  if (event.origin === 'https://tally.so' && iframe) {
+    if (typeof event.data === 'object' && event.data.type === 'tally-form-height') {
+      iframe.style.height = `${event.data.height}px`
     }
-  } catch (error) {
-    console.error('Submit error:', error)
-    errorMessage.value = locale.value === 'en' 
-      ? 'Network error. Please check your connection.' 
-      : '网络错误，请检查您的网络连接。'
-  } finally {
-    isSubmitting.value = false
   }
 }
+
+onMounted(() => {
+  window.addEventListener('message', handleMessage)
+  iframe = document.querySelector('.tally-form-iframe') as HTMLIFrameElement
+})
+
+onUnmounted(() => {
+  window.removeEventListener('message', handleMessage)
+})
 
 </script>
 
@@ -69,66 +42,19 @@ const handleSubmit = async () => {
     <section class="contact-section section">
       <div class="container">
         <div class="contact-grid">
-          <!-- Contact Form -->
+          <!-- Contact Form - Tally Form -->
           <div class="contact-form-wrapper">
-            <Transition name="fade" mode="out-in">
-              <form v-if="!isSubmitted" class="contact-form" @submit.prevent="handleSubmit">
-                <div class="form-group">
-                  <label :for="'name'">{{ t('contact.form.name') }}</label>
-                  <input 
-                    id="name"
-                    v-model="form.name"
-                    type="text" 
-                    required
-                    :placeholder="locale === 'en' ? 'John Doe' : '张三'"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label :for="'email'">{{ t('contact.form.email') }}</label>
-                  <input 
-                    id="email"
-                    v-model="form.email"
-                    type="email" 
-                    required
-                    placeholder="you@company.com"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label :for="'company'">{{ t('contact.form.company') }}</label>
-                  <input 
-                    id="company"
-                    v-model="form.company"
-                    type="text"
-                    :placeholder="locale === 'en' ? 'Your Company' : '您的公司'"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label :for="'message'">{{ t('contact.form.message') }}</label>
-                  <textarea 
-                    id="message"
-                    v-model="form.message"
-                    rows="5" 
-                    required
-                    :placeholder="locale === 'en' ? 'Tell us about your brand...' : '请介绍您的品牌...'"
-                  ></textarea>
-                </div>
-
-                <button type="submit" class="btn btn--primary btn--lg" :disabled="isSubmitting">
-                  <span v-if="isSubmitting">{{ locale === 'en' ? 'Sending...' : '发送中...' }}</span>
-                  <span v-else>{{ t('contact.form.submit') }}</span>
-                </button>
-                <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
-              </form>
-
-              <div v-else class="contact-success">
-                <div class="contact-success__icon">✓</div>
-                <h3>{{ locale === 'en' ? 'Message Sent!' : '消息已发送！' }}</h3>
-                <p>{{ locale === 'en' ? 'We\'ll get back to you within 24 hours.' : '我们将在24小时内回复您。' }}</p>
-              </div>
-            </Transition>
+            <div class="tally-form-container">
+              <iframe
+                src="https://tally.so/embed/lbqLJB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                frameborder="0"
+                scrolling="no"
+                width="100%"
+                height="100%"
+                title="Contact Form"
+                class="tally-form-iframe"
+              ></iframe>
+            </div>
           </div>
 
           <!-- Contact Info -->
@@ -198,83 +124,22 @@ const handleSubmit = async () => {
   }
 }
 
-/* Form */
-.contact-form {
+/* Tally Form Container */
+.tally-form-container {
   background: var(--color-white);
   padding: var(--spacing-10);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-lg);
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
 }
 
-.form-group {
-  margin-bottom: var(--spacing-6);
-}
-
-.form-group label {
-  display: block;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-2);
-}
-
-.form-group input,
-.form-group textarea {
+.tally-form-iframe {
   width: 100%;
-  padding: var(--spacing-4);
-  border: 2px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-base);
-  transition: border-color var(--transition-fast);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--color-accent-purple);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.form-error {
-  margin-top: var(--spacing-4);
-  color: var(--color-error);
-  font-size: var(--font-size-sm);
-  text-align: center;
-}
-
-/* Success State */
-.contact-success {
-  background: var(--color-white);
-  padding: var(--spacing-16);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-}
-
-.contact-success__icon {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--color-success), #059669);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  color: var(--color-white);
-  margin: 0 auto var(--spacing-6);
-}
-
-.contact-success h3 {
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-2xl);
-  margin-bottom: var(--spacing-2);
-}
-
-.contact-success p {
-  color: var(--color-gray-600);
+  min-height: 600px;
+  border: none;
+  display: block;
 }
 
 /* Contact Info */

@@ -138,15 +138,15 @@ export const saasConfig = {
   // 推荐：CMS 服务（Contentful, Strapi, Sanity）或静态数据
   
   blog: {
-    provider: 'static', // 'static' | 'cms' | 'custom'
+    provider: 'contentful', // 'static' | 'contentful' | 'custom'
     
     // CMS 配置
     cms: {
       provider: 'contentful', // 'contentful' | 'strapi' | 'sanity'
       contentful: {
-        spaceId: '',
-        accessToken: '',
-        environment: 'master'
+        spaceId: import.meta.env.VITE_CONTENTFUL_SPACE_ID || 'wbpsfgfg62v2',
+        accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'DN_cZeDWpTQcwTgML-lYyvDkLOemgEAOcQXsIlcACsk',
+        environment: import.meta.env.VITE_CONTENTFUL_ENVIRONMENT || 'master'
       },
       strapi: {
         endpoint: '', // Strapi API endpoint
