@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
 import CTASection from '@/components/home/CTASection.vue'
+import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
-
 const services = computed(() => [
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png',
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png'),
     title: t('services.items.strategy.title'),
     desc: t('services.items.strategy.desc'),
     features: [
@@ -23,7 +21,7 @@ const services = computed(() => [
     link: null
   },
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png',
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png'),
     title: t('services.items.ecommerce.title'),
     desc: t('services.items.ecommerce.desc'),
     features: [
@@ -34,7 +32,7 @@ const services = computed(() => [
     link: '/solutions/ecommerce'
   },
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/icon-40.png',
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-40.png'),
     title: t('services.items.marketing.title'),
     desc: t('services.items.marketing.desc'),
     features: [
@@ -45,7 +43,7 @@ const services = computed(() => [
     link: '/solutions/marketing'
   },
   {
-    icon: '/images/Sweekli 英文 PDF内图片素材/3 icon/53 -53.png',
+    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/53 -53.png'),
     title: t('services.items.operations.title'),
     desc: t('services.items.operations.desc'),
     features: [
@@ -65,30 +63,17 @@ const platforms = [
   { name: 'RED', logo: '/images/platform-logos/xiaohongshu.svg' }
 ]
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="services-page">
     <!-- Hero Section -->
-    <section ref="heroRef" class="services-hero">
-      <div class="services-hero__bg">
-        <div class="hero-gradient"></div>
-        <div class="hero-pattern"></div>
-      </div>
-      <div class="container services-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <span class="services-hero__label">{{ locale === 'en' ? 'OUR SERVICES' : '我们的服务' }}</span>
-        <h1 class="services-hero__title">{{ t('services.hero.title') }}</h1>
-        <p class="services-hero__subtitle">{{ t('services.hero.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'OUR SERVICES' : '我们的服务'"
+      :title="t('services.hero.title')"
+      :subtitle="t('services.hero.subtitle')"
+      background-type="gradient"
+    />
 
     <!-- Services Grid -->
     <section class="services-section">
@@ -188,93 +173,6 @@ useIntersectionObserver(
 <style scoped>
 .services-page {
   padding-top: 0;
-}
-
-/* Hero */
-.services-hero {
-  position: relative;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: calc(80px + var(--spacing-20));
-  padding-bottom: var(--spacing-20);
-}
-
-@media (max-width: 768px) {
-  .services-hero {
-    padding-top: calc(70px + var(--spacing-16));
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.services-hero__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #282E45 0%, #3D4565 40%, #6F7BD4 100%);
-}
-
-.hero-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(111, 123, 212, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-  animation: floatPattern 15s ease-in-out infinite;
-}
-
-@keyframes floatPattern {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.05) rotate(1deg); }
-}
-
-.services-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  max-width: 800px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.services-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.services-hero__label {
-  display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: var(--spacing-4);
-}
-
-.services-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-6);
-  color: var(--color-white);
-}
-
-.services-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
-  line-height: 1.7;
 }
 
 /* Services Grid */
@@ -470,10 +368,16 @@ useIntersectionObserver(
 
 .process-timeline {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-8);
   max-width: 1000px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .process-timeline {
+    grid-template-columns: 1fr;
+  }
 }
 
 .process-step {

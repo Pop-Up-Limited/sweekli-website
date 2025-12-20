@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
 import { submitContactForm } from '@/utils/saas-integration'
+import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
-
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
 
 // Form state
 const form = ref({
@@ -56,26 +53,17 @@ const handleSubmit = async () => {
   }
 }
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="contact-page">
     <!-- Hero -->
-    <section ref="heroRef" class="contact-hero">
-      <div class="contact-hero__bg"></div>
-      <div class="container contact-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <h1 class="contact-hero__title">{{ t('contact.hero.title') }}</h1>
-        <p class="contact-hero__subtitle">{{ t('contact.hero.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'GET IN TOUCH' : '联系我们'"
+      :title="t('contact.hero.title')"
+      :subtitle="t('contact.hero.subtitle')"
+      background-type="gradient"
+    />
 
     <!-- Contact Section -->
     <section class="contact-section section">
@@ -195,61 +183,6 @@ useIntersectionObserver(
 <style scoped>
 .contact-page {
   padding-top: 0;
-}
-
-/* Hero */
-.contact-hero {
-  position: relative;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: var(--spacing-20);
-}
-
-.contact-hero__bg {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent-purple) 100%);
-}
-
-.contact-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  padding: var(--spacing-8) 0;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-@media (max-width: 768px) {
-  .contact-hero {
-    padding-top: 70px;
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.contact-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contact-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  color: var(--color-white);
-  margin-bottom: var(--spacing-4);
-}
-
-.contact-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
 }
 
 /* Contact Grid */

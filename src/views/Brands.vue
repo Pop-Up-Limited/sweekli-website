@@ -1,64 +1,47 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { computed } from 'vue'
 import { getImagePath } from '@/utils/imagePath'
+import PageHero from '@/components/common/PageHero.vue'
 
-const { t } = useI18n()
-
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
+const { t, locale } = useI18n()
 
 const categories = computed(() => [
   {
     name: t('brandsPage.categories.tech'),
     brands: [
-      { name: 'Wildflower', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png' },
-      { name: 'Case-Mate', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png' },
-      { name: 'Twelve South', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png' },
-      { name: 'Satechi', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png' },
-      { name: 'Native Union', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png' },
-      { name: 'iDeal of Sweden', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png' },
-      { name: 'Holdit', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png' },
-      { name: 'String Ting', logo: '/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png' }
+      { name: 'Wildflower', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png') },
+      { name: 'Case-Mate', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png') },
+      { name: 'Twelve South', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png') },
+      { name: 'Satechi', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png') },
+      { name: 'Native Union', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png') },
+      { name: 'iDeal of Sweden', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png') },
+      { name: 'Holdit', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png') },
+      { name: 'String Ting', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png') }
     ]
   },
   {
     name: t('brandsPage.categories.bags'),
     brands: [
-      { name: 'Notabag', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png' },
-      { name: 'Urth', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png' },
-      { name: 'Spingle Move', logo: '/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png' }
+      { name: 'Notabag', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png') },
+      { name: 'Urth', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png') },
+      { name: 'Spingle Move', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png') }
     ]
   }
 ])
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="brands-page">
     <!-- Hero -->
-    <section ref="heroRef" class="brands-hero">
-      <div class="brands-hero__bg">
-        <img 
-          :src="getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png')" 
-          alt="Partner Brands"
-        />
-        <div class="brands-hero__overlay"></div>
-      </div>
-      <div class="container brands-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <h1 class="brands-hero__title">{{ t('brandsPage.hero.title') }}</h1>
-        <p class="brands-hero__subtitle">{{ t('brandsPage.hero.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'OUR BRANDS' : '合作品牌'"
+      :title="t('brandsPage.hero.title')"
+      :subtitle="t('brandsPage.hero.subtitle')"
+      background-type="image"
+      :background-image="'/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png'"
+    />
 
     <!-- Brand Categories -->
     <section 
@@ -91,72 +74,6 @@ useIntersectionObserver(
 <style scoped>
 .brands-page {
   padding-top: 0;
-}
-
-/* Hero */
-.brands-hero {
-  position: relative;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: var(--spacing-20);
-}
-
-.brands-hero__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.brands-hero__bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.brands-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(40, 46, 69, 0.9) 0%, rgba(111, 123, 212, 0.8) 100%);
-}
-
-.brands-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  padding: var(--spacing-8) 0;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-@media (max-width: 768px) {
-  .brands-hero {
-    padding-top: 70px;
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.brands-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.brands-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  color: var(--color-white);
-  margin-bottom: var(--spacing-4);
-}
-
-.brands-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
 }
 
 /* Sections */

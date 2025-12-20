@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getImagePath } from '@/utils/imagePath'
+import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 const router = useRouter()
-
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
 
 // Blog articles from original website
 const articles = computed(() => [
@@ -68,30 +65,17 @@ const viewArticle = (article: typeof articles.value[0]) => {
   router.push(`/insights/${article.slug}`)
 }
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="insights-page">
     <!-- Hero Section -->
-    <section ref="heroRef" class="insights-hero">
-      <div class="insights-hero__bg">
-        <div class="hero-gradient"></div>
-        <div class="hero-pattern"></div>
-      </div>
-      <div class="container insights-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <span class="insights-hero__label">{{ locale === 'en' ? 'INSIGHTS' : '行业洞察' }}</span>
-        <h1 class="insights-hero__title">{{ t('insights.hero.title') }}</h1>
-        <p class="insights-hero__subtitle">{{ t('insights.hero.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'INSIGHTS' : '行业洞察'"
+      :title="t('insights.hero.title')"
+      :subtitle="t('insights.hero.subtitle')"
+      background-type="gradient"
+    />
 
     <!-- Articles Grid -->
     <section class="insights-section section">
@@ -138,91 +122,6 @@ useIntersectionObserver(
   padding-top: 0;
 }
 
-/* Hero */
-.insights-hero {
-  position: relative;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: var(--spacing-20);
-}
-
-@media (max-width: 768px) {
-  .insights-hero {
-    padding-top: 70px;
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.insights-hero__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #282E45 0%, #3D4565 40%, #6F7BD4 100%);
-}
-
-.hero-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(111, 123, 212, 0.4) 0%, transparent 50%);
-  animation: floatPattern 15s ease-in-out infinite;
-}
-
-@keyframes floatPattern {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.05) rotate(1deg); }
-}
-
-.insights-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  max-width: 800px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.insights-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.insights-hero__label {
-  display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: var(--spacing-4);
-}
-
-.insights-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-6);
-  color: var(--color-white);
-}
-
-.insights-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
-  line-height: 1.7;
-}
 
 /* Articles Section */
 .insights-section {

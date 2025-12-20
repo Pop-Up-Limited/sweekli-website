@@ -1,59 +1,41 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { getImagePath } from '@/utils/imagePath'
+import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
-
 const values = computed(() => [
   {
-    icon: '/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png',
+    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
     title: t('about.values.integrity'),
     desc: t('about.values.integrityDesc')
   },
   {
-    icon: '/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png',
+    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
     title: t('about.values.excellence'),
     desc: t('about.values.excellenceDesc')
   },
   {
-    icon: '/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png',
+    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
     title: t('about.values.partnership'),
     desc: t('about.values.partnershipDesc')
   }
 ])
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="about-page">
     <!-- Hero Section -->
-    <section ref="heroRef" class="about-hero">
-      <div class="about-hero__bg">
-        <img 
-          :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
-          alt="Sweekli Team" 
-          loading="eager"
-        />
-        <div class="about-hero__overlay"></div>
-      </div>
-      <div class="container about-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <span class="about-hero__label">{{ locale === 'en' ? 'ABOUT US' : '关于我们' }}</span>
-        <h1 class="about-hero__title">{{ t('about.hero.title') }}</h1>
-        <p class="about-hero__subtitle">{{ t('about.hero.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'ABOUT US' : '关于我们'"
+      :title="t('about.hero.title')"
+      :subtitle="t('about.hero.subtitle')"
+      background-type="image"
+      :background-image="'/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'"
+    />
 
     <!-- Mission Section -->
     <section class="about-section">
@@ -144,84 +126,6 @@ useIntersectionObserver(
 <style scoped>
 .about-page {
   padding-top: 0;
-}
-
-/* Hero */
-.about-hero {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: var(--spacing-24);
-}
-
-@media (max-width: 768px) {
-  .about-hero {
-    padding-top: 70px;
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.about-hero__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.about-hero__bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.about-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(40, 46, 69, 0.9) 0%, rgba(111, 123, 212, 0.7) 100%);
-}
-
-.about-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  max-width: 800px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.about-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.about-hero__label {
-  display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: var(--spacing-4);
-}
-
-.about-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-6);
-  color: var(--color-white);
-}
-
-.about-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
-  line-height: 1.7;
 }
 
 /* Sections */

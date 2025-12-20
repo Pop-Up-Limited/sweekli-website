@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
 import { getImagePath } from '@/utils/imagePath'
+import PageHero from '@/components/common/PageHero.vue'
 
-const { t } = useI18n()
-
-const heroRef = ref<HTMLElement | null>(null)
-const isHeroVisible = ref(false)
+const { t, locale } = useI18n()
 
 const positions = [
   {
@@ -45,32 +41,18 @@ const benefits = [
   { icon: '🎉', title: '团建活动', desc: '丰富的团队活动' }
 ]
 
-useIntersectionObserver(
-  heroRef,
-  (entries) => {
-    const entry = entries[0]
-    if (entry?.isIntersecting) isHeroVisible.value = true
-  },
-  { threshold: 0.2 }
-)
 </script>
 
 <template>
   <main class="careers-page">
     <!-- Hero -->
-    <section ref="heroRef" class="careers-hero">
-      <div class="careers-hero__bg">
-        <img 
-          :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
-          alt="Join Sweekli"
-        />
-        <div class="careers-hero__overlay"></div>
-      </div>
-      <div class="container careers-hero__content" :class="{ 'is-visible': isHeroVisible }">
-        <h1 class="careers-hero__title">{{ t('careers.title') }}</h1>
-        <p class="careers-hero__subtitle">{{ t('careers.subtitle') }}</p>
-      </div>
-    </section>
+    <PageHero
+      :label="locale === 'en' ? 'CAREERS' : '加入我们'"
+      :title="t('careers.title')"
+      :subtitle="t('careers.subtitle')"
+      background-type="image"
+      :background-image="'/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'"
+    />
 
     <!-- Culture Section -->
     <section class="careers-culture section">
@@ -152,71 +134,6 @@ useIntersectionObserver(
   padding-top: 0;
 }
 
-/* Hero */
-.careers-hero {
-  position: relative;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: var(--spacing-20);
-}
-
-.careers-hero__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.careers-hero__bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.careers-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(40, 46, 69, 0.9) 0%, rgba(111, 123, 212, 0.8) 100%);
-}
-
-.careers-hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--color-white);
-  padding: var(--spacing-8) 0;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-@media (max-width: 768px) {
-  .careers-hero {
-    padding-top: 70px;
-    padding-bottom: var(--spacing-16);
-  }
-}
-
-.careers-hero__content.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.careers-hero__title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  color: var(--color-white);
-  margin-bottom: var(--spacing-4);
-}
-
-.careers-hero__subtitle {
-  font-size: var(--font-size-lg);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
-}
 
 /* Section Title */
 .section-title {
