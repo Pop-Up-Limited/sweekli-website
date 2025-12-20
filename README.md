@@ -2,6 +2,18 @@
 
 全球生活方式品牌中国与亚太市场增长平台官方网站。
 
+## 🌐 网站链接
+
+**GitHub Pages**: https://pop-up-limited.github.io/sweekli-website/
+
+> 注意：如果还没有配置 GitHub Pages，需要在仓库 Settings > Pages 中启用
+
+## 📚 后端服务接入
+
+**详细的后端服务接入文档**: 请查看 [后端服务接入文档.md](./后端服务接入文档.md)
+
+该文档包含所有需要接入的后端服务清单、API 接口规范、代码示例和接入检查清单。
+
 ## 技术栈
 
 - **框架**: Vue 3 + TypeScript
