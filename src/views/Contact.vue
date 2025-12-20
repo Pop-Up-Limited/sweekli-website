@@ -162,11 +162,13 @@ useIntersectionObserver(
 /* Hero */
 .contact-hero {
   position: relative;
-  min-height: 40vh;
+  min-height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: var(--spacing-20);
 }
 
 .contact-hero__bg {
@@ -180,10 +182,17 @@ useIntersectionObserver(
   z-index: 1;
   text-align: center;
   color: var(--color-white);
-  padding: var(--spacing-16) 0;
+  padding: var(--spacing-8) 0;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease;
+}
+
+@media (max-width: 768px) {
+  .contact-hero {
+    padding-top: 70px;
+    padding-bottom: var(--spacing-16);
+  }
 }
 
 .contact-hero__content.is-visible {

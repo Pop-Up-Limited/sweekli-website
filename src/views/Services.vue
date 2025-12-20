@@ -198,7 +198,15 @@ useIntersectionObserver(
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: var(--spacing-32) 0;
+  padding-top: calc(80px + var(--spacing-20));
+  padding-bottom: var(--spacing-20);
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    padding-top: calc(70px + var(--spacing-16));
+    padding-bottom: var(--spacing-16);
+  }
 }
 
 .services-hero__bg {

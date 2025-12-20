@@ -83,24 +83,22 @@ const handleSubmit = () => {
 ```
 
 ### 正品查询API
-正品查询页面预留了产品验证API接口：
+正品查询页面需要调用服务商的API接口（根据需求文档）：
 ```typescript
 // src/views/Authentication.vue
 const verifyProduct = async () => {
-  // TODO: Replace with actual API call
-  // API endpoint: /api/verify-product?code=xxx
+  // TODO: 调用服务商的API接口
+  // 需求文档说明：很简单,一段js代码,需要部署下改一下布局
 }
 ```
 
 ### IP地理位置判断
-正品查询页面预留了IP检测逻辑，用于自动跳转中英文版：
+正品查询页面需要根据IP跳转到中英文版本（根据需求文档）：
 ```typescript
 // src/views/Authentication.vue
-const checkAndRedirect = async () => {
-  // TODO: Replace with actual IP geolocation API
-  // Example: https://ip-api.com/json/
-}
+// 需求文档说明：如果访问IP在境内,就跳转中文版的正品查询,如果是境外,就跳转英文版的防伪查询
 ```
+
 
 ## 开发指南
 

@@ -28,13 +28,24 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/* Spring Scroll Animation - 非线性滚动效果 */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  * {
+    scroll-margin-top: 80px;
+  }
+}
+
 body {
   font-family: var(--font-family-body);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
   color: var(--color-gray-800);
-  background-color: var(--color-white);
+  background-color: #faf8f3;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

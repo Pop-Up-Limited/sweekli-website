@@ -99,6 +99,8 @@ useIntersectionObserver(
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: var(--spacing-20);
 }
 
 .brands-hero__bg {
@@ -123,10 +125,17 @@ useIntersectionObserver(
   z-index: 1;
   text-align: center;
   color: var(--color-white);
-  padding: var(--spacing-20) 0;
+  padding: var(--spacing-8) 0;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease;
+}
+
+@media (max-width: 768px) {
+  .brands-hero {
+    padding-top: 70px;
+    padding-bottom: var(--spacing-16);
+  }
 }
 
 .brands-hero__content.is-visible {

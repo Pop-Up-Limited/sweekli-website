@@ -119,7 +119,7 @@ useIntersectionObserver(
 
 <style scoped>
 .success-stories {
-  background: var(--color-gray-50);
+  background: linear-gradient(180deg, #f0ede6 0%, #f5f3ed 50%, #faf8f3 100%);
 }
 
 .success-stories__title {
@@ -181,7 +181,19 @@ useIntersectionObserver(
 
 .story-card:hover {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(111, 123, 212, 0.15);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.story-card__image {
+  overflow: hidden;
+}
+
+.story-card__image img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-card:hover .story-card__image img {
+  transform: scale(1.05);
 }
 
 @media (min-width: 768px) {

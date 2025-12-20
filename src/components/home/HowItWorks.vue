@@ -1,12 +1,35 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 
 const { t, locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
+
+// Parallax effect for images
+const imageRefs = ref<(HTMLElement | null)[]>([])
+
+const handleScroll = () => {
+  imageRefs.value.forEach((img, index) => {
+    if (!img) return
+    const rect = img.getBoundingClientRect()
+    const windowHeight = window.innerHeight
+    const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)))
+    const translateY = (scrollProgress - 0.5) * 30 * (index % 2 === 0 ? 1 : -1)
+    img.style.transform = `translateY(${translateY}px)`
+  })
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const steps = computed(() => [
   {
@@ -75,11 +98,9 @@ useIntersectionObserver(
           </span>
         </span>
         <span v-else class="title-content">
-          <span class="word">合作</span>
-          <span class="word">流程</span>
+          <span class="word">合作流程</span>
           <span class="word">—</span>
-          <span class="word accent">简单</span>
-          <span class="word accent">四步</span>
+          <span class="word accent">简单四步</span>
         </span>
       </h2>
 
@@ -93,7 +114,13 @@ useIntersectionObserver(
           <span class="step__number">{{ step.num }}</span>
           <div class="step__content">
             <div class="step__image">
-              <img :src="step.image" :alt="step.title" loading="lazy" />
+              <img 
+                :ref="el => imageRefs[index] = el as HTMLElement"
+                :src="step.image" 
+                :alt="step.title" 
+                loading="lazy"
+                class="parallax-image"
+              />
             </div>
             <div class="step__text">
               <h3 class="step__title">{{ step.title }}</h3>
@@ -109,7 +136,7 @@ useIntersectionObserver(
 <style scoped>
 .how-it-works {
   position: relative;
-  background: var(--color-white);
+  background: #faf8f3;
   padding: var(--spacing-24) 0;
 }
 
@@ -203,7 +230,7 @@ useIntersectionObserver(
 
 .step:hover .step__content {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(111, 123, 212, 0.1);
-  transform: translateY(-12px);
+  transform: translateY(-12px) scale(1.02);
   border-color: var(--color-accent-purple-light);
 }
 
@@ -211,17 +238,31 @@ useIntersectionObserver(
   width: 100%;
   aspect-ratio: 4/3;
   overflow: hidden;
+  position: relative;
+}
+
+.step__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(111, 123, 212, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.step:hover .step__image::after {
+  opacity: 1;
 }
 
 .step__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .step:hover .step__image img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .step__text {

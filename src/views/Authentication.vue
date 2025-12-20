@@ -36,7 +36,7 @@ const reset = () => {
           <div class="auth-header">
             <div class="auth-logo">
               <img 
-                src="/sweekli-logo.svg" 
+                src="/logos/画板 84 副本.svg" 
                 alt="Sweekli"
               />
             </div>

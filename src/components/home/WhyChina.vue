@@ -60,9 +60,11 @@ useIntersectionObserver(
           </p>
           <div class="why-china__image">
             <img 
+              ref="imageRef"
               src="/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG" 
               alt="China Market" 
               loading="lazy"
+              class="parallax-image"
             />
           </div>
         </div>
@@ -91,7 +93,7 @@ useIntersectionObserver(
 
 <style scoped>
 .why-china {
-  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-gray-50) 100%);
+  background: linear-gradient(180deg, #faf8f3 0%, #f5f3ed 50%, #f0ede6 100%);
   overflow: hidden;
 }
 
@@ -158,7 +160,11 @@ useIntersectionObserver(
   width: 100%;
   height: auto;
   display: block;
-  transition: transform var(--transition-slow);
+}
+
+.parallax-image {
+  transition: transform 0.1s ease-out;
+  will-change: transform;
 }
 
 .why-china__image:hover img {
@@ -193,7 +199,7 @@ useIntersectionObserver(
 
 .reason-card:hover {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(111, 123, 212, 0.12);
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.01);
   border-color: var(--color-accent-purple-light);
 }
 
@@ -201,7 +207,6 @@ useIntersectionObserver(
   flex-shrink: 0;
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, rgba(111, 123, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
   border-radius: var(--radius-2xl);
   display: flex;
   align-items: center;
@@ -209,9 +214,33 @@ useIntersectionObserver(
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* 使用品牌配色，每个图标不同颜色，避免重复 */
+.reason-card:nth-child(1) .reason-card__icon {
+  background: rgba(111, 123, 212, 0.12); /* 品牌紫色 */
+}
+
+.reason-card:nth-child(2) .reason-card__icon {
+  background: rgba(255, 90, 39, 0.12); /* 品牌橙色 */
+}
+
+.reason-card:nth-child(3) .reason-card__icon {
+  background: rgba(139, 232, 156, 0.12); /* 品牌绿色 */
+}
+
 .reason-card:hover .reason-card__icon {
-  background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(5deg);
+}
+
+.reason-card:nth-child(1):hover .reason-card__icon {
+  background: rgba(111, 123, 212, 0.2);
+}
+
+.reason-card:nth-child(2):hover .reason-card__icon {
+  background: rgba(255, 90, 39, 0.2);
+}
+
+.reason-card:nth-child(3):hover .reason-card__icon {
+  background: rgba(139, 232, 156, 0.2);
 }
 
 .reason-card__icon img {

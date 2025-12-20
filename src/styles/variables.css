@@ -13,14 +13,15 @@
   --color-primary-light: #3a4159;
   --color-primary-dark: #1a1f2e;
   
-  /* Accent Colors */
+  /* Accent Colors - 从品牌色板 */
   --color-accent-purple: #6f7bd4;     /* 紫罗兰 - Violet */
   --color-accent-purple-light: #8d96e0;
   --color-accent-purple-dark: #434dc4;
   
-  --color-accent-orange: #f9c26e;     /* 橙黄色 - Orange Gold */
-  --color-accent-orange-light: #fad48f;
-  --color-accent-orange-dark: #e5a94d;
+  --color-accent-orange: #ff5a27;     /* 橙红色 - 从品牌色板 */
+  --color-accent-pink: #f962ce;       /* 粉红色 - 从品牌色板 */
+  --color-accent-green: #8BE89C;      /* 绿色 - 从品牌色板 */
+  --color-accent-lavender: #c1a7e2;  /* 淡紫色 - 从品牌色板 */
   
   /* Neutral Colors */
   --color-white: #FFFFFF;

@@ -91,7 +91,7 @@ useIntersectionObserver(
 
 <style scoped>
 .stats {
-  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-gray-50) 100%);
+  background: linear-gradient(180deg, #faf8f3 0%, #f5f3ed 50%, #f0ede6 100%);
   padding: var(--spacing-24) 0;
   position: relative;
   overflow: hidden;
@@ -128,10 +128,10 @@ useIntersectionObserver(
 .stat-item {
   text-align: center;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--index) * 0.1s);
+  transform: translateY(60px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--index) * 0.15s);
 }
 
 .stats__grid.is-visible .stat-item {
@@ -148,10 +148,6 @@ useIntersectionObserver(
   line-height: 1;
   margin-bottom: var(--spacing-3);
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent-purple) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .stat-item__label {

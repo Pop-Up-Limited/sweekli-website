@@ -77,8 +77,8 @@ useIntersectionObserver(
 
 <style scoped>
 .brands {
-  background: linear-gradient(180deg, var(--color-gray-50) 0%, var(--color-white) 100%);
-  overflow: hidden;
+  background: linear-gradient(180deg, #f0ede6 0%, #f5f3ed 50%, #faf8f3 100%);
+  overflow: visible;
   padding: var(--spacing-24) 0;
 }
 
@@ -110,7 +110,8 @@ useIntersectionObserver(
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-bottom: var(--spacing-12);
-  overflow: hidden;
+  overflow: visible;
+  padding: var(--spacing-4) 0;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   opacity: 0;
   transition: opacity 0.8s ease 0.3s;
@@ -155,7 +156,7 @@ useIntersectionObserver(
 }
 
 .brand-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(111, 123, 212, 0.1);
   border-color: var(--color-accent-purple-light);
 }

@@ -32,7 +32,7 @@ useIntersectionObserver(
       <span class="cta__label">{{ locale === 'en' ? 'GET STARTED' : '开始合作' }}</span>
       
       <h2 class="cta__title">
-        {{ locale === 'en' ? 'Ready to Unlock China?' : '准备好开拓中国市场了吗?' }}
+        {{ locale === 'en' ? 'Ready to Unlock China?' : '准备好开拓中国市场了吗？' }}
       </h2>
 
       <p class="cta__desc">
@@ -162,23 +162,24 @@ useIntersectionObserver(
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
-  padding: var(--spacing-5) var(--spacing-10);
-  font-size: var(--font-size-lg);
+  padding: var(--spacing-4) var(--spacing-8);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-2xl);
+  border-radius: 9999px;
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cta__btn--primary {
   background: var(--color-white);
   color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cta__btn--primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: buttonBounce 0.6s ease;
 }
 
 .cta__btn--primary svg {
@@ -190,14 +191,24 @@ useIntersectionObserver(
 }
 
 .cta__btn--secondary {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
   color: var(--color-white);
+  border: none;
 }
 
 .cta__btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-6px) scale(1.05);
+  animation: buttonBounce 0.6s ease;
+}
+
+@keyframes buttonBounce {
+  0%, 100% {
+    transform: translateY(-6px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.08);
+  }
 }
 
 @media (max-width: 640px) {

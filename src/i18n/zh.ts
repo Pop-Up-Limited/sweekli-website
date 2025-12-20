@@ -7,7 +7,7 @@ export default {
     brands: '合作品牌',
     contact: '联系我们',
     careers: '加入我们',
-    auth: '产品验真'
+    auth: '正品查询'
   },
 
   // 首页英雄区
@@ -88,8 +88,8 @@ export default {
 
   // CTA
   cta: {
-    title: '准备好开启扩张了吗？',
-    subtitle: '加入50多个全球品牌，让思维颗粒将您的产品带入全球最大的消费市场。',
+    title: '准备好开拓中国市场了吗？',
+    subtitle: '加入50多个信任思维颗粒的全球品牌，将您的产品带入全球最大的消费市场。',
     button: '立即开始',
     learnMore: '了解更多'
   },

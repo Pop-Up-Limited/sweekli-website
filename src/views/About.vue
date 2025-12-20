@@ -153,6 +153,15 @@ useIntersectionObserver(
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: var(--spacing-24);
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding-top: 70px;
+    padding-bottom: var(--spacing-16);
+  }
 }
 
 .about-hero__bg {

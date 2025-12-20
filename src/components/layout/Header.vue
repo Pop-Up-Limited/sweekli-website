@@ -58,10 +58,10 @@ onUnmounted(() => {
 <template>
   <header class="header" :class="{ 'is-scrolled': isScrolled, 'is-open': isMobileMenuOpen }">
     <div class="container header__container">
-      <!-- Logo -->
+      <!-- Logo - 文字logo，始终使用深色版本 -->
       <RouterLink to="/" class="header__logo" @click="closeMobileMenu">
         <img 
-          src="/sweekli-logo.svg" 
+          src="/logos/画板 84 副本.svg" 
           alt="Sweekli" 
           class="logo-img"
         />
@@ -104,12 +104,14 @@ onUnmounted(() => {
         </button>
       </div>
     </div>
+  </header>
 
-    <!-- Mobile Menu Overlay -->
+  <!-- Mobile Menu Overlay - 使用 Teleport 传送到 body，确保覆盖整个页面 -->
+  <Teleport to="body">
     <Transition name="fade">
       <div v-if="isMobileMenuOpen" class="header__overlay" @click="closeMobileMenu"></div>
     </Transition>
-  </header>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -121,13 +123,14 @@ onUnmounted(() => {
   z-index: var(--z-header);
   padding: var(--spacing-4) 0;
   transition: all var(--transition-base);
+  background: rgba(250, 248, 243, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
 }
 
 .header.is-scrolled {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-sm);
   padding: var(--spacing-3) 0;
+  box-shadow: var(--shadow-md);
 }
 
 .header__container {
@@ -143,13 +146,18 @@ onUnmounted(() => {
 }
 
 .logo-img {
-  height: 36px;
+  height: 32px;
   width: auto;
-  transition: opacity var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .header__logo:hover .logo-img {
   opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.header.is-scrolled .logo-img {
+  height: 28px;
 }
 
 /* Navigation */
@@ -167,15 +175,11 @@ onUnmounted(() => {
 .header__link {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-white);
+  color: var(--color-primary);
   text-decoration: none;
   position: relative;
   padding: var(--spacing-2) 0;
   transition: color var(--transition-fast);
-}
-
-.header.is-scrolled .header__link {
-  color: var(--color-primary);
 }
 
 .header__link::after {
@@ -207,19 +211,14 @@ onUnmounted(() => {
 .header__lang {
   width: 36px;
   height: 36px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--color-gray-300);
   border-radius: 50%;
   background: transparent;
-  color: var(--color-white);
+  color: var(--color-primary);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: all var(--transition-fast);
-}
-
-.header.is-scrolled .header__lang {
-  border-color: var(--color-gray-300);
-  color: var(--color-primary);
 }
 
 .header__lang:hover {
@@ -275,12 +274,8 @@ onUnmounted(() => {
   display: block;
   width: 100%;
   height: 2px;
-  background: var(--color-white);
-  transition: all var(--transition-fast);
-}
-
-.header.is-scrolled .header__hamburger span {
   background: var(--color-primary);
+  transition: all var(--transition-fast);
 }
 
 .header__hamburger.is-open span:nth-child(1) {
@@ -306,11 +301,13 @@ onUnmounted(() => {
     width: 80%;
     max-width: 320px;
     height: 100vh;
-    background: var(--color-white);
+    background: #faf8f3;
     padding: calc(var(--spacing-20) + 60px) var(--spacing-8) var(--spacing-8);
     gap: var(--spacing-1);
     animation: slideIn 0.3s ease;
-    z-index: var(--z-header);
+    z-index: calc(var(--z-header) + 2);
+    pointer-events: auto;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
   }
 
   @keyframes slideIn {
@@ -330,12 +327,26 @@ onUnmounted(() => {
   }
 }
 
-/* Overlay */
+/* Overlay - 只覆盖左侧区域，不覆盖侧边栏 */
 .header__overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: calc(var(--z-header) - 1);
+  z-index: var(--z-header);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+@media (max-width: 1023px) {
+  /* 移动端：遮罩层只覆盖左侧区域，不覆盖右侧侧边栏 */
+  .header__overlay {
+    right: 20%;
+    max-width: calc(100vw - 320px);
+  }
 }
 
 .fade-enter-active,

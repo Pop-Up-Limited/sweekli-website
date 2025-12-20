@@ -35,7 +35,7 @@ const socialLinks = [
         <div class="footer__brand">
           <RouterLink to="/" class="footer__logo">
             <img 
-              src="/sweekli-logo-white.svg" 
+              src="/logos/画板 84.svg" 
               alt="Sweekli"
               class="footer__logo-img"
             />
