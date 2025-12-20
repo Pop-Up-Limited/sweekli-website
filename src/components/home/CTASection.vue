@@ -175,13 +175,15 @@ useIntersectionObserver(
 }
 
 .cta__btn--primary {
-  background: var(--color-white);
-  color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-purple-dark) 100%);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
 }
 
 .cta__btn--primary:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .cta__btn--primary span {

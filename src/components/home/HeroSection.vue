@@ -369,9 +369,10 @@ onMounted(() => {
 }
 
 .hero__cta--primary {
-  background: var(--color-accent-purple);
+  background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-purple-dark) 100%);
   color: var(--color-white);
-  box-shadow: 0 4px 12px rgba(111, 123, 212, 0.2);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
 }
 
 .hero__cta--primary .hero__cta-text {
@@ -379,7 +380,8 @@ onMounted(() => {
 }
 
 .hero__cta--primary:hover {
-  box-shadow: 0 6px 16px rgba(111, 123, 212, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .hero__cta-text-wrapper {
