@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { submitContactForm } from '@/utils/saas-integration'
 
 const { t, locale } = useI18n()
 
@@ -18,18 +19,41 @@ const form = ref({
 
 const isSubmitting = ref(false)
 const isSubmitted = ref(false)
+const errorMessage = ref('')
 
 const handleSubmit = async () => {
+  if (!form.value.name || !form.value.email || !form.value.message) {
+    return
+  }
+
   isSubmitting.value = true
+  errorMessage.value = ''
   
-  // TODO: Replace with actual API call
-  await new Promise(resolve => setTimeout(resolve, 1500))
-  
-  isSubmitting.value = false
-  isSubmitted.value = true
-  
-  // Reset form
-  form.value = { name: '', email: '', company: '', message: '' }
+  try {
+    const response = await submitContactForm({
+      name: form.value.name,
+      email: form.value.email,
+      company: form.value.company,
+      message: form.value.message
+    })
+
+    if (response.ok) {
+      isSubmitted.value = true
+      form.value = { name: '', email: '', company: '', message: '' }
+    } else {
+      const data = await response.json().catch(() => ({}))
+      errorMessage.value = data.error || (locale.value === 'en' 
+        ? 'Failed to send message. Please try again.' 
+        : '发送失败，请稍后重试。')
+    }
+  } catch (error) {
+    console.error('Submit error:', error)
+    errorMessage.value = locale.value === 'en' 
+      ? 'Network error. Please check your connection.' 
+      : '网络错误，请检查您的网络连接。'
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 useIntersectionObserver(
@@ -107,6 +131,7 @@ useIntersectionObserver(
                   <span v-if="isSubmitting">{{ locale === 'en' ? 'Sending...' : '发送中...' }}</span>
                   <span v-else>{{ t('contact.form.submit') }}</span>
                 </button>
+                <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
               </form>
 
               <div v-else class="contact-success">
@@ -277,6 +302,13 @@ useIntersectionObserver(
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
+}
+
+.form-error {
+  margin-top: var(--spacing-4);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  text-align: center;
 }
 
 /* Success State */

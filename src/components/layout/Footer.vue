@@ -1,11 +1,48 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { subscribeNewsletter } from '@/utils/saas-integration'
 
 const { t, locale } = useI18n()
 
 const currentYear = new Date().getFullYear()
+const newsletterEmail = ref('')
+const isSubscribing = ref(false)
+const newsletterMessage = ref('')
+
+const handleNewsletterSubmit = async (e: Event) => {
+  e.preventDefault()
+  if (!newsletterEmail.value.trim()) return
+
+  isSubscribing.value = true
+  newsletterMessage.value = ''
+
+  try {
+    const response = await subscribeNewsletter(newsletterEmail.value)
+    
+    if (response.ok) {
+      newsletterMessage.value = locale.value === 'en' 
+        ? 'Subscribed successfully!' 
+        : '订阅成功！'
+      newsletterEmail.value = ''
+      setTimeout(() => {
+        newsletterMessage.value = ''
+      }, 3000)
+    } else {
+      newsletterMessage.value = locale.value === 'en' 
+        ? 'Subscription failed. Please try again.' 
+        : '订阅失败，请稍后重试。'
+    }
+  } catch (error) {
+    console.error('Newsletter error:', error)
+    newsletterMessage.value = locale.value === 'en' 
+      ? 'Network error. Please try again.' 
+      : '网络错误，请稍后重试。'
+  } finally {
+    isSubscribing.value = false
+  }
+}
 
 const quickLinks = computed(() => [
   { path: '/', label: t('nav.home') },
@@ -101,20 +138,23 @@ const socialLinks = [
         <div class="footer__col footer__newsletter">
           <h4 class="footer__title">{{ t('footer.stayUpdated') }}</h4>
           <p class="footer__newsletter-desc">{{ t('footer.newsletterDesc') }}</p>
-          <form class="footer__form" @submit.prevent>
+          <form class="footer__form" @submit="handleNewsletterSubmit">
             <input 
+              v-model="newsletterEmail"
               type="email" 
               :placeholder="t('footer.emailPlaceholder')" 
               class="footer__input"
               required
+              :disabled="isSubscribing"
             />
-            <button type="submit" class="footer__submit">
+            <button type="submit" class="footer__submit" :disabled="isSubscribing">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="5" y1="12" x2="19" y2="12"/>
                 <polyline points="12 5 19 12 12 19"/>
               </svg>
             </button>
           </form>
+          <p v-if="newsletterMessage" class="footer__newsletter-message">{{ newsletterMessage }}</p>
         </div>
       </div>
 
@@ -289,6 +329,18 @@ const socialLinks = [
 
 .footer__submit:hover {
   transform: translateX(2px);
+}
+
+.footer__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.footer__newsletter-message {
+  margin-top: var(--spacing-2);
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
 }
 
 /* Bottom Bar */

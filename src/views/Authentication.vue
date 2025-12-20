@@ -1,25 +1,44 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
+import { verifyProduct as verifyProductAPI } from '@/utils/saas-integration'
 
 const { t, locale } = useI18n()
 
 const code = ref('')
 const isVerifying = ref(false)
 const result = ref<'authentic' | 'invalid' | null>(null)
+const errorMessage = ref('')
 
 const verifyProduct = async () => {
   if (!code.value.trim()) return
   
   isVerifying.value = true
   result.value = null
+  errorMessage.value = ''
   
-  // TODO: Replace with actual API call
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  
-  // Mock verification - accept codes starting with 'SW'
-  result.value = code.value.toUpperCase().startsWith('SW') ? 'authentic' : 'invalid'
-  isVerifying.value = false
+  try {
+    const response = await verifyProductAPI(code.value.trim())
+    const data = await response.json()
+    
+    if (response.ok && data.success !== false) {
+      // 根据 API 响应判断结果
+      result.value = data.authentic === true ? 'authentic' : 'invalid'
+    } else {
+      result.value = 'invalid'
+      errorMessage.value = data.message || (locale.value === 'en' 
+        ? 'Verification failed. Please check the code.' 
+        : '验证失败，请检查验证码。')
+    }
+  } catch (error) {
+    console.error('Verify error:', error)
+    result.value = 'invalid'
+    errorMessage.value = locale.value === 'en' 
+      ? 'Network error. Please try again.' 
+      : '网络错误，请稍后重试。'
+  } finally {
+    isVerifying.value = false
+  }
 }
 
 const reset = () => {
@@ -70,6 +89,7 @@ const reset = () => {
                   : '请输入产品包装上的唯一验证码。'
                 }}
               </p>
+              <p v-if="errorMessage" class="auth-error">{{ errorMessage }}</p>
             </div>
 
             <!-- Result State -->
@@ -212,6 +232,13 @@ const reset = () => {
 .auth-hint {
   font-size: var(--font-size-sm);
   color: var(--color-gray-500);
+}
+
+.auth-error {
+  margin-top: var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  text-align: center;
 }
 
 /* Result */
