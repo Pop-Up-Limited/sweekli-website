@@ -1,9 +1,21 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getImagePath } from '@/utils/imagePath'
 import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
+const router = useRouter()
+const showApplyInfo = ref<number | null>(null)
+
+const toggleApplyInfo = (index: number) => {
+  showApplyInfo.value = showApplyInfo.value === index ? null : index
+}
+
+const goToContact = () => {
+  router.push('/contact')
+}
 
 const positions = [
   {
@@ -119,9 +131,58 @@ const benefits = [
                 <span>{{ position.type }}</span>
               </div>
             </div>
-            <button class="btn btn--primary">
-              {{ t('careers.apply') }}
-            </button>
+            <div class="position-card__actions">
+              <button 
+                class="btn btn--primary"
+                @click="toggleApplyInfo(index)"
+              >
+                {{ t('careers.apply') }}
+                <svg 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                  :class="{ 'rotated': showApplyInfo === index }"
+                >
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              
+              <!-- 申请信息下拉菜单 -->
+              <Transition name="slide-down">
+                <div v-if="showApplyInfo === index" class="apply-info">
+                  <div class="apply-info__content">
+                    <p class="apply-info__text">
+                      {{ locale === 'en' 
+                        ? 'Please send your resume and contact information to:' 
+                        : '请将您的简历和联系方式发送至：' 
+                      }}
+                    </p>
+                    <a 
+                      href="mailto:careers@sweekli.com" 
+                      class="apply-info__email"
+                      @click.stop
+                    >
+                      careers@sweekli.com
+                    </a>
+                    <p class="apply-info__note">
+                      {{ locale === 'en'
+                        ? 'Or fill out the contact form below:'
+                        : '或填写下方的联系表单：'
+                      }}
+                    </p>
+                    <button 
+                      class="btn btn--secondary btn--small"
+                      @click="goToContact"
+                    >
+                      {{ locale === 'en' ? 'Go to Contact Form' : '前往联系表单' }}
+                    </button>
+                  </div>
+                </div>
+              </Transition>
+            </div>
           </div>
         </div>
       </div>
@@ -277,5 +338,104 @@ const benefits = [
   content: '•';
   position: absolute;
   right: calc(var(--spacing-2) * -1);
+}
+
+/* Actions */
+.position-card__actions {
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .position-card__actions {
+    width: auto;
+    min-width: 150px;
+  }
+}
+
+.position-card__actions .btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.position-card__actions .btn svg {
+  transition: transform var(--transition-fast);
+}
+
+.position-card__actions .btn svg.rotated {
+  transform: rotate(180deg);
+}
+
+/* Apply Info Dropdown */
+.apply-info {
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-4);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.apply-info__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.apply-info__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  margin: 0;
+}
+
+.apply-info__email {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent-purple);
+  text-decoration: none;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.apply-info__email:hover {
+  background: var(--color-accent-purple);
+  color: var(--color-white);
+  border-color: var(--color-accent-purple);
+}
+
+.apply-info__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+  text-align: center;
+}
+
+.btn--small {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+/* Slide Down Animation */
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease;
+  max-height: 500px;
+  opacity: 1;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 </style>
