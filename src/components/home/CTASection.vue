@@ -33,27 +33,40 @@ useIntersectionObserver(
       <span class="cta__label">{{ locale === 'en' ? 'GET STARTED' : '开始合作' }}</span>
       
       <h2 class="cta__title">
-        {{ locale === 'en' ? 'Ready to Unlock China?' : '准备好开拓中国市场了吗？' }}
+        {{ locale === 'en' ? 'Ready to grow your brand in China and APAC?' : '准备好与我们开始合作了吗？' }}
       </h2>
 
       <p class="cta__desc">
         {{ locale === 'en' 
-          ? 'Join 50+ global brands who trusted Sweekli to bring their products to the world\'s largest consumer market.'
-          : '加入50多个信任思维颗粒的全球品牌，将您的产品带入全球最大的消费市场。'
+          ? 'Join 30+ global brands who trusted Sweekli to bring their products to the world\'s most dynamic consumer market.'
+          : '加入30多个信任思维颗粒的全球品牌，将您的产品带入全球最具活力的消费市场。'
         }}
       </p>
 
       <div class="cta__actions">
-        <RouterLink to="/contact" class="cta__btn cta__btn--primary">
-          <span>{{ locale === 'en' ? 'Start Partnership' : '开启合作' }}</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </RouterLink>
-        <RouterLink to="/services" class="cta__btn cta__btn--secondary">
-          {{ locale === 'en' ? 'Explore Services' : '了解服务' }}
-        </RouterLink>
+        <template v-if="locale === 'en'">
+          <RouterLink to="/contact" class="cta__btn cta__btn--primary">
+            <span>Start Partnership</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </RouterLink>
+          <RouterLink to="/services" class="cta__btn cta__btn--secondary">
+            Explore Services
+          </RouterLink>
+        </template>
+        <template v-else>
+          <RouterLink to="/contact" class="cta__btn cta__btn--primary">
+            <span>销售合作</span>
+          </RouterLink>
+          <RouterLink to="/contact" class="cta__btn cta__btn--secondary">
+            市场合作
+          </RouterLink>
+          <RouterLink to="/contact" class="cta__btn cta__btn--secondary">
+            其他联系方式
+          </RouterLink>
+        </template>
       </div>
     </div>
   </section>

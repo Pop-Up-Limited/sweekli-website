@@ -2,10 +2,19 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useSEO } from '@/utils/seo'
 import CTASection from '@/components/home/CTASection.vue'
 import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
+
+useSEO({
+  title: locale.value === 'en' ? 'E-Commerce Operations' : '电商运营',
+  description: locale.value === 'en'
+    ? 'Full-service e-commerce management across all major Chinese platforms.'
+    : '在中国所有主流平台提供全方位电商管理服务。',
+  path: '/solutions/ecommerce'
+})
 
 const heroRef = ref<HTMLElement | null>(null)
 const isHeroVisible = ref(false)

@@ -3,57 +3,119 @@ import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { getImagePath } from '@/utils/imagePath'
+import { useSEO } from '@/utils/seo'
 import CTASection from '@/components/home/CTASection.vue'
 import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-const services = computed(() => [
-  {
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png'),
-    title: t('services.items.strategy.title'),
-    desc: t('services.items.strategy.desc'),
-    features: [
-      t('services.items.strategy.features.0'),
-      t('services.items.strategy.features.1'),
-      t('services.items.strategy.features.2')
-    ],
-    link: null
-  },
-  {
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png'),
-    title: t('services.items.ecommerce.title'),
-    desc: t('services.items.ecommerce.desc'),
-    features: [
-      t('services.items.ecommerce.features.0'),
-      t('services.items.ecommerce.features.1'),
-      t('services.items.ecommerce.features.2')
-    ],
-    link: '/solutions/ecommerce'
-  },
-  {
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-40.png'),
-    title: t('services.items.marketing.title'),
-    desc: t('services.items.marketing.desc'),
-    features: [
-      t('services.items.marketing.features.0'),
-      t('services.items.marketing.features.1'),
-      t('services.items.marketing.features.2')
-    ],
-    link: '/solutions/marketing'
-  },
-  {
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/53 -53.png'),
-    title: t('services.items.operations.title'),
-    desc: t('services.items.operations.desc'),
-    features: [
-      t('services.items.operations.features.0'),
-      t('services.items.operations.features.1'),
-      t('services.items.operations.features.2')
-    ],
-    link: '/solutions/distribution'
+useSEO({
+  title: locale.value === 'en' ? 'Our Services' : '我们的业务',
+  description: locale.value === 'en'
+    ? 'From market entry strategy to daily operations, we handle every aspect of your China and APAC e-commerce journey.'
+    : '从市场进入战略到日常运营，我们为您的中国和亚太电商之旅提供全方位服务。',
+  path: '/services'
+})
+
+const services = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      {
+        title: t('services.items.strategy.title'),
+        desc: t('services.items.strategy.desc'),
+        features: [
+          t('services.items.strategy.features.0'),
+          t('services.items.strategy.features.1'),
+          t('services.items.strategy.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+      },
+      {
+        title: t('services.items.ecommerce.title'),
+        desc: t('services.items.ecommerce.desc'),
+        features: [
+          t('services.items.ecommerce.features.0'),
+          t('services.items.ecommerce.features.1'),
+          t('services.items.ecommerce.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+      },
+      {
+        title: t('services.items.marketing.title'),
+        desc: t('services.items.marketing.desc'),
+        features: [
+          t('services.items.marketing.features.0'),
+          t('services.items.marketing.features.1'),
+          t('services.items.marketing.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+      },
+      {
+        title: t('services.items.distribution.title'),
+        desc: t('services.items.distribution.desc'),
+        features: [
+          t('services.items.distribution.features.0'),
+          t('services.items.distribution.features.1'),
+          t('services.items.distribution.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+      }
+    ]
+  } else {
+    return [
+      {
+        title: t('services.items.ecommerce.title'),
+        desc: t('services.items.ecommerce.desc'),
+        features: [
+          t('services.items.ecommerce.features.0'),
+          t('services.items.ecommerce.features.1'),
+          t('services.items.ecommerce.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+      },
+      {
+        title: t('services.items.content.title'),
+        desc: t('services.items.content.desc'),
+        features: [
+          t('services.items.content.features.0'),
+          t('services.items.content.features.1'),
+          t('services.items.content.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+      },
+      {
+        title: t('services.items.marketing.title'),
+        desc: t('services.items.marketing.desc'),
+        features: [
+          t('services.items.marketing.features.0'),
+          t('services.items.marketing.features.1'),
+          t('services.items.marketing.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+      },
+      {
+        title: t('services.items.distribution.title'),
+        desc: t('services.items.distribution.desc'),
+        features: [
+          t('services.items.distribution.features.0'),
+          t('services.items.distribution.features.1'),
+          t('services.items.distribution.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+      },
+      {
+        title: t('services.items.supply.title'),
+        desc: t('services.items.supply.desc'),
+        features: [
+          t('services.items.supply.features.0'),
+          t('services.items.supply.features.1'),
+          t('services.items.supply.features.2')
+        ],
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')
+      }
+    ]
   }
-])
+})
 
 const platforms = [
   { name: 'Tmall', logo: '/images/platform-logos/tmall.svg' },
@@ -75,33 +137,29 @@ const platforms = [
       background-type="gradient"
     />
 
-    <!-- Services Grid -->
+    <!-- Services List - Alternating Layout -->
     <section class="services-section">
       <div class="container">
-        <div class="services-grid">
-          <div v-for="(service, index) in services" :key="index" class="service-card">
-            <div class="service-card__icon">
-              <img :src="service.icon" :alt="service.title" />
-            </div>
-            <div class="service-card__content">
-              <h3 class="service-card__title">{{ service.title }}</h3>
-              <p class="service-card__desc">{{ service.desc }}</p>
-              <ul class="service-card__features">
-                <li v-for="(feature, idx) in service.features" :key="idx">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  {{ feature }}
-                </li>
-              </ul>
-              <RouterLink v-if="service.link" :to="service.link" class="service-card__link">
-                {{ locale === 'en' ? 'Learn More' : '了解更多' }}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                  <polyline points="12 5 19 12 12 19"/>
+        <div 
+          v-for="(service, index) in services" 
+          :key="index"
+          class="service-item"
+          :class="{ 'service-item--reverse': index % 2 === 1 }"
+        >
+          <div class="service-item__image">
+            <img :src="service.image" :alt="service.title" loading="lazy" />
+          </div>
+          <div class="service-item__content">
+            <h3 class="service-item__title">{{ service.title }}</h3>
+            <p class="service-item__desc">{{ service.desc }}</p>
+            <ul class="service-item__features">
+              <li v-for="(feature, idx) in service.features" :key="idx">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
-              </RouterLink>
-            </div>
+                {{ feature }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -175,105 +233,98 @@ const platforms = [
   padding-top: 0;
 }
 
-/* Services Grid */
+/* Services Section - Alternating Layout */
 .services-section {
   padding: var(--spacing-24) 0;
   background: var(--color-white);
 }
 
-.services-grid {
+.service-item {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--spacing-8);
-}
-
-.service-card {
-  background: var(--color-gray-50);
-  border-radius: var(--radius-2xl);
-  padding: var(--spacing-8);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-  border: 1px solid var(--color-gray-100);
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--color-accent-purple);
-}
-
-.service-card__icon {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
-  border-radius: var(--radius-xl);
-  display: flex;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-12);
   align-items: center;
-  justify-content: center;
+  margin-bottom: var(--spacing-16);
+  padding: var(--spacing-8) 0;
+}
+
+.service-item:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .service-item {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-16);
+  }
+  
+  .service-item--reverse {
+    direction: rtl;
+  }
+  
+  .service-item--reverse > * {
+    direction: ltr;
+  }
+}
+
+.service-item__image {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4/3;
+}
+
+.service-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.service-item__image:hover img {
+  transform: scale(1.05);
+}
+
+.service-item__content {
+  padding: var(--spacing-6) 0;
+}
+
+.service-item__title {
+  font-family: var(--font-family-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-4);
+  line-height: 1.2;
+}
+
+.service-item__desc {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  line-height: 1.7;
   margin-bottom: var(--spacing-6);
 }
 
-.service-card__icon img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.service-card__title {
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-3);
-}
-
-.service-card__desc {
-  color: var(--color-gray-600);
-  margin-bottom: var(--spacing-5);
-  line-height: 1.6;
-}
-
-.service-card__features {
+.service-item__features {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.service-card__features li {
+.service-item__features li {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-600);
-  margin-bottom: var(--spacing-2);
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-base);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-3);
+  line-height: 1.6;
 }
 
-.service-card__features svg {
+.service-item__features svg {
   color: var(--color-accent-purple);
   flex-shrink: 0;
-}
-
-.service-card__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  margin-top: var(--spacing-4);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-accent-purple);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-
-.service-card__link:hover {
-  gap: var(--spacing-3);
-  color: var(--color-primary);
-}
-
-.service-card__link svg {
-  transition: transform var(--transition-fast);
-}
-
-.service-card__link:hover svg {
-  transform: translateX(4px);
+  margin-top: 0.2em;
 }
 
 /* Platforms */

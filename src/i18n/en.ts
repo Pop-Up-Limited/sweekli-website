@@ -8,13 +8,13 @@ export default {
     insights: 'Insights',
     contact: 'Contact',
     careers: 'Careers',
-    auth: 'Verify Product'
+    auth: 'Shop'
   },
 
   // Hero Section
   hero: {
-    title: 'Your Bridge to China\'s Billion-Dollar Market',
-    subtitle: 'We take the complexity out of selling in China. You ship, we handle everything else — from platform management to brand building, logistics to customer service.',
+    title: 'Your Bridge to China & the APAC Billion-Dollar Market',
+    subtitle: 'We take the complexity out of selling in China and APAC. You ship, we handle everything else — from platform management to brand building, logistics to customer service.',
     cta: 'Get Started',
     scrollDown: 'Scroll'
   },
@@ -32,17 +32,17 @@ export default {
     title: 'How It Works',
     subtitle: 'Simple as 1, 2, 3, 4',
     steps: {
-      connect: {
-        title: 'Connect',
-        desc: 'Share your brand story and goals with us.'
+      match: {
+        title: 'The Right Match Matters.',
+        desc: 'We choose our partners carefully. You bring global strength. We deliver China and APAC expertise. If there\'s alignment, we act.'
       },
-      strategize: {
-        title: 'Strategize',
-        desc: 'We design a tailored China market entry plan.'
+      choose: {
+        title: 'Choose Your Model.',
+        desc: 'We either buy your products and handle everything, OR sell on your behalf for a commission while you cover the costs. No complexity. Full transparency.'
       },
       launch: {
         title: 'Launch',
-        desc: 'We set up your stores, marketing, and logistics.'
+        desc: 'We launch, price, promote, and manage your presence across online platforms and retail channels.'
       },
       grow: {
         title: 'Grow',
@@ -53,12 +53,12 @@ export default {
 
   // Why China
   whyChina: {
-    title: 'Why China?',
+    title: 'Why China and APAC?',
     subtitle: 'The opportunity is massive. The challenges are real.',
     items: {
       market: {
-        title: 'World\'s Largest E-Commerce Market',
-        desc: '$2.8 trillion in online retail sales annually'
+        title: 'World\'s Most Dynamic Consumer Markets',
+        desc: 'China and the APAC region represent billions of consumers, with a fast-growing middle class and strong demand for high-quality international brands'
       },
       consumers: {
         title: '900M+ Online Shoppers',
@@ -89,47 +89,67 @@ export default {
 
   // CTA
   cta: {
-    title: 'Ready to Expand?',
-    subtitle: 'Join 50+ global brands who trusted Sweekli to bring their products to the world\'s largest consumer market.',
+    title: 'Ready to grow your brand in China and APAC?',
+    subtitle: 'Join 30+ global brands who trusted Sweekli to bring their products to the world\'s most dynamic consumer market.',
     button: 'Get Started',
     learnMore: 'Learn More'
   },
 
   // Footer
   footer: {
-    tagline: 'Your trusted partner for cross-border e-commerce success in China.',
+    tagline: 'Your Trusted Gateway to China and APAC Consumer Market',
     quickLinks: 'Quick Links',
     contact: 'Contact',
-    stayUpdated: 'Stay Updated',
-    newsletterDesc: 'Subscribe to our newsletter for the latest insights on China\'s market.',
-    emailPlaceholder: 'Enter your email',
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
-    rights: 'All rights reserved.'
+    rights: 'All rights reserved.',
+    verifyProduct: 'Verify Product'
   },
 
   // About Page
   about: {
     hero: {
       title: 'About Sweekli',
-      subtitle: 'We are a team of cross-border e-commerce experts passionate about connecting global brands with Chinese consumers.'
+      subtitle: 'We help global lifestyle, fashion and tech brands enter, scale and succeed in the China and APAC market through end-to-end distribution and marketing capabilities.'
     },
     mission: {
       title: 'Our Mission',
-      content: 'To simplify cross-border commerce and help international brands thrive in China\'s dynamic market. We believe every great brand deserves access to the world\'s largest consumer market.'
+      content: 'To empower our brand partners with end-to-end capabilities that drive growth, increase sales, and expand influence—becoming their most trusted long-term partner in China and the APAC region.'
     },
     story: {
       title: 'Our Story',
-      content: 'Founded by industry veterans with deep expertise in both Western brands and Chinese e-commerce, Sweekli bridges the gap between global innovation and local execution. With offices in Shanghai and Los Angeles, we combine local knowledge with global perspective.'
+      content: 'Founded in 2015, Sweekli was built to help global lifestyle, fashion, and tech brands navigate and succeed in China and the APAC market. With 10 years of hands-on experience, we provide end-to-end solutions—from market entry and e-commerce to retail distribution, marketing, and PR—supporting brands as they grow and scale locally.'
     },
     values: {
       title: 'Our Values',
-      integrity: 'Integrity',
-      integrityDesc: 'We do what we say and say what we do. Trust is the foundation of every partnership.',
-      excellence: 'Excellence',
-      excellenceDesc: 'We strive for the highest quality in everything we do, from strategy to execution.',
-      partnership: 'Partnership',
-      partnershipDesc: 'Your success is our success. We grow together with our brand partners.'
+      customerCentric: {
+        title: 'Customer-Centric',
+        desc: 'We make long-term decisions rooted in consumer needs and brand value.'
+      },
+      inclusive: {
+        title: 'Inclusive & Respectful',
+        desc: 'We embrace differences and encourage diversity and authentic expression.'
+      },
+      integrity: {
+        title: 'Integrity & Trust',
+        desc: 'We commit to transparency, honesty, and long-term responsibility.'
+      },
+      peopleFirst: {
+        title: 'People-First Growth',
+        desc: 'We believe everyone has the potential to grow and succeed.'
+      },
+      innovation: {
+        title: 'Innovation-Driven',
+        desc: 'We push boundaries through creativity and continuous progress.'
+      },
+      partnership: {
+        title: 'Partnership & Shared Success',
+        desc: 'We grow with our partners and create value together.'
+      }
+    },
+    whereWeWork: {
+      title: 'Where we work',
+      locations: ['Shenzhen', 'Shanghai', 'Hong Kong', 'Taipei', 'Seoul']
     }
   },
 
@@ -137,12 +157,12 @@ export default {
   services: {
     hero: {
       title: 'End-to-End Solutions',
-      subtitle: 'From market entry strategy to daily operations, we handle every aspect of your China e-commerce journey.'
+      subtitle: 'From market entry strategy to daily operations, we handle every aspect of your China and APAC e-commerce journey.'
     },
     items: {
       strategy: {
         title: 'Market Entry Strategy',
-        desc: 'Comprehensive research and strategic planning tailored to your brand\'s unique positioning in China.',
+        desc: 'Comprehensive research and strategic planning tailored to your brand\'s unique positioning in China and APAC.',
         features: ['Market research & analysis', 'Competitive landscape study', 'Entry strategy development']
       },
       ecommerce: {
@@ -155,10 +175,10 @@ export default {
         desc: 'Integrated marketing campaigns that resonate with Chinese consumers.',
         features: ['KOL/Influencer partnerships', 'Social media management', 'Livestream commerce']
       },
-      operations: {
-        title: 'Supply Chain & Logistics',
-        desc: 'Efficient cross-border logistics and warehousing solutions.',
-        features: ['Bonded warehouse operations', 'Cross-border shipping', 'Inventory management']
+      distribution: {
+        title: 'Omnichannel Distribution',
+        desc: 'Comprehensive distribution network across all retail channels in China and APAC.',
+        features: ['Retail partnerships', 'Channel management', 'Inventory distribution']
       }
     },
     platforms: {
@@ -202,7 +222,7 @@ export default {
     categories: {
       tech: 'Tech Accessories',
       bags: 'Bags & Footwear',
-      beauty: 'Beauty & Personal Care',
+      gift: 'Gift & Lifestyle',
       lifestyle: 'Lifestyle'
     }
   },
@@ -211,7 +231,7 @@ export default {
   contact: {
     hero: {
       title: 'Get in Touch',
-      subtitle: 'Ready to explore the China market? Let\'s talk about how we can help your brand succeed.'
+      subtitle: 'Ready to explore the China and APAC market? Let\'s talk about how we can help your brand succeed.'
     },
     form: {
       name: 'Your Name',
@@ -224,7 +244,9 @@ export default {
       title: 'Our Offices',
       shenzhen: 'Shenzhen HQ',
       shanghai: 'Shanghai, China',
-      hongkong: 'Hong Kong'
+      hongkong: 'Hong Kong',
+      taipei: 'Taipei, Taiwan',
+      seoul: 'Seoul, South Korea (Coming Soon)'
     }
   },
 
@@ -255,7 +277,7 @@ export default {
   insights: {
     hero: {
       title: 'Market Insights & Trends',
-      subtitle: 'Stay updated with the latest trends, strategies, and insights from China\'s e-commerce market.'
+      subtitle: 'Stay updated with the latest trends, strategies, and insights from China and APAC market.'
     }
   },
 

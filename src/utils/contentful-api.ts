@@ -322,3 +322,108 @@ export async function fetchBlogPostBySlug(slug: string, locale: 'en' | 'zh' = 'e
   }
 }
 
+// ============================================
+// 职位相关接口和函数
+// ============================================
+
+export interface JobPosting {
+  id: string
+  title: string
+  department: string
+  location: string
+  type: string
+  description: string
+  requirements: string
+  isActive: boolean
+  order?: number
+}
+
+interface JobPostingEntry {
+  sys: {
+    id: string
+    createdAt: string
+    publishedAt?: string
+  }
+  fields: {
+    title?: string
+    department?: string
+    location?: string
+    type?: string
+    description?: string
+    requirements?: string
+    isActive?: boolean
+    order?: number
+  }
+}
+
+interface JobPostingResponse {
+  items: JobPostingEntry[]
+}
+
+/**
+ * 获取所有职位
+ */
+export async function fetchJobPostings(): Promise<JobPosting[]> {
+  try {
+    // 获取所有已发布的职位，按order字段排序（如果存在），否则按创建时间倒序
+    // 注意：Contentful的order参数格式是 -fields.order,-sys.createdAt
+    const url = `${CONTENTFUL_API_BASE}/entries?content_type=${contentfulConfig.jobPostingContentTypeId}&order=-fields.order,-sys.createdAt&access_token=${contentfulConfig.accessToken}`
+    
+    console.log('Fetching job postings from Contentful')
+    const response = await fetch(url)
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Contentful API error:', response.status, errorText)
+      throw new Error(`Contentful API error: ${response.status}`)
+    }
+    
+    const data: JobPostingResponse = await response.json()
+    console.log('Contentful job postings response:', {
+      total: data.items.length,
+      items: data.items.map(item => ({
+        id: item.sys.id,
+        title: item.fields.title,
+        isActive: item.fields.isActive,
+        published: !!item.sys.publishedAt
+      }))
+    })
+    
+    // 转换数据格式，只返回isActive为true的职位
+    const jobs: JobPosting[] = data.items
+      .filter(entry => {
+        // 只返回已发布且isActive为true的职位
+        const isPublished = !!entry.sys.publishedAt
+        const isActive = entry.fields.isActive !== false // 默认为true
+        return isPublished && isActive
+      })
+      .map(entry => {
+        const fields = entry.fields
+        return {
+          id: entry.sys.id,
+          title: fields.title || '',
+          department: fields.department || '',
+          location: fields.location || '',
+          type: fields.type || '',
+          description: fields.description || '',
+          requirements: fields.requirements || '',
+          isActive: fields.isActive !== false,
+          order: fields.order || 999 // 如果没有order，默认999（排在最后）
+        }
+      })
+      .sort((a, b) => {
+        // 按order排序，数字越小越靠前
+        const orderA = a.order || 999
+        const orderB = b.order || 999
+        return orderA - orderB
+      })
+    
+    console.log('Successfully processed job postings:', jobs.map(j => ({ id: j.id, title: j.title, order: j.order })))
+    return jobs
+  } catch (error) {
+    console.error('Error fetching job postings from Contentful:', error)
+    // 返回空数组，避免页面崩溃
+    return []
+  }
+}
+

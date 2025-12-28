@@ -11,28 +11,55 @@ const isVisible = ref(false)
 // Animated counter logic
 const animatedValues = ref<number[]>([0, 0, 0, 0])
 
-const stats = computed(() => [
-  { 
-    value: 50, 
-    suffix: '+',
-    label: locale.value === 'en' ? 'Partner Brands' : '合作品牌'
-  },
-  { 
-    value: 10, 
-    suffix: '+',
-    label: locale.value === 'en' ? 'Countries Served' : '服务国家'
-  },
-  { 
-    value: 500, 
-    suffix: 'M+',
-    label: locale.value === 'en' ? 'GMV Reached' : '累计GMV'
-  },
-  { 
-    value: 7, 
-    suffix: '',
-    label: locale.value === 'en' ? 'Years of Experience' : '年行业经验'
+const stats = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      { 
+        value: 30, 
+        suffix: '+',
+        label: 'Partner Brands'
+      },
+      { 
+        value: 50, 
+        suffix: '+',
+        label: 'Multinational Professionals'
+      },
+      { 
+        value: 35, 
+        suffix: '%',
+        label: '5-YEAR CARG'
+      },
+      { 
+        value: 10, 
+        suffix: '',
+        label: 'Years of Experience'
+      }
+    ]
+  } else {
+    return [
+      { 
+        value: 30, 
+        suffix: '+',
+        label: '运营国际品牌'
+      },
+      { 
+        value: 50, 
+        suffix: '+',
+        label: '团队规模'
+      },
+      { 
+        value: 10, 
+        suffix: '+',
+        label: '电商平台旗舰店'
+      },
+      { 
+        value: 500, 
+        suffix: '+',
+        label: '线下覆盖门店'
+      }
+    ]
   }
-])
+})
 
 const animateCounters = () => {
   const duration = 2000
@@ -46,6 +73,9 @@ const animateCounters = () => {
     const easeOutQuart = 1 - Math.pow(1 - progress, 4)
     
     animatedValues.value = stats.value.map((stat) => {
+      if (stat.suffix === '%') {
+        return Math.floor(stat.value * easeOutQuart)
+      }
       return Math.floor(stat.value * easeOutQuart)
     })
     

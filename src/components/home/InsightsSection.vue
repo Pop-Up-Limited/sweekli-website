@@ -111,7 +111,7 @@ onMounted(async () => {
         </h2>
         <p class="insights-section__subtitle">
           {{ locale === 'en'
-            ? 'Stay updated with the latest trends, strategies, and insights from China\'s e-commerce market.'
+            ? 'Stay updated with the latest trends, strategies, and insights from China and APAC market.'
             : '了解中国电商市场的最新趋势、策略和洞察。'
           }}
         </p>

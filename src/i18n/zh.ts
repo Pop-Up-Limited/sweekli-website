@@ -13,9 +13,9 @@ export default {
 
   // 首页英雄区
   hero: {
-    title: '通往中国十亿美元市场的桥梁',
-    subtitle: '我们为您简化在中国的销售流程。您只需供货，其他一切由我们处理——从平台管理到品牌建设，从物流到客户服务。',
-    cta: '立即开始',
+    title: '全球生活方式品牌中国与亚太市场增长平台',
+    subtitle: '我们将世界范围内兼具设计感、品质与创新力的品牌带入中国与亚洲市场，通过电商、内容、营销与渠道运营，为消费者呈现更美好、更精致的生活方式。',
+    cta: '联系我们',
     scrollDown: '向下滚动'
   },
 
@@ -89,47 +89,69 @@ export default {
 
   // CTA
   cta: {
-    title: '准备好开拓中国市场了吗？',
-    subtitle: '加入50多个信任思维颗粒的全球品牌，将您的产品带入全球最大的消费市场。',
-    button: '立即开始',
+    title: '准备好与我们开始合作了吗？',
+    subtitle: '加入30多个信任思维颗粒的全球品牌，将您的产品带入全球最具活力的消费市场。',
+    button1: '销售合作',
+    button2: '市场合作',
+    button3: '其他联系方式',
     learnMore: '了解更多'
   },
 
   // 页脚
   footer: {
-    tagline: '您在中国跨境电商成功的可靠伙伴。',
+    tagline: 'Your Trusted Gateway to China and APAC Consumer Market',
     quickLinks: '快速链接',
     contact: '联系方式',
-    stayUpdated: '订阅更新',
-    newsletterDesc: '订阅我们的通讯，获取中国市场的最新洞察。',
-    emailPlaceholder: '请输入邮箱',
     privacy: '隐私政策',
     terms: '服务条款',
-    rights: '版权所有'
+    rights: '版权所有',
+    verifyProduct: '正品查询'
   },
 
   // 关于页面
   about: {
     hero: {
       title: '关于思维颗粒',
-      subtitle: '我们是一支跨境电商专家团队，致力于连接全球品牌与中国消费者。'
+      subtitle: '我们帮助全球生活方式、时尚和科技品牌通过端到端的分销和营销能力进入、扩展并在中国和亚太市场取得成功。'
     },
     mission: {
       title: '我们的使命',
-      content: '简化跨境商务，帮助国际品牌在中国充满活力的市场中蓬勃发展。我们相信每一个优秀品牌都值得进入全球最大的消费市场。'
+      content: '为我们的品牌合作伙伴提供端到端的能力，推动增长、增加销售并扩大影响力——成为中国和亚太地区最值得信赖的长期合作伙伴。'
     },
     story: {
       title: '我们的故事',
-      content: '由深谙西方品牌和中国电商的行业资深人士创立，思维颗粒架起了全球创新与本地执行之间的桥梁。我们在上海和洛杉矶设有办公室，将本地洞察与全球视野完美结合。'
+      content: '思维颗粒成立于2015年，旨在帮助全球生活方式、时尚和科技品牌在中国和亚太市场导航并取得成功。凭借10年的实践经验，我们提供端到端的解决方案——从市场进入和电子商务到零售分销、营销和公关——支持品牌在当地成长和扩展。'
     },
     values: {
       title: '我们的价值观',
-      integrity: '诚信',
-      integrityDesc: '言出必行，行出必果。信任是每一个合作关系的基石。',
-      excellence: '卓越',
-      excellenceDesc: '追求一切事物的最高品质，从战略到执行。',
-      partnership: '合作',
-      partnershipDesc: '您的成功就是我们的成功，我们与品牌伙伴共同成长。'
+      customerCentric: {
+        title: '客户至上',
+        desc: '我们以用户体验与品牌价值为核心做出长期决策。'
+      },
+      inclusive: {
+        title: '平等包容',
+        desc: '尊重多元文化，让每个人被看见。'
+      },
+      integrity: {
+        title: '正直守信',
+        desc: '长期主义，坚持透明、诚信。'
+      },
+      peopleFirst: {
+        title: '人尽其才',
+        desc: '激发个人成长与创造力。'
+      },
+      innovation: {
+        title: '创新超越',
+        desc: '用创意推动突破，不断向前。'
+      },
+      partnership: {
+        title: '合作共赢',
+        desc: '与伙伴携手，共同成长。'
+      }
+    },
+    whereWeWork: {
+      title: '工作地点',
+      locations: ['深圳', '上海', '香港', '台北', '首尔']
     }
   },
 
@@ -137,28 +159,33 @@ export default {
   services: {
     hero: {
       title: '端到端解决方案',
-      subtitle: '从市场进入战略到日常运营，我们为您的中国电商之旅提供全方位服务。'
+      subtitle: '从市场进入战略到日常运营，我们为您的中国和亚太电商之旅提供全方位服务。'
     },
     items: {
-      strategy: {
-        title: '市场进入战略',
-        desc: '根据您品牌的独特定位，量身定制全面的市场研究和战略规划。',
-        features: ['市场调研与分析', '竞争格局研究', '进入战略制定']
-      },
       ecommerce: {
         title: '电商运营',
         desc: '全面管理您在中国所有主流平台的线上店铺。',
         features: ['天猫京东店铺管理', '产品列表优化', '中文客户服务']
       },
-      marketing: {
-        title: '数字营销',
-        desc: '打造与中国消费者产生共鸣的整合营销活动。',
-        features: ['KOL/网红合作', '社交媒体运营', '直播电商']
+      content: {
+        title: '内容与视觉创意',
+        desc: '用内容打造品牌"第一感"，包括场景拍摄、详情页设计、视频制作等。',
+        features: ['场景拍摄/产品拍摄', '详情页、海报设计', '视频脚本策划/拍摄/剪辑']
       },
-      operations: {
-        title: '供应链与物流',
-        desc: '高效的跨境物流和仓储解决方案。',
-        features: ['保税仓运营', '跨境物流', '库存管理']
+      marketing: {
+        title: '营销与达人合作',
+        desc: '帮助品牌快速获得社交媒体曝光与真实口碑。',
+        features: ['300+明星合作资源', '18,000+达人库', '小红书种草矩阵']
+      },
+      distribution: {
+        title: '零售渠道分销',
+        desc: '全国500+门店覆盖，助力品牌进入更多生活场景。',
+        features: ['生活方式集合店', '潮流买手店', '百货商超']
+      },
+      supply: {
+        title: '供应链与仓储',
+        desc: '海外采购、进口通关、仓储配送一体化服务。',
+        features: ['30,000平米仓储中心', '日处理订单能力数万单', '完整的售后体系']
       }
     },
     platforms: {
@@ -202,7 +229,7 @@ export default {
     categories: {
       tech: '数码配件',
       bags: '包袋鞋履',
-      beauty: '美妆个护',
+      gift: '礼品与生活方式',
       lifestyle: '生活方式'
     }
   },
@@ -211,7 +238,7 @@ export default {
   contact: {
     hero: {
       title: '联系我们',
-      subtitle: '准备好探索中国市场了吗？让我们谈谈如何帮助您的品牌取得成功。'
+      subtitle: '准备好探索中国和亚太市场了吗？让我们谈谈如何帮助您的品牌取得成功。'
     },
     form: {
       name: '您的姓名',
@@ -224,7 +251,9 @@ export default {
       title: '我们的办公室',
       shenzhen: '深圳总部',
       shanghai: '中国上海',
-      hongkong: '香港'
+      hongkong: '香港',
+      taipei: '台北，台湾',
+      seoul: '首尔，韩国（即将开放）'
     }
   },
 
@@ -251,10 +280,44 @@ export default {
     apply: '立即申请',
     benefits: {
       title: '员工福利',
-      salary: '有竞争力的薪资',
-      growth: '职业发展机会',
-      environment: '国际化工作环境',
-      vacation: '带薪年假'
+      items: [
+        { title: '法定的/五险一金', desc: 'Statutory / Five insurances and one fund' },
+        { title: '每年定期体检/健康最重要', desc: 'Annual regular physical examination / Health is most important' },
+        { title: '超过法律规定的充足年假', desc: 'More than legally stipulated / Ample annual leave' },
+        { title: '我们这儿上班不打卡', desc: 'Here / No clocking in for work' },
+        { title: '如果加班会有补贴或调休', desc: 'If working overtime, there will be / Subsidies or compensatory leave' },
+        { title: '租房享有租房补贴', desc: 'Enjoy rental / Rental subsidies' },
+        { title: '免费健身房游泳团课样样有', desc: 'Free gym, swimming groups / All kinds of classes available' },
+        { title: '完善的晋升机制', desc: 'Perfect / Promotion mechanism' },
+        { title: '优秀员工提供股票期权', desc: 'Excellent employees / Provided with stock options' },
+        { title: '得到混沌等课程时刻充电', desc: 'Get courses like Chaos / Recharge at all times' },
+        { title: '办公室零食畅吃', desc: 'Office snacks / Eat freely' },
+        { title: '不定期各类网红下午茶', desc: 'Irregular various / Internet-famous afternoon tea' },
+        { title: '节日有各种关怀福利', desc: 'Holidays have various / Care benefits' },
+        { title: '自家产品免费体验', desc: 'Own products / Free experience' },
+        { title: '超丰富团建活动和聚餐', desc: 'Super rich / Team building activities and dinners' },
+        { title: '不定期旅游活动', desc: 'Irregular / Travel activities' }
+      ]
+    },
+    whyJoin: {
+      title: '为什么选择思维颗粒',
+      items: [
+        '与全球优秀品牌和国际化同事共事',
+        '开放的年轻文化氛围',
+        '多元发展路径',
+        '超过行业水平的福利待遇',
+        '成长速度快、能见度高'
+      ]
+    },
+    employeeStories: {
+      title: '员工故事'
+    },
+    lifeAtSweekli: {
+      title: '思维颗粒的生活'
+    },
+    applyPlatform: {
+      text: '或通过我们的合作平台提交：',
+      button: '前往招聘合作平台'
     }
   },
 

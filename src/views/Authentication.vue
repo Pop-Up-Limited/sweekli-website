@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
+import { useHead } from '@vueuse/head'
 import { verifyProduct as verifyProductAPI } from '@/utils/saas-integration'
 
 const { t, locale } = useI18n()
@@ -9,6 +10,21 @@ const code = ref('')
 const isVerifying = ref(false)
 const result = ref<'authentic' | 'invalid' | null>(null)
 const errorMessage = ref('')
+
+// SEO配置
+useHead({
+  title: locale.value === 'en' 
+    ? 'Verify Product - Sweekli' 
+    : '正品查询 - 思维颗粒',
+  meta: [
+    {
+      name: 'description',
+      content: locale.value === 'en'
+        ? 'Verify the authenticity of your Sweekli product. Enter your product code to check if your product is genuine.'
+        : '验证您的思维颗粒产品的真实性。请输入产品验证码进行查询。'
+    }
+  ]
+})
 
 const verifyProduct = async () => {
   if (!code.value.trim()) return
@@ -44,6 +60,7 @@ const verifyProduct = async () => {
 const reset = () => {
   code.value = ''
   result.value = null
+  errorMessage.value = ''
 }
 </script>
 
@@ -55,7 +72,7 @@ const reset = () => {
           <div class="auth-header">
             <div class="auth-logo">
               <img 
-                src="/logos/画板 84 副本.svg" 
+                src="/画板 67.svg" 
                 alt="Sweekli"
               />
             </div>
@@ -83,6 +100,7 @@ const reset = () => {
                   <span v-else>{{ t('auth.button') }}</span>
                 </button>
               </div>
+              
               <p class="auth-hint">
                 {{ locale === 'en' 
                   ? 'Enter the unique code found on your product packaging.'
@@ -153,7 +171,7 @@ const reset = () => {
 }
 
 .auth-logo img {
-  height: 40px;
+  height: 24px;
   margin: 0 auto;
 }
 
@@ -173,8 +191,16 @@ const reset = () => {
 /* Form */
 .auth-input-group {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-3);
   margin-bottom: var(--spacing-4);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .auth-input-group {
+    flex-direction: row;
+  }
 }
 
 .auth-input {
@@ -186,6 +212,14 @@ const reset = () => {
   text-align: center;
   letter-spacing: 0.1em;
   transition: border-color var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .auth-input {
+    width: auto;
+  }
 }
 
 .auth-input:focus {
@@ -203,7 +237,16 @@ const reset = () => {
   cursor: pointer;
   transition: all var(--transition-fast);
   min-width: 100px;
+  width: 100%;
+  box-sizing: border-box;
 }
+
+@media (min-width: 640px) {
+  .auth-submit {
+    width: auto;
+  }
+}
+
 
 .auth-submit:hover:not(:disabled) {
   transform: translateY(-2px);

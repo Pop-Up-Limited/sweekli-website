@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useSEO } from '@/utils/seo'
 
 const { locale } = useI18n()
+
+useSEO({
+  title: locale.value === 'en' ? 'Terms of Service' : '服务条款',
+  description: locale.value === 'en'
+    ? 'Sweekli Terms of Service - Read our terms and conditions for using our services.'
+    : '思维颗粒服务条款 - 阅读我们使用服务的条款和条件。',
+  path: '/terms'
+})
 </script>
 
 <template>

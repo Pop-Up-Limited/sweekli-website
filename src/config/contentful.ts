@@ -5,7 +5,8 @@ export const contentfulConfig = {
   spaceId: 'wbpsfgfg62v2',
   accessToken: 'DN_cZeDWpTQcwTgML-lYyvDkLOemgEAOcQXsIlcACsk',
   environment: 'master',
-  contentTypeId: 'blogPost'
+  contentTypeId: 'blogPost',
+  jobPostingContentTypeId: 'jobPosting'
 }
 
 // Contentful API 基础 URL

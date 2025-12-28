@@ -9,29 +9,45 @@ const { t, locale } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
 
-const reasons = computed(() => [
-  {
-    title: locale.value === 'en' ? 'World\'s Largest Consumer Market' : '全球最大消费市场',
-    desc: locale.value === 'en' 
-      ? 'China has over 1.4 billion consumers with a rapidly growing middle class eager for quality international products.'
-      : '中国拥有超过14亿消费者，中产阶级快速增长，对优质国际产品需求旺盛。',
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png')
-  },
-  {
-    title: locale.value === 'en' ? 'Unique E-commerce Ecosystem' : '独特电商生态',
-    desc: locale.value === 'en'
-      ? 'Navigate complex platforms like Tmall, JD, Douyin, and WeChat with our platform expertise and established relationships.'
-      : '凭借我们的平台专业知识和建立的关系，驾驭天猫、京东、抖音、微信等复杂平台。',
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png')
-  },
-  {
-    title: locale.value === 'en' ? 'Cultural & Regulatory Complexity' : '文化与法规复杂性',
-    desc: locale.value === 'en'
-      ? 'We handle cross-border compliance, localization, and cultural adaptation — all the things that trip up brands going solo.'
-      : '我们处理跨境合规、本地化和文化适应——这些都是品牌独自进入时会遇到的问题。',
-    icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png')
+const reasons = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      {
+        title: 'World\'s Most Dynamic Consumer Markets',
+        desc: 'China and the APAC region represent billions of consumers, with a fast-growing middle class and strong demand for high-quality international brands',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png')
+      },
+      {
+        title: 'Unique E-commerce Ecosystem',
+        desc: 'Navigate complex platforms like Tmall, JD, Douyin, and WeChat with our platform expertise and established relationships.',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png')
+      },
+      {
+        title: 'Cultural & Regulatory Complexity',
+        desc: 'We handle cross-border compliance, localization, and cultural adaptation — all the things that trip up brands going solo.',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png')
+      }
+    ]
+  } else {
+    return [
+      {
+        title: '全球最大消费市场',
+        desc: '中国拥有超过14亿消费者，中产阶级快速增长，对优质国际产品需求旺盛。',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png')
+      },
+      {
+        title: '独特电商生态',
+        desc: '凭借我们的平台专业知识和建立的关系，驾驭天猫、京东、抖音、微信等复杂平台。',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png')
+      },
+      {
+        title: '文化与法规复杂性',
+        desc: '我们处理跨境合规、本地化和文化适应——这些都是品牌独自进入时会遇到的问题。',
+        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png')
+      }
+    ]
   }
-])
+})
 
 useIntersectionObserver(
   sectionRef,
@@ -52,7 +68,7 @@ useIntersectionObserver(
         <div class="why-china__left" :class="{ 'is-visible': isVisible }">
           <span class="why-china__label">{{ locale === 'en' ? 'OPPORTUNITY' : '机遇' }}</span>
           <h2 class="why-china__title">
-            {{ locale === 'en' ? 'Why China?' : '为什么选择中国?' }}
+            {{ locale === 'en' ? 'Why China and APAC?' : '为什么选择中国?' }}
           </h2>
           <p class="why-china__intro">
             {{ locale === 'en' 

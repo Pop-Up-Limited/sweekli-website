@@ -32,40 +32,64 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-const steps = computed(() => [
-  {
-    num: '01',
-    title: locale.value === 'en' ? 'We Pick Each Other.' : '双向选择',
-    desc: locale.value === 'en' 
-      ? "We don't work with just anyone. You're a strong global brand. We're your perfect China partner. If we're a fit — we move."
-      : '我们只与具有明确竞争优势的品牌合作。当愿景一致时，我们建立战略合作伙伴关系。',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
-  },
-  {
-    num: '02',
-    title: locale.value === 'en' ? 'We Buy Your Products.' : '采购库存',
-    desc: locale.value === 'en'
-      ? 'You ship us inventory at wholesale. That\'s it. No setup. No team. No risk on your side.'
-      : '您只需以批发价向我们供货。无需设置团队，无需承担风险。',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
-  },
-  {
-    num: '03',
-    title: locale.value === 'en' ? 'We Run the Business.' : '全面运营',
-    desc: locale.value === 'en'
-      ? 'We launch, price, promote, and manage your entire online presence across multiple platforms.'
-      : '我们负责上市、定价、推广，并在多个平台管理您的整个线上业务。',
-    image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
-  },
-  {
-    num: '04',
-    title: locale.value === 'en' ? 'You Get Profits and Peace of Mind.' : '收获利润与安心',
-    desc: locale.value === 'en'
-      ? 'We grow your brand, protect your equity, and send you the results — without you lifting a finger in-market.'
-      : '我们发展您的品牌，保护您的权益，并向您交付成果——您无需在市场上操心任何事。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+const steps = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      {
+        num: '01',
+        title: 'The Right Match Matters.',
+        desc: 'We choose our partners carefully. You bring global strength. We deliver China and APAC expertise. If there\'s alignment, we act.',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+      },
+      {
+        num: '02',
+        title: 'Choose Your Model.',
+        desc: 'We either buy your products and handle everything, OR sell on your behalf for a commission while you cover the costs. No complexity. Full transparency.',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+      },
+      {
+        num: '03',
+        title: 'Launch',
+        desc: 'We launch, price, promote, and manage your presence across online platforms and retail channels.',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+      },
+      {
+        num: '04',
+        title: 'Grow',
+        desc: 'Scale your presence with data-driven optimization.',
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+      }
+    ]
+  } else {
+    // Chinese version - will be hidden on homepage, but keep for consistency
+    return [
+      {
+        num: '01',
+        title: '双向选择',
+        desc: '我们只与具有明确竞争优势的品牌合作。当愿景一致时，我们建立战略合作伙伴关系。',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+      },
+      {
+        num: '02',
+        title: '采购库存',
+        desc: '您只需以批发价向我们供货。无需设置团队，无需承担风险。',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+      },
+      {
+        num: '03',
+        title: '全面运营',
+        desc: '我们负责上市、定价、推广，并在多个平台管理您的整个线上业务。',
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+      },
+      {
+        num: '04',
+        title: '收获利润与安心',
+        desc: '我们发展您的品牌，保护您的权益，并向您交付成果——您无需在市场上操心任何事。',
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+      }
+    ]
   }
-])
+})
 
 useIntersectionObserver(
   sectionRef,

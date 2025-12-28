@@ -14,14 +14,21 @@ const navLinks = computed(() => {
     { path: '/', label: t('nav.home') },
     { path: '/about', label: t('nav.about') },
     { path: '/services', label: t('nav.services') },
-    { path: '/brands', label: t('nav.brands') },
-    { path: '/insights', label: t('nav.insights') },
-    { path: '/contact', label: t('nav.contact') }
+    { path: '/brands', label: t('nav.brands') }
   ]
   
-  // Add careers link only for Chinese
+  // Hide insights for Chinese version
+  if (locale.value === 'en') {
+    links.push({ path: '/insights', label: t('nav.insights') })
+  }
+  
+  // For Chinese version: careers before contact
+  // For English version: contact only
   if (locale.value === 'zh') {
     links.push({ path: '/careers', label: t('nav.careers') })
+    links.push({ path: '/contact', label: t('nav.contact') })
+  } else {
+    links.push({ path: '/contact', label: t('nav.contact') })
   }
   
   return links
@@ -62,7 +69,7 @@ onUnmounted(() => {
       <!-- Logo - 文字logo，始终使用深色版本 -->
       <RouterLink to="/" class="header__logo" @click="closeMobileMenu">
         <img 
-          src="/logos/画板 84 副本.svg" 
+          src="/画板 67.svg" 
           alt="Sweekli" 
           class="logo-img"
         />
@@ -84,13 +91,21 @@ onUnmounted(() => {
 
       <!-- Actions -->
       <div class="header__actions">
+        <!-- Shop button - only for English version -->
+        <a 
+          v-if="locale === 'en'"
+          href="https://www.sweekli.com/" 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="header__auth"
+        >
+          {{ t('nav.auth') }}
+        </a>
+        
+        <!-- Language toggle - moved to the rightmost -->
         <button class="header__lang" @click="toggleLanguage">
           {{ locale === 'en' ? '中' : 'EN' }}
         </button>
-        
-        <RouterLink to="/authentication" class="header__auth">
-          {{ t('nav.auth') }}
-        </RouterLink>
 
         <!-- Mobile Menu Toggle -->
         <button 
@@ -126,15 +141,17 @@ onUnmounted(() => {
       >
         {{ link.label }}
       </RouterLink>
-      <!-- Mobile: Add Verify Product link -->
-      <RouterLink 
-        to="/authentication" 
+      <!-- Mobile: Add Shop link for English only -->
+      <a 
+        v-if="locale === 'en'"
+        href="https://www.sweekli.com/" 
+        target="_blank"
+        rel="noopener noreferrer"
         class="header__link header__link--auth"
-        :class="{ 'is-active': route.path === '/authentication' }"
         @click="closeMobileMenu"
       >
         {{ t('nav.auth') }}
-      </RouterLink>
+      </a>
     </nav>
   </Teleport>
 </template>
@@ -171,7 +188,7 @@ onUnmounted(() => {
 }
 
 .logo-img {
-  height: 32px;
+  height: 19.2px;
   width: auto;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -182,7 +199,7 @@ onUnmounted(() => {
 }
 
 .header.is-scrolled .logo-img {
-  height: 28px;
+  height: 16.8px;
 }
 
 /* Navigation */

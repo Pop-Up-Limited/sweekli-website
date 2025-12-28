@@ -3,10 +3,19 @@ import { useI18n } from 'vue-i18n'
 import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getImagePath } from '@/utils/imagePath'
+import { useSEO } from '@/utils/seo'
 import PageHero from '@/components/common/PageHero.vue'
 import { fetchBlogPosts, type BlogPost } from '@/utils/contentful-api'
 
 const { t, locale } = useI18n()
+
+useSEO({
+  title: locale.value === 'en' ? 'Market Insights & Trends' : '行业洞察',
+  description: locale.value === 'en'
+    ? 'Stay updated with the latest trends, strategies, and insights from China and APAC market.'
+    : '了解中国和亚太市场的最新趋势、策略和洞察。',
+  path: '/insights'
+})
 const router = useRouter()
 
 // 静态文章数据作为后备

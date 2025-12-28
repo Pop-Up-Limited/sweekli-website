@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useSEO } from '@/utils/seo'
 import PageHero from '@/components/common/PageHero.vue'
 import TallyForm from '@/components/common/TallyForm.vue'
 
 const { t, locale } = useI18n()
+
+useSEO({
+  title: locale.value === 'en' ? 'Contact Us' : '联系我们',
+  description: locale.value === 'en'
+    ? 'Ready to explore the China and APAC market? Get in touch with our team. We have offices in Shenzhen, Shanghai, Hong Kong, Taipei, and Seoul.'
+    : '准备好探索中国和亚太市场了吗？联系我们。我们在深圳、上海、香港、台北和首尔设有办公室。',
+  path: '/contact'
+})
 
 </script>
 
@@ -62,6 +71,27 @@ const { t, locale } = useI18n()
                 }}
               </p>
               <a href="mailto:hk@sweekli.com" class="office-card__email">hk@sweekli.com</a>
+            </div>
+
+            <div class="office-card">
+              <h4 class="office-card__name">{{ t('contact.offices.taipei') }}</h4>
+              <p class="office-card__address">
+                {{ locale === 'en'
+                  ? '2F, No. 83, Section 1, Chongqing South Road, Taipei'
+                  : '台北市重庆南路一段83号2楼'
+                }}
+              </p>
+              <a href="mailto:taipei@sweekli.com" class="office-card__email">taipei@sweekli.com</a>
+            </div>
+
+            <div class="office-card">
+              <h4 class="office-card__name">{{ t('contact.offices.seoul') }}</h4>
+              <p class="office-card__address">
+                {{ locale === 'en'
+                  ? 'Coming Soon'
+                  : '即将开放'
+                }}
+              </p>
             </div>
 
             <div class="contact-info__general">

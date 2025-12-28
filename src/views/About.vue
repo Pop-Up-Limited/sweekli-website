@@ -2,27 +2,110 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { getImagePath } from '@/utils/imagePath'
+import { useSEO } from '@/utils/seo'
 import PageHero from '@/components/common/PageHero.vue'
 
 const { t, locale } = useI18n()
 
-const values = computed(() => [
-  {
-    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
-    title: t('about.values.integrity'),
-    desc: t('about.values.integrityDesc')
-  },
-  {
-    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
-    title: t('about.values.excellence'),
-    desc: t('about.values.excellenceDesc')
-  },
-  {
-    icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
-    title: t('about.values.partnership'),
-    desc: t('about.values.partnershipDesc')
+useSEO({
+  title: locale.value === 'en' ? 'About Sweekli' : '关于思维颗粒',
+  description: locale.value === 'en'
+    ? 'We help global lifestyle, fashion and tech brands enter, scale and succeed in the China and APAC market through end-to-end distribution and marketing capabilities.'
+    : '我们帮助全球生活方式、时尚和科技品牌通过端到端的分销和营销能力进入、扩展并在中国和亚太市场取得成功。',
+  path: '/about'
+})
+
+const values = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        title: t('about.values.customerCentric.title'),
+        desc: t('about.values.customerCentric.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        title: t('about.values.inclusive.title'),
+        desc: t('about.values.inclusive.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        title: t('about.values.integrity.title'),
+        desc: t('about.values.integrity.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        title: t('about.values.peopleFirst.title'),
+        desc: t('about.values.peopleFirst.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        title: t('about.values.innovation.title'),
+        desc: t('about.values.innovation.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        title: t('about.values.partnership.title'),
+        desc: t('about.values.partnership.desc')
+      }
+    ]
+  } else {
+    return [
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        title: t('about.values.customerCentric.title'),
+        desc: t('about.values.customerCentric.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        title: t('about.values.inclusive.title'),
+        desc: t('about.values.inclusive.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        title: t('about.values.integrity.title'),
+        desc: t('about.values.integrity.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        title: t('about.values.peopleFirst.title'),
+        desc: t('about.values.peopleFirst.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        title: t('about.values.innovation.title'),
+        desc: t('about.values.innovation.desc')
+      },
+      {
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        title: t('about.values.partnership.title'),
+        desc: t('about.values.partnership.desc')
+      }
+    ]
   }
-])
+})
+
+const stats = computed(() => {
+  if (locale.value === 'en') {
+    return [
+      { value: '10+', label: 'E-commerce Flagship Stores' },
+      { value: '5', label: 'Office Locations' },
+      { value: '500+', label: 'Retail Outlets Covered' },
+      { value: '50+', label: 'Team Size' },
+      { value: '35%', label: '5-Year CARG' },
+      { value: '30+', label: 'International Brands Operated' }
+    ]
+  } else {
+    return [
+      { value: '10+', label: '电商平台旗舰店' },
+      { value: '5', label: '办公地点' },
+      { value: '500+', label: '线下覆盖门店' },
+      { value: '50+', label: '团队规模' },
+      { value: '35%', label: '公司近5年年均增长' },
+      { value: '30+', label: '运营国际品牌' }
+    ]
+  }
+})
 
 </script>
 
@@ -36,6 +119,22 @@ const values = computed(() => [
       background-type="image"
       :background-image="'/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'"
     />
+
+    <!-- Stats Section -->
+    <section class="about-stats">
+      <div class="container">
+        <div class="about-stats__grid">
+          <div 
+            v-for="(stat, index) in stats" 
+            :key="index"
+            class="about-stat-item"
+          >
+            <span class="about-stat-item__value">{{ stat.value }}</span>
+            <span class="about-stat-item__label">{{ stat.label }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Mission Section -->
     <section class="about-section">
@@ -91,6 +190,30 @@ const values = computed(() => [
             </div>
             <h3 class="value-card__title">{{ value.title }}</h3>
             <p class="value-card__desc">{{ value.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where We Work Section -->
+    <section class="about-section about-where-we-work">
+      <div class="container">
+        <div class="about-where-we-work__header">
+          <span class="about-where-we-work__label">{{ t('about.whereWeWork.title') }}</span>
+        </div>
+        <div class="about-where-we-work__grid">
+          <div 
+            v-for="(location, index) in (locale === 'en' ? ['Shenzhen', 'Shanghai', 'Hong Kong', 'Taipei', 'Seoul'] : ['深圳', '上海', '香港', '台北', '首尔'])"
+            :key="index"
+            class="location-card"
+          >
+            <div class="location-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <span class="location-card__name">{{ location }}</span>
           </div>
         </div>
       </div>
@@ -231,6 +354,12 @@ const values = computed(() => [
   gap: var(--spacing-8);
 }
 
+@media (min-width: 1200px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .value-card {
   background: var(--color-gray-50);
   padding: var(--spacing-8);
@@ -309,5 +438,129 @@ const values = computed(() => [
 
 .gallery-item:hover img {
   transform: scale(1.1);
+}
+
+/* Stats Section */
+.about-stats {
+  background: var(--color-gray-50);
+  padding: var(--spacing-16) 0;
+}
+
+.about-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-8);
+}
+
+@media (min-width: 768px) {
+  .about-stats__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-stats__grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.about-stat-item {
+  text-align: center;
+  padding: var(--spacing-6);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-stat-item__value {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-purple);
+  margin-bottom: var(--spacing-2);
+}
+
+.about-stat-item__label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  line-height: 1.4;
+}
+
+/* Where We Work */
+.about-where-we-work {
+  background: var(--color-white);
+}
+
+.about-where-we-work__header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.about-where-we-work__label {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent-purple);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.about-where-we-work__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-6);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .about-where-we-work__grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.location-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-6);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+}
+
+.location-card:hover {
+  background: var(--color-accent-purple);
+  color: var(--color-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.location-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-purple);
+  transition: color var(--transition-fast);
+}
+
+.location-card:hover .location-card__icon {
+  color: var(--color-white);
+}
+
+.location-card__name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+.location-card:hover .location-card__name {
+  color: var(--color-white);
 }
 </style>
