@@ -35,7 +35,9 @@ onMounted(async () => {
   try {
     positionsLoading.value = true
     positionsError.value = false
+    console.log('Fetching job postings from Contentful...')
     const jobs = await fetchJobPostings()
+    console.log('Fetched jobs:', jobs)
     
     // 如果Contentful中没有职位，使用默认数据作为后备
     if (jobs.length === 0) {
@@ -106,41 +108,85 @@ onMounted(async () => {
   }
 })
 
-const benefits = computed(() => t('careers.benefits.items', { returnObjects: true }) as Array<{title: string, desc: string}>)
-
-const whyJoin = computed(() => t('careers.whyJoin.items', { returnObjects: true }) as string[])
-
-// 员工故事数据 - 使用员工活动照片
-const employeeStories = [
-  {
-    name: '陈光毅',
-    title: '运营总监',
-    quote: '吸引的是公司融洽的氛围, 还有对公司未来的愿景和对我的信任。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')
-  },
-  {
-    name: 'Amber',
-    title: '媒介策划',
-    quote: '在工作中追求乐趣, 在乐趣中找到自己。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')
-  },
-  {
-    name: '钟羽',
-    title: '资深设计师',
-    quote: '有趣的灵魂万里挑一, 不设边界, 不惧挑战。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')
+const benefits = computed(() => {
+  try {
+    const items = t('careers.benefits.items', { returnObjects: true })
+    console.log('Benefits items:', items)
+    if (Array.isArray(items) && items.length > 0) {
+      return items as Array<{title: string, desc: string}>
+    }
+    // 如果翻译失败，使用后备数据
+    console.warn('Benefits translation failed, using fallback')
+    return locale.value === 'en' ? [
+      { title: 'Statutory / Five insurances and one fund', desc: 'Comprehensive social insurance coverage' },
+      { title: 'Annual regular physical examination', desc: 'Health is most important' },
+      { title: 'More than legally stipulated', desc: 'Ample annual leave' },
+      { title: 'No clocking in for work', desc: 'Flexible working hours' },
+      { title: 'Overtime compensation', desc: 'Subsidies or compensatory leave' },
+      { title: 'Rental subsidies', desc: 'Enjoy rental support' },
+      { title: 'Free gym and classes', desc: 'All kinds of classes available' },
+      { title: 'Perfect promotion mechanism', desc: 'Clear career progression' },
+      { title: 'Stock options', desc: 'Provided for excellent employees' },
+      { title: 'Learning opportunities', desc: 'Recharge at all times' },
+      { title: 'Office snacks', desc: 'Eat freely' },
+      { title: 'Afternoon tea', desc: 'Internet-famous afternoon tea' },
+      { title: 'Holiday benefits', desc: 'Various care benefits' },
+      { title: 'Free product experience', desc: 'Own products' },
+      { title: 'Team building', desc: 'Super rich activities and dinners' },
+      { title: 'Travel activities', desc: 'Irregular travel opportunities' }
+    ] : [
+      { title: '法定的/五险一金', desc: 'Statutory / Five insurances and one fund' },
+      { title: '每年定期体检/健康最重要', desc: 'Annual regular physical examination / Health is most important' },
+      { title: '超过法律规定的充足年假', desc: 'More than legally stipulated / Ample annual leave' },
+      { title: '我们这儿上班不打卡', desc: 'Here / No clocking in for work' },
+      { title: '如果加班会有补贴或调休', desc: 'If working overtime, there will be / Subsidies or compensatory leave' },
+      { title: '租房享有租房补贴', desc: 'Enjoy rental / Rental subsidies' },
+      { title: '免费健身房游泳团课样样有', desc: 'Free gym, swimming groups / All kinds of classes available' },
+      { title: '完善的晋升机制', desc: 'Perfect / Promotion mechanism' },
+      { title: '优秀员工提供股票期权', desc: 'Excellent employees / Provided with stock options' },
+      { title: '得到混沌等课程时刻充电', desc: 'Get courses like Chaos / Recharge at all times' },
+      { title: '办公室零食畅吃', desc: 'Office snacks / Eat freely' },
+      { title: '不定期各类网红下午茶', desc: 'Irregular various / Internet-famous afternoon tea' },
+      { title: '节日有各种关怀福利', desc: 'Holidays have various / Care benefits' },
+      { title: '自家产品免费体验', desc: 'Own products / Free experience' },
+      { title: '超丰富团建活动和聚餐', desc: 'Super rich / Team building activities and dinners' },
+      { title: '不定期旅游活动', desc: 'Irregular / Travel activities' }
+    ]
+  } catch (error) {
+    console.error('Error loading benefits:', error)
+    return []
   }
-]
+})
 
-const activeStoryIndex = ref(0)
+const whyJoin = computed(() => {
+  try {
+    const items = t('careers.whyJoin.items', { returnObjects: true })
+    console.log('WhyJoin items:', items)
+    if (Array.isArray(items) && items.length > 0) {
+      return items as string[]
+    }
+    // 如果翻译失败，使用后备数据
+    console.warn('WhyJoin translation failed, using fallback')
+    return locale.value === 'en' ? [
+      'Work with global brands and international colleagues',
+      'Open and young culture',
+      'Diverse career paths',
+      'Benefits above industry standards',
+      'Fast growth and high visibility'
+    ] : [
+      '与全球优秀品牌和国际化同事共事',
+      '开放的年轻文化氛围',
+      '多元发展路径',
+      '超过行业水平的福利待遇',
+      '成长速度快、能见度高'
+    ]
+  } catch (error) {
+    console.error('Error loading whyJoin:', error)
+    return []
+  }
+})
 
-const nextStory = () => {
-  activeStoryIndex.value = (activeStoryIndex.value + 1) % employeeStories.length
-}
-
-const prevStory = () => {
-  activeStoryIndex.value = (activeStoryIndex.value - 1 + employeeStories.length) % employeeStories.length
-}
+// 员工故事部分已移除，待确认需求
 
 // 思维颗粒的生活 - 员工活动照片轮播
 // 使用About页面gallery中的员工活动照片
@@ -163,6 +209,38 @@ const nextLifeImage = () => {
 
 const prevLifeImage = () => {
   activeLifeIndex.value = (activeLifeIndex.value - 1 + lifeImages.length) % lifeImages.length
+}
+
+// 员工故事
+const employeeStories = [
+  {
+    name: '员工A',
+    title: '电商运营经理',
+    quote: '在思维颗粒工作让我有机会与全球优秀品牌合作，每天都在学习新的东西，成长速度很快。',
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')
+  },
+  {
+    name: '员工B',
+    title: '品牌营销专员',
+    quote: '这里的工作氛围非常开放，同事们都很年轻有活力，大家一起为品牌创造价值，很有成就感。',
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')
+  },
+  {
+    name: '员工C',
+    title: '客户成功经理',
+    quote: '思维颗粒给了我很多学习和发展的机会，公司提供的福利待遇也很不错，是一个很好的平台。',
+    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')
+  }
+]
+
+const activeStoryIndex = ref(0)
+
+const nextStory = () => {
+  activeStoryIndex.value = (activeStoryIndex.value + 1) % employeeStories.length
+}
+
+const prevStory = () => {
+  activeStoryIndex.value = (activeStoryIndex.value - 1 + employeeStories.length) % employeeStories.length
 }
 
 </script>
@@ -236,7 +314,113 @@ const prevLifeImage = () => {
         <div class="benefits-grid">
           <div v-for="(benefit, index) in benefits" :key="index" class="benefit-card">
             <div class="benefit-card__icon-wrapper">
-              <div class="benefit-card__icon-bg"></div>
+              <div class="benefit-card__icon-bg">
+                <!-- 0: 五险一金 - 保险/盾牌 -->
+                <svg v-if="index === 0" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <!-- 1: 定期体检 - 医疗/健康 -->
+                <svg v-else-if="index === 1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                  <path d="M12 8v8"/>
+                  <path d="M8 12h8"/>
+                </svg>
+                <!-- 2: 充足年假 - 日历 -->
+                <svg v-else-if="index === 2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <path d="M8 14h.01"/>
+                  <path d="M12 14h.01"/>
+                  <path d="M16 14h.01"/>
+                  <path d="M8 18h.01"/>
+                  <path d="M12 18h.01"/>
+                  <path d="M16 18h.01"/>
+                </svg>
+                <!-- 3: 不打卡 - 时钟/灵活时间 -->
+                <svg v-else-if="index === 3" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <!-- 4: 加班补贴 - 金钱 -->
+                <svg v-else-if="index === 4" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <!-- 5: 租房补贴 - 房子 -->
+                <svg v-else-if="index === 5" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <!-- 6: 免费健身房 - 健身 -->
+                <svg v-else-if="index === 6" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 6.5h11v11h-11z"/>
+                  <path d="M6.5 17l5-5 5 5"/>
+                  <path d="M12 12l-5-5 5-5"/>
+                </svg>
+                <!-- 7: 晋升机制 - 上升箭头 -->
+                <svg v-else-if="index === 7" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19V5"/>
+                  <path d="M5 12l7-7 7 7"/>
+                </svg>
+                <!-- 8: 股票期权 - 图表 -->
+                <svg v-else-if="index === 8" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                  <polyline points="17 6 23 6 23 12"/>
+                </svg>
+                <!-- 9: 学习机会 - 书本 -->
+                <svg v-else-if="index === 9" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <!-- 10: 办公室零食 - 食物 -->
+                <svg v-else-if="index === 10" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                  <path d="M7 2v20"/>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Z"/>
+                </svg>
+                <!-- 11: 下午茶 - 茶/咖啡 -->
+                <svg v-else-if="index === 11" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                  <line x1="6" y1="1" x2="6" y2="4"/>
+                  <line x1="10" y1="1" x2="10" y2="4"/>
+                  <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+                <!-- 12: 节日福利 - 礼物 -->
+                <svg v-else-if="index === 12" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12"/>
+                  <rect x="2" y="7" width="20" height="5"/>
+                  <line x1="12" y1="22" x2="12" y2="7"/>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                </svg>
+                <!-- 13: 免费产品体验 - 产品/盒子 -->
+                <svg v-else-if="index === 13" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                <!-- 14: 团建活动 - 团队 -->
+                <svg v-else-if="index === 14" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <!-- 15: 旅游活动 - 旅行/地图 -->
+                <svg v-else-if="index === 15" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <!-- 默认图标（打勾） -->
+                <svg v-else width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
             </div>
             <h3 class="benefit-card__title">{{ benefit.title }}</h3>
             <p class="benefit-card__desc">{{ benefit.desc }}</p>
@@ -248,7 +432,7 @@ const prevLifeImage = () => {
     <!-- Work Locations -->
     <section class="careers-locations section">
       <div class="container">
-        <h2 class="section-title text-center">工作地点</h2>
+        <h2 class="section-title text-center">{{ locale === 'en' ? 'Work Locations' : '工作地点' }}</h2>
         <div class="locations-grid">
           <div class="location-item">
             <div class="location-item__icon">
@@ -257,8 +441,8 @@ const prevLifeImage = () => {
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h3 class="location-item__name">深圳</h3>
-            <p class="location-item__address">龙岗区坂田街道天安云谷二期 6 栋</p>
+            <h3 class="location-item__name">{{ locale === 'en' ? 'Shenzhen' : '深圳' }}</h3>
+            <p class="location-item__address">{{ locale === 'en' ? 'Block 6, Cloud Park, Bantian Street, Longgang District' : '龙岗区坂田街道天安云谷二期 6 栋' }}</p>
           </div>
           <div class="location-item">
             <div class="location-item__icon">
@@ -267,8 +451,8 @@ const prevLifeImage = () => {
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h3 class="location-item__name">上海</h3>
-            <p class="location-item__address">延安东路 588 号 2 楼</p>
+            <h3 class="location-item__name">{{ locale === 'en' ? 'Shanghai' : '上海' }}</h3>
+            <p class="location-item__address">{{ locale === 'en' ? 'Floor 2, 588 East Yan\'an Road' : '延安东路 588 号 2 楼' }}</p>
           </div>
           <div class="location-item">
             <div class="location-item__icon">
@@ -277,8 +461,8 @@ const prevLifeImage = () => {
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h3 class="location-item__name">香港</h3>
-            <p class="location-item__address">湾仔轩尼诗道 200 号 11 楼</p>
+            <h3 class="location-item__name">{{ locale === 'en' ? 'Hong Kong' : '香港' }}</h3>
+            <p class="location-item__address">{{ locale === 'en' ? '11F, 200 Hennessy Road, Wan Chai' : '湾仔轩尼诗道 200 号 11 楼' }}</p>
           </div>
           <div class="location-item">
             <div class="location-item__icon">
@@ -287,8 +471,8 @@ const prevLifeImage = () => {
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h3 class="location-item__name">台北</h3>
-            <p class="location-item__address">重庆南路一段 83 号</p>
+            <h3 class="location-item__name">{{ locale === 'en' ? 'Taipei' : '台北' }}</h3>
+            <p class="location-item__address">{{ locale === 'en' ? 'No. 83, Section 1, Chongqing South Road' : '重庆南路一段 83 号' }}</p>
           </div>
           <div class="location-item">
             <div class="location-item__icon">
@@ -297,8 +481,8 @@ const prevLifeImage = () => {
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h3 class="location-item__name">首尔</h3>
-            <p class="location-item__address">即将开业</p>
+            <h3 class="location-item__name">{{ locale === 'en' ? 'Seoul' : '首尔' }}</h3>
+            <p class="location-item__address">{{ locale === 'en' ? 'Coming Soon' : '即将开业' }}</p>
           </div>
         </div>
       </div>
@@ -356,9 +540,7 @@ const prevLifeImage = () => {
             class="why-join-item"
           >
             <div class="why-join-item__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
+              <span class="why-join-item__number">{{ index + 1 }}</span>
             </div>
             <span class="why-join-item__text">{{ reason }}</span>
           </div>
@@ -372,11 +554,11 @@ const prevLifeImage = () => {
         <h2 class="section-title text-center">{{ t('careers.employeeStories.title') }}</h2>
         <div class="stories-carousel">
           <div class="stories-carousel__wrapper">
-            <TransitionGroup name="fade-slide" tag="div" class="stories-carousel__track">
+            <div class="stories-carousel__track">
               <div 
                 v-for="(story, index) in employeeStories" 
-                :key="story.name"
-                v-show="index === activeStoryIndex"
+                :key="index"
+                v-show="activeStoryIndex === index"
                 class="story-card"
               >
                 <div class="story-card__image">
@@ -385,10 +567,10 @@ const prevLifeImage = () => {
                 <div class="story-card__content">
                   <h3 class="story-card__name">{{ story.name }}</h3>
                   <p class="story-card__title">{{ story.title }}</p>
-                  <blockquote class="story-card__quote">{{ story.quote }}</blockquote>
+                  <p class="story-card__quote">{{ story.quote }}</p>
                 </div>
               </div>
-            </TransitionGroup>
+            </div>
             <button class="stories-carousel__btn stories-carousel__btn--prev" @click="prevStory" aria-label="Previous">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="15 18 9 12 15 6"/>
@@ -485,7 +667,7 @@ const prevLifeImage = () => {
                       {{ t('careers.applyPlatform.text') }}
                     </p>
                     <a 
-                      href="#"
+                      href="https://www.zhipin.com/gongsir/xxx.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="btn btn--secondary btn--small"
@@ -508,6 +690,16 @@ const prevLifeImage = () => {
   padding-top: 0;
 }
 
+/* Section通用样式 */
+.section {
+  padding: var(--spacing-16, 4rem) 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-12, 3rem) 0;
+  }
+}
 
 /* Section Title */
 .section-title {
@@ -593,14 +785,10 @@ const prevLifeImage = () => {
   background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
   border-radius: var(--radius-xl);
   position: absolute;
-}
-
-.benefit-card__icon {
-  display: block;
-  font-size: 2.5rem;
-  margin-bottom: var(--spacing-3);
-  position: relative;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-purple);
 }
 
 .benefit-card__title {
@@ -985,6 +1173,14 @@ const prevLifeImage = () => {
   background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
   border-radius: var(--radius-lg);
   color: var(--color-accent-purple);
+}
+
+.why-join-item__number {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-purple);
+  line-height: 1;
 }
 
 .why-join-item__text {

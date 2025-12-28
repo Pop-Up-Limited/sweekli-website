@@ -32,10 +32,10 @@ useSEO({
     <!-- English version: HowItWorks, WhyChina, SuccessStories, InsightsSection -->
     <!-- Chinese version: ServicesOverview, JoinUsSection -->
     <template v-if="locale === 'en'">
-      <HowItWorks />
       <WhyChina />
       <BrandsShowcase />
       <SuccessStories />
+      <HowItWorks />
       <InsightsSection />
     </template>
     <template v-else>

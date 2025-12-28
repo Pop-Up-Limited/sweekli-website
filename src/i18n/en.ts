@@ -270,7 +270,48 @@ export default {
     subtitle: 'Build your career with a fast-growing cross-border e-commerce company.',
     positions: 'Open Positions',
     culture: 'Our Culture',
-    apply: 'Apply Now'
+    apply: 'Apply Now',
+    benefits: {
+      title: 'Employee Benefits',
+      items: [
+        { title: 'Statutory / Five insurances and one fund', desc: 'Comprehensive social insurance coverage' },
+        { title: 'Annual regular physical examination', desc: 'Health is most important' },
+        { title: 'More than legally stipulated', desc: 'Ample annual leave' },
+        { title: 'No clocking in for work', desc: 'Flexible working hours' },
+        { title: 'Overtime compensation', desc: 'Subsidies or compensatory leave' },
+        { title: 'Rental subsidies', desc: 'Enjoy rental support' },
+        { title: 'Free gym and classes', desc: 'All kinds of classes available' },
+        { title: 'Perfect promotion mechanism', desc: 'Clear career progression' },
+        { title: 'Stock options', desc: 'Provided for excellent employees' },
+        { title: 'Learning opportunities', desc: 'Recharge at all times' },
+        { title: 'Office snacks', desc: 'Eat freely' },
+        { title: 'Afternoon tea', desc: 'Internet-famous afternoon tea' },
+        { title: 'Holiday benefits', desc: 'Various care benefits' },
+        { title: 'Free product experience', desc: 'Own products' },
+        { title: 'Team building', desc: 'Super rich activities and dinners' },
+        { title: 'Travel activities', desc: 'Irregular travel opportunities' }
+      ]
+    },
+    whyJoin: {
+      title: 'Why Join Sweekli',
+      items: [
+        'Work with global brands and international colleagues',
+        'Open and young culture',
+        'Diverse career paths',
+        'Benefits above industry standards',
+        'Fast growth and high visibility'
+      ]
+    },
+    employeeStories: {
+      title: 'Employee Stories'
+    },
+    lifeAtSweekli: {
+      title: 'Life at Sweekli'
+    },
+    applyPlatform: {
+      text: 'Or submit through our partner platform:',
+      button: 'Go to Partner Platform'
+    }
   },
 
   // Insights Page

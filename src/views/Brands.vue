@@ -27,37 +27,37 @@ const categories = computed(() => [
       { 
         name: 'Case-Mate', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png'),
-        image: getImagePath('/images/Sweekli 英文 PDF内图片素材/4 E-Commerce Case Studies/1.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate 1.png')
       },
       { 
         name: 'Twelve South', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth 1.png')
       },
       { 
         name: 'Satechi', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi  1.png')
       },
       { 
         name: 'Native Union', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png'),
-        image: getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Native Union 0.png')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Native Union 1.png')
       },
       { 
         name: 'iDeal of Sweden', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Ideal of Sweden 1.png')
       },
       { 
         name: 'Holdit', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit 1.png')
       },
       { 
         name: 'String Ting', 
         logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting 1.png')
       }
     ]
   },
@@ -67,17 +67,17 @@ const categories = computed(() => [
       { 
         name: 'Notabag', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/notabag1.png')
       },
       { 
         name: 'Urth', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/Urth 1.png')
       },
       { 
         name: 'Spingle Move', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/SPINGLE1.png')
       }
     ]
   },
@@ -87,17 +87,17 @@ const categories = computed(() => [
       { 
         name: 'suckUK', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/suckUK.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/suck uk 1.png')
       },
       { 
         name: 'OTOTO', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/OTOTO.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/OTOTO 1.png')
       },
       { 
         name: 'Fressko', 
         logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/Fressko.png'),
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/1 home banner/1-PC.jpg')
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/Fressko 1.png')
       }
     ]
   }
@@ -195,9 +195,35 @@ const categories = computed(() => [
 }
 
 /* Adjust logo sizes for specific brands */
+/* Native Union logo - 250x80 ratio (3.125:1) */
 .brand-card:nth-child(5) .brand-card__logo img {
-  max-width: 80px;
-  max-height: 40px;
+  max-width: 250px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive adjustments for Native Union logo */
+@media (max-width: 639px) {
+  .brand-card:nth-child(5) .brand-card__logo img {
+    max-width: 180px;
+    max-height: 58px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .brand-card:nth-child(5) .brand-card__logo img {
+    max-width: 200px;
+    max-height: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-card:nth-child(5) .brand-card__logo img {
+    max-width: 250px;
+    max-height: 80px;
+  }
 }
 
 .brand-card:nth-child(7) .brand-card__logo img,
@@ -232,6 +258,7 @@ const categories = computed(() => [
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top; /* 裁剪图片，只显示上半部分，避免显示图片下半部分的logo */
   transition: transform var(--transition-slow);
 }
 

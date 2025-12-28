@@ -77,7 +77,7 @@ useSEO({
               <h4 class="office-card__name">{{ t('contact.offices.taipei') }}</h4>
               <p class="office-card__address">
                 {{ locale === 'en'
-                  ? '2F, No. 83, Section 1, Chongqing South Road, Taipei'
+                  ? '2F, No. 83, Section 1, Chongqing South Road, Taipei, Taiwan'
                   : '台北市重庆南路一段83号2楼'
                 }}
               </p>

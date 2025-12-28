@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import { verifyProduct as verifyProductAPI } from '@/utils/saas-integration'
 
@@ -10,6 +10,13 @@ const code = ref('')
 const isVerifying = ref(false)
 const result = ref<'authentic' | 'invalid' | null>(null)
 const errorMessage = ref('')
+
+// Camera scanning
+const showCamera = ref(false)
+const videoRef = ref<HTMLVideoElement | null>(null)
+const streamRef = ref<MediaStream | null>(null)
+const isScanning = ref(false)
+const scanResult = ref('')
 
 // SEO配置
 useHead({
@@ -62,6 +69,57 @@ const reset = () => {
   result.value = null
   errorMessage.value = ''
 }
+
+// Camera functions
+const startCamera = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' } // Use back camera on mobile
+    })
+    streamRef.value = stream
+    if (videoRef.value) {
+      videoRef.value.srcObject = stream
+      showCamera.value = true
+      isScanning.value = true
+    }
+  } catch (error) {
+    console.error('Camera access error:', error)
+    errorMessage.value = locale.value === 'en'
+      ? 'Unable to access camera. Please enter code manually.'
+      : '无法访问摄像头，请手动输入验证码。'
+  }
+}
+
+const stopCamera = () => {
+  if (streamRef.value) {
+    streamRef.value.getTracks().forEach(track => track.stop())
+    streamRef.value = null
+  }
+  showCamera.value = false
+  isScanning.value = false
+}
+
+// Check if mobile device
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (typeof window !== 'undefined' && window.innerWidth < 768)
+
+const scanQRCode = () => {
+  // QR code scanning logic would go here
+  // For now, this is a placeholder - you may need to integrate a QR code library
+  // like jsQR or html5-qrcode
+  if (scanResult.value) {
+    code.value = scanResult.value
+    stopCamera()
+    verifyProduct()
+  }
+}
+
+onMounted(() => {
+  // Cleanup on unmount
+})
+
+onUnmounted(() => {
+  stopCamera()
+})
 </script>
 
 <template>
@@ -82,7 +140,7 @@ const reset = () => {
 
           <Transition name="fade" mode="out-in">
             <!-- Input State -->
-            <div v-if="!result" class="auth-form">
+            <div v-if="!result && !showCamera" class="auth-form">
               <div class="auth-input-group">
                 <input 
                   v-model="code"
@@ -101,6 +159,19 @@ const reset = () => {
                 </button>
               </div>
               
+              <!-- Camera button for mobile -->
+              <button 
+                v-if="isMobile"
+                class="auth-camera-btn"
+                @click="startCamera"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+                {{ locale === 'en' ? 'Scan QR Code' : '扫描二维码' }}
+              </button>
+              
               <p class="auth-hint">
                 {{ locale === 'en' 
                   ? 'Enter the unique code found on your product packaging.'
@@ -108,6 +179,36 @@ const reset = () => {
                 }}
               </p>
               <p v-if="errorMessage" class="auth-error">{{ errorMessage }}</p>
+            </div>
+
+            <!-- Camera View -->
+            <div v-if="showCamera" class="auth-camera">
+              <div class="auth-camera__header">
+                <button class="auth-camera__close" @click="stopCamera">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+                <h3 class="auth-camera__title">
+                  {{ locale === 'en' ? 'Scan QR Code' : '扫描二维码' }}
+                </h3>
+              </div>
+              <video 
+                ref="videoRef"
+                class="auth-camera__video"
+                autoplay
+                playsinline
+              ></video>
+              <div class="auth-camera__overlay">
+                <div class="auth-camera__frame"></div>
+              </div>
+              <p class="auth-camera__hint">
+                {{ locale === 'en' 
+                  ? 'Position the QR code within the frame'
+                  : '请将二维码对准扫描框'
+                }}
+              </p>
             </div>
 
             <!-- Result State -->
@@ -214,11 +315,13 @@ const reset = () => {
   transition: border-color var(--transition-fast);
   width: 100%;
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 @media (min-width: 640px) {
   .auth-input {
     width: auto;
+    max-width: 300px;
   }
 }
 
@@ -239,12 +342,127 @@ const reset = () => {
   min-width: 100px;
   width: 100%;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 @media (min-width: 640px) {
   .auth-submit {
     width: auto;
+    flex-shrink: 0;
   }
+}
+
+/* Camera Button */
+.auth-camera-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-6);
+  margin-top: var(--spacing-4);
+  background: var(--color-gray-100);
+  color: var(--color-primary);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.auth-camera-btn:hover {
+  background: var(--color-gray-200);
+  border-color: var(--color-accent-purple);
+}
+
+/* Camera View */
+.auth-camera {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+}
+
+.auth-camera__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4);
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.auth-camera__close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.auth-camera__close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.auth-camera__title {
+  font-size: var(--font-size-lg);
+  color: var(--color-white);
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.auth-camera__video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--color-gray-900);
+}
+
+.auth-camera__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.auth-camera__frame {
+  width: 250px;
+  height: 250px;
+  border: 3px solid var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+.auth-camera__hint {
+  position: absolute;
+  bottom: var(--spacing-6);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-lg);
+  z-index: 10;
 }
 
 

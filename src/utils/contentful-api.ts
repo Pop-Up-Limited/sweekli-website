@@ -346,12 +346,14 @@ interface JobPostingEntry {
   }
   fields: {
     title?: string
+    titleEn?: string
     department?: string
     location?: string
     type?: string
-    description?: string
-    requirements?: string
+    description?: any // RichText类型
+    requirements?: any // RichText类型
     isActive?: boolean
+    publishDate?: string
     order?: number
   }
 }
@@ -366,10 +368,22 @@ interface JobPostingResponse {
 export async function fetchJobPostings(): Promise<JobPosting[]> {
   try {
     // 获取所有已发布的职位，按order字段排序（如果存在），否则按创建时间倒序
-    // 注意：Contentful的order参数格式是 -fields.order,-sys.createdAt
-    const url = `${CONTENTFUL_API_BASE}/entries?content_type=${contentfulConfig.jobPostingContentTypeId}&order=-fields.order,-sys.createdAt&access_token=${contentfulConfig.accessToken}`
+    // 注意：Contentful CDN API只返回已发布的内容
+    const baseUrl = `${CONTENTFUL_API_BASE}/entries`
+    const params = new URLSearchParams({
+      content_type: contentfulConfig.jobPostingContentTypeId,
+      order: '-sys.createdAt',
+      access_token: contentfulConfig.accessToken
+    })
+    const url = `${baseUrl}?${params.toString()}`
     
-    console.log('Fetching job postings from Contentful')
+    console.log('🔍 Fetching job postings from Contentful:')
+    console.log('  - Base URL:', CONTENTFUL_API_BASE)
+    console.log('  - Content Type ID:', contentfulConfig.jobPostingContentTypeId)
+    console.log('  - Space ID:', contentfulConfig.spaceId)
+    console.log('  - Environment:', contentfulConfig.environment)
+    console.log('  - Full URL (token hidden):', url.replace(contentfulConfig.accessToken, '***HIDDEN***'))
+    
     const response = await fetch(url)
     
     if (!response.ok) {
@@ -385,28 +399,98 @@ export async function fetchJobPostings(): Promise<JobPosting[]> {
         id: item.sys.id,
         title: item.fields.title,
         isActive: item.fields.isActive,
-        published: !!item.sys.publishedAt
+        published: !!item.sys.publishedAt,
+        publishedAt: item.sys.publishedAt,
+        allFields: item.fields,
+        fieldKeys: Object.keys(item.fields)
       }))
     })
     
+    // 详细日志：检查每个字段
+    if (data.items.length > 0) {
+      const firstEntry = data.items[0]
+      console.log('First entry details:', {
+        id: firstEntry.sys.id,
+        fields: firstEntry.fields,
+        fieldTypes: Object.keys(firstEntry.fields).map(key => {
+          const fieldKey = key as keyof typeof firstEntry.fields
+          const fieldValue = firstEntry.fields[fieldKey]
+          return {
+            key,
+            value: fieldValue,
+            type: typeof fieldValue
+          }
+        })
+      })
+    }
+    
+    // 如果没有返回任何数据，可能是职位没有发布或者字段名不匹配
+    if (data.items.length === 0) {
+      console.error('❌ No job postings found in Contentful!')
+      console.error('Please check in Contentful:')
+      console.error('1. Content Type ID must be exactly: "jobPosting"')
+      console.error('2. The entry MUST be PUBLISHED (click "Publish" button, not just "Save")')
+      console.error('3. Field names must match: title, department, location, type, isActive')
+      console.error('4. Check if the entry is in the correct Space and Environment')
+      return []
+    }
+    
     // 转换数据格式，只返回isActive为true的职位
+    // 注意：Contentful CDN API通常只返回已发布的内容，但有时publishedAt可能为undefined（CDN缓存延迟）
+    // 如果数据存在但publishedAt为undefined，我们仍然显示它（因为CDN API已经过滤了未发布的内容）
     const jobs: JobPosting[] = data.items
       .filter(entry => {
-        // 只返回已发布且isActive为true的职位
-        const isPublished = !!entry.sys.publishedAt
+        // 只返回isActive为true的职位（如果isActive字段不存在，默认为true）
         const isActive = entry.fields.isActive !== false // 默认为true
-        return isPublished && isActive
+        const isPublished = !!entry.sys.publishedAt
+        
+        console.log('Filtering entry:', {
+          id: entry.sys.id,
+          title: entry.fields.title,
+          isPublished,
+          isActive,
+          publishedAt: entry.sys.publishedAt,
+          fields: Object.keys(entry.fields),
+          willInclude: isActive // 只要isActive为true就显示（CDN API已经过滤了未发布的内容）
+        })
+        
+        // Contentful CDN API已经过滤了未发布的内容，所以即使publishedAt为undefined，我们也显示
+        // 只要isActive为true即可
+        return isActive
       })
       .map(entry => {
         const fields = entry.fields
+        
+        // 处理RichText字段（description和requirements）
+        const extractTextFromRichText = (richText: any): string => {
+          if (!richText) return ''
+          if (typeof richText === 'string') return richText
+          
+          // 处理Contentful Rich Text格式
+          if (richText.nodeType === 'document' && richText.content) {
+            const extractText = (node: any): string => {
+              if (node.nodeType === 'text') {
+                return node.value || ''
+              }
+              if (node.content && Array.isArray(node.content)) {
+                return node.content.map(extractText).join(' ')
+              }
+              return ''
+            }
+            return richText.content.map(extractText).join(' ').trim()
+          }
+          
+          return ''
+        }
+        
         return {
           id: entry.sys.id,
-          title: fields.title || '',
+          title: fields.title || fields.titleEn || '',
           department: fields.department || '',
           location: fields.location || '',
           type: fields.type || '',
-          description: fields.description || '',
-          requirements: fields.requirements || '',
+          description: extractTextFromRichText(fields.description) || '',
+          requirements: extractTextFromRichText(fields.requirements) || '',
           isActive: fields.isActive !== false,
           order: fields.order || 999 // 如果没有order，默认999（排在最后）
         }
