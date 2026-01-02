@@ -41,7 +41,7 @@ const legalLinks = computed(() => [
 ])
 
 const socialLinks = computed(() => [
-  { name: 'WeChat', icon: 'wechat', url: '#', qrCode: '/QR code.png' },
+  { name: 'WeChat', icon: 'wechat', url: '#', qrCode: '/QR%20code.png' },
   { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/13655930/' },
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/sweekli/' }
 ])

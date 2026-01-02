@@ -11,20 +11,20 @@ const isVisible = ref(false)
 
 // Brand data with logo paths - using new unified size logos
 const brands = computed(() => [
-  { name: 'brand1', logo: '/images/brands/1.png' },
-  { name: 'brand2', logo: '/images/brands/2.png' },
-  { name: 'brand3', logo: '/images/brands/3.png' },
-  { name: 'brand4', logo: '/images/brands/4.png' },
-  { name: 'brand5', logo: '/images/brands/5.png' },
-  { name: 'brand6', logo: '/images/brands/6.png' },
-  { name: 'brand7', logo: '/images/brands/7.png' },
-  { name: 'brand8', logo: '/images/brands/8.png' },
-  { name: 'brand9', logo: '/images/brands/9.png' },
-  { name: 'brand10', logo: '/images/brands/10.png' },
-  { name: 'brand11', logo: '/images/brands/11.png' },
-  { name: 'brand12', logo: '/images/brands/12.png' },
-  { name: 'brand13', logo: '/images/brands/13.png' },
-  { name: 'brand14', logo: '/images/brands/14.png' }
+  { name: 'brand1', logo: '/images/brands-showcase/brand-1-logo.png' },
+  { name: 'brand2', logo: '/images/brands-showcase/brand-2-logo.png' },
+  { name: 'brand3', logo: '/images/brands-showcase/brand-3-logo.png' },
+  { name: 'brand4', logo: '/images/brands-showcase/brand-4-logo.png' },
+  { name: 'brand5', logo: '/images/brands-showcase/brand-5-logo.png' },
+  { name: 'brand6', logo: '/images/brands-showcase/brand-6-logo.png' },
+  { name: 'brand7', logo: '/images/brands-showcase/brand-7-logo.png' },
+  { name: 'brand8', logo: '/images/brands-showcase/brand-8-logo.png' },
+  { name: 'brand9', logo: '/images/brands-showcase/brand-9-logo.png' },
+  { name: 'brand10', logo: '/images/brands-showcase/brand-10-logo.png' },
+  { name: 'brand11', logo: '/images/brands-showcase/brand-11-logo.png' },
+  { name: 'brand12', logo: '/images/brands-showcase/brand-12-logo.png' },
+  { name: 'brand13', logo: '/images/brands-showcase/brand-13-logo.png' },
+  { name: 'brand14', logo: '/images/brands-showcase/brand-14-logo.png' }
 ])
 
 useIntersectionObserver(
