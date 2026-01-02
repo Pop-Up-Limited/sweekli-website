@@ -207,14 +207,16 @@ const lifeImages = computed(() => {
     ]
   } else {
     return [
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433.JPG'),
-      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433 2.JPG')
+      '/images/careers-life/1.jpg',
+      '/images/careers-life/2.jpg',
+      '/images/careers-life/3.jpg',
+      '/images/careers-life/4.jpg',
+      '/images/careers-life/5.jpg',
+      '/images/careers-life/6.jpg',
+      '/images/careers-life/7.jpg',
+      '/images/careers-life/8.jpg',
+      '/images/careers-life/9.jpg',
+      '/images/careers-life/10.jpg'
     ]
   }
 })
