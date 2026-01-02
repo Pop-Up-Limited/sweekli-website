@@ -3,7 +3,6 @@ import { RouterView } from 'vue-router'
 import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
 import { useSmoothScroll } from '@/composables/useSmoothScroll'
-import { Analytics } from '@vercel/analytics/vue'
 
 // 启用 Spring 滚动动画
 useSmoothScroll()
@@ -18,7 +17,6 @@ useSmoothScroll()
       </Transition>
     </RouterView>
     <Footer />
-    <Analytics />
   </div>
 </template>
 
