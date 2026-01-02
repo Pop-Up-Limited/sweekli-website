@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
 import { computed, ref, onUnmounted } from 'vue'
+import { getImagePath } from '@/utils/imagePath'
 
 const { t, locale } = useI18n()
 
@@ -41,7 +42,7 @@ const legalLinks = computed(() => [
 ])
 
 const socialLinks = computed(() => [
-  { name: 'WeChat', icon: 'wechat', url: '#', qrCode: '/QR%20code.png' },
+  { name: 'WeChat', icon: 'wechat', url: '#', qrCode: getImagePath('/QR code.png') },
   { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/13655930/' },
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/sweekli/' }
 ])

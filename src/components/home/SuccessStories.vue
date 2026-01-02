@@ -26,8 +26,8 @@ const stories = computed(() => [
       ? '"Their platform expertise and market insights have been invaluable for our expansion into China."'
       : '"他们的平台专业知识和市场洞察力对我们进入中国至关重要。"',
     result: locale.value === 'en' ? 'Top 10 on Tmall' : '天猫前10名',
-    image: '/images/success-stories/case-mate-logo.png',
-    productImage: '/images/success-stories/case-mate.jpg'
+    image: getImagePath('/images/success-stories/case-mate-logo.png'),
+    productImage: getImagePath('/images/success-stories/case-mate.jpg')
   },
   {
     brand: 'Native Union',
@@ -35,8 +35,8 @@ const stories = computed(() => [
       ? '"The team at Sweekli truly understands both Western brands and Chinese consumers."'
       : '"Sweekli团队真正理解西方品牌和中国消费者。"',
     result: locale.value === 'en' ? '150% Revenue Increase' : '收入增长150%',
-    image: '/images/success-stories/native-union-logo.png',
-    productImage: '/images/success-stories/native-union.jpg'
+    image: getImagePath('/images/success-stories/native-union-logo.png'),
+    productImage: getImagePath('/images/success-stories/native-union.jpg')
   }
 ])
 

@@ -39,13 +39,13 @@ const steps = computed(() => {
         num: '01',
         title: 'The Right Match Matters.',
         desc: 'We choose our partners carefully. You bring global strength. We deliver China and APAC expertise. If there\'s alignment, we act.',
-        image: '/images/how-it-works/step-01.jpg'
+        image: getImagePath('/images/how-it-works/step-01.jpg')
       },
       {
         num: '02',
         title: 'Choose Your Model.',
         desc: 'We either buy your products and handle everything, OR sell on your behalf for a commission while you cover the costs. No complexity. Full transparency.',
-        image: '/images/how-it-works/step-02.jpg'
+        image: getImagePath('/images/how-it-works/step-02.jpg')
       },
       {
         num: '03',
@@ -57,7 +57,7 @@ const steps = computed(() => {
         num: '04',
         title: 'Grow',
         desc: 'Scale your presence with data-driven optimization - taking your brand as far as it can go.',
-        image: '/images/how-it-works/step-04.jpg'
+        image: getImagePath('/images/how-it-works/step-04.jpg')
       }
     ]
   } else {
