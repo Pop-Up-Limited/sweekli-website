@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import { getImagePath } from '@/utils/imagePath'
 import { useSEO } from '@/utils/seo'
 import CTASection from '@/components/home/CTASection.vue'
 import PageHero from '@/components/common/PageHero.vue'
@@ -26,7 +27,7 @@ const services = computed(() => {
           t('services.items.strategy.features.1'),
           t('services.items.strategy.features.2')
         ],
-        image: '/images/services/strategy.jpg'
+        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
       },
       {
         title: t('services.items.ecommerce.title'),

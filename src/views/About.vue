@@ -24,7 +24,7 @@ const values = computed(() => {
         desc: t('about.values.customerCentric.desc')
       },
       {
-        icon: '/images/about-values/icon-2.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
         title: t('about.values.inclusive.title'),
         desc: t('about.values.inclusive.desc')
       },
@@ -34,7 +34,7 @@ const values = computed(() => {
         desc: t('about.values.integrity.desc')
       },
       {
-        icon: '/images/about-values/icon-4.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
         title: t('about.values.peopleFirst.title'),
         desc: t('about.values.peopleFirst.desc')
       },
@@ -44,7 +44,7 @@ const values = computed(() => {
         desc: t('about.values.innovation.desc')
       },
       {
-        icon: '/images/about-values/icon-6.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
         title: t('about.values.partnership.title'),
         desc: t('about.values.partnership.desc')
       }
@@ -57,7 +57,7 @@ const values = computed(() => {
         desc: t('about.values.customerCentric.desc')
       },
       {
-        icon: '/images/about-values/icon-2.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
         title: t('about.values.inclusive.title'),
         desc: t('about.values.inclusive.desc')
       },
@@ -67,7 +67,7 @@ const values = computed(() => {
         desc: t('about.values.integrity.desc')
       },
       {
-        icon: '/images/about-values/icon-4.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
         title: t('about.values.peopleFirst.title'),
         desc: t('about.values.peopleFirst.desc')
       },
@@ -77,7 +77,7 @@ const values = computed(() => {
         desc: t('about.values.innovation.desc')
       },
       {
-        icon: '/images/about-values/icon-6.png',
+        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
         title: t('about.values.partnership.title'),
         desc: t('about.values.partnership.desc')
       }
