@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
 import { getImagePath } from '@/utils/imagePath'
 import { useSEO } from '@/utils/seo'
 import CTASection from '@/components/home/CTASection.vue'
@@ -12,7 +11,7 @@ const { t, locale } = useI18n()
 useSEO({
   title: locale.value === 'en' ? 'Our Services' : '我们的业务',
   description: locale.value === 'en'
-    ? 'From market entry strategy to daily operations, we handle every aspect of your China and APAC e-commerce journey.'
+    ? 'We provide end-to-end market entry, e-commerce operations, retail distribution, marketing and PR services.'
     : '从市场进入战略到日常运营，我们为您的中国和亚太电商之旅提供全方位服务。',
   path: '/services'
 })
@@ -36,9 +35,10 @@ const services = computed(() => {
         features: [
           t('services.items.ecommerce.features.0'),
           t('services.items.ecommerce.features.1'),
-          t('services.items.ecommerce.features.2')
+          t('services.items.ecommerce.features.2'),
+          t('services.items.ecommerce.features.3')
         ],
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+        image: '/images/services-ecommerce.jpg'
       },
       {
         title: t('services.items.marketing.title'),
@@ -46,9 +46,10 @@ const services = computed(() => {
         features: [
           t('services.items.marketing.features.0'),
           t('services.items.marketing.features.1'),
-          t('services.items.marketing.features.2')
+          t('services.items.marketing.features.2'),
+          t('services.items.marketing.features.3')
         ],
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+        image: '/images/services-marketing.jpg'
       },
       {
         title: t('services.items.distribution.title'),
@@ -58,7 +59,7 @@ const services = computed(() => {
           t('services.items.distribution.features.1'),
           t('services.items.distribution.features.2')
         ],
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+        image: '/images/services-distribution.jpg'
       }
     ]
   } else {
@@ -71,7 +72,7 @@ const services = computed(() => {
           t('services.items.ecommerce.features.1'),
           t('services.items.ecommerce.features.2')
         ],
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
+        image: '/images/services-ecommerce-zh.jpg'
       },
       {
         title: t('services.items.content.title'),
@@ -81,7 +82,7 @@ const services = computed(() => {
           t('services.items.content.features.1'),
           t('services.items.content.features.2')
         ],
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+        image: '/images/services-content-zh.jpg'
       },
       {
         title: t('services.items.marketing.title'),
@@ -91,7 +92,7 @@ const services = computed(() => {
           t('services.items.marketing.features.1'),
           t('services.items.marketing.features.2')
         ],
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+        image: '/images/services-marketing-zh.jpg'
       },
       {
         title: t('services.items.distribution.title'),
@@ -101,7 +102,7 @@ const services = computed(() => {
           t('services.items.distribution.features.1'),
           t('services.items.distribution.features.2')
         ],
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+        image: '/images/services-distribution-zh.jpg'
       },
       {
         title: t('services.items.supply.title'),
@@ -111,18 +112,21 @@ const services = computed(() => {
           t('services.items.supply.features.1'),
           t('services.items.supply.features.2')
         ],
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')
+        image: '/images/services-supply-zh.jpg'
       }
     ]
   }
 })
 
 const platforms = [
-  { name: 'Tmall', logo: '/images/platform-logos/tmall.svg' },
-  { name: 'JD', logo: '/images/platform-logos/jd.svg' },
-  { name: 'Douyin', logo: '/images/platform-logos/douyin.svg' },
-  { name: 'WeChat', logo: '/images/platform-logos/wechat.svg' },
-  { name: 'RED', logo: '/images/platform-logos/xiaohongshu.svg' }
+  { name: 'Tmall', logo: '/images/platform-logos/platform-1.png' },
+  { name: 'JD', logo: '/images/platform-logos/platform-2.png' },
+  { name: 'Douyin', logo: '/images/platform-logos/platform-3.png' },
+  { name: 'WeChat', logo: '/images/platform-logos/platform-4.png' },
+  { name: 'RED', logo: '/images/platform-logos/platform-5.png' },
+  { name: 'Platform 6', logo: '/images/platform-logos/platform-6.png' },
+  { name: 'Platform 7', logo: '/images/platform-logos/platform-7.png' },
+  { name: 'Platform 8', logo: '/images/platform-logos/platform-8.png' }
 ]
 
 </script>
@@ -134,7 +138,8 @@ const platforms = [
       :label="locale === 'en' ? 'OUR SERVICES' : '我们的服务'"
       :title="t('services.hero.title')"
       :subtitle="t('services.hero.subtitle')"
-      background-type="gradient"
+      background-type="image"
+      :background-image="locale === 'en' ? '/images/services-hero-1.jpg' : '/images/services-hero-2.jpg'"
     />
 
     <!-- Services List - Alternating Layout -->
@@ -176,7 +181,7 @@ const platforms = [
         <div class="platforms-grid">
           <div class="platform-card" v-for="platform in platforms" :key="platform.name">
             <div class="platform-card__logo">
-              <span class="platform-name">{{ platform.name }}</span>
+              <img :src="platform.logo" :alt="platform.name" />
             </div>
           </div>
         </div>
@@ -192,28 +197,36 @@ const platforms = [
         </div>
         <div class="process-timeline">
           <div class="process-step">
-            <div class="step-number">01</div>
+            <div class="process-step__icon">
+              <img src="/images/process-icons/icon-1.png" alt="Discovery" />
+            </div>
             <div class="step-content">
               <h3>{{ t('services.process.steps.discovery.title') }}</h3>
               <p>{{ t('services.process.steps.discovery.desc') }}</p>
             </div>
           </div>
           <div class="process-step">
-            <div class="step-number">02</div>
+            <div class="process-step__icon">
+              <img src="/images/process-icons/icon-2.png" alt="Strategy" />
+            </div>
             <div class="step-content">
               <h3>{{ t('services.process.steps.strategy.title') }}</h3>
               <p>{{ t('services.process.steps.strategy.desc') }}</p>
             </div>
           </div>
           <div class="process-step">
-            <div class="step-number">03</div>
+            <div class="process-step__icon">
+              <img src="/images/process-icons/icon-3.png" alt="Execution" />
+            </div>
             <div class="step-content">
               <h3>{{ t('services.process.steps.execution.title') }}</h3>
               <p>{{ t('services.process.steps.execution.desc') }}</p>
             </div>
           </div>
           <div class="process-step">
-            <div class="step-number">04</div>
+            <div class="process-step__icon">
+              <img src="/images/process-icons/icon-4.png" alt="Optimization" />
+            </div>
             <div class="step-content">
               <h3>{{ t('services.process.steps.optimization.title') }}</h3>
               <p>{{ t('services.process.steps.optimization.desc') }}</p>
@@ -371,22 +384,32 @@ const platforms = [
 }
 
 .platform-card {
-  background: var(--color-white);
-  padding: var(--spacing-6) var(--spacing-10);
+  background: transparent;
+  padding: var(--spacing-4);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--color-gray-200);
   transition: all var(--transition-base);
 }
 
-.platform-card:hover {
-  border-color: var(--color-accent-purple);
+.platform-card__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-.platform-name {
-  font-family: var(--font-family-display);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
-  font-size: var(--font-size-lg);
+.platform-card__logo img {
+  max-width: 100%;
+  max-height: 32px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all var(--transition-base);
+}
+
+.platform-card:hover .platform-card__logo img {
+  filter: grayscale(0%);
+  opacity: 1;
 }
 
 /* Process */
@@ -425,6 +448,13 @@ const platforms = [
   margin: 0 auto;
 }
 
+@media (min-width: 1024px) {
+  .process-timeline {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-6);
+  }
+}
+
 @media (max-width: 768px) {
   .process-timeline {
     grid-template-columns: 1fr;
@@ -432,17 +462,29 @@ const platforms = [
 }
 
 .process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   position: relative;
 }
 
-.step-number {
-  font-family: var(--font-family-display);
-  font-size: 3rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent-purple);
-  opacity: 0.3;
+.process-step__icon {
+  width: 64px;
+  height: 64px;
   margin-bottom: var(--spacing-4);
+  background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+}
+
+.process-step__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .step-content h3 {

@@ -111,12 +111,14 @@ onMounted(async () => {
 const benefits = computed(() => {
   try {
     const items = t('careers.benefits.items', { returnObjects: true })
-    console.log('Benefits items:', items)
     if (Array.isArray(items) && items.length > 0) {
+      // 中文版：去掉desc（设为空字符串）
+      if (locale.value === 'zh') {
+        return items.map(item => ({ ...item, desc: '' })) as Array<{title: string, desc: string}>
+      }
       return items as Array<{title: string, desc: string}>
     }
     // 如果翻译失败，使用后备数据
-    console.warn('Benefits translation failed, using fallback')
     return locale.value === 'en' ? [
       { title: 'Statutory / Five insurances and one fund', desc: 'Comprehensive social insurance coverage' },
       { title: 'Annual regular physical examination', desc: 'Health is most important' },
@@ -135,22 +137,22 @@ const benefits = computed(() => {
       { title: 'Team building', desc: 'Super rich activities and dinners' },
       { title: 'Travel activities', desc: 'Irregular travel opportunities' }
     ] : [
-      { title: '法定的/五险一金', desc: 'Statutory / Five insurances and one fund' },
-      { title: '每年定期体检/健康最重要', desc: 'Annual regular physical examination / Health is most important' },
-      { title: '超过法律规定的充足年假', desc: 'More than legally stipulated / Ample annual leave' },
-      { title: '我们这儿上班不打卡', desc: 'Here / No clocking in for work' },
-      { title: '如果加班会有补贴或调休', desc: 'If working overtime, there will be / Subsidies or compensatory leave' },
-      { title: '租房享有租房补贴', desc: 'Enjoy rental / Rental subsidies' },
-      { title: '免费健身房游泳团课样样有', desc: 'Free gym, swimming groups / All kinds of classes available' },
-      { title: '完善的晋升机制', desc: 'Perfect / Promotion mechanism' },
-      { title: '优秀员工提供股票期权', desc: 'Excellent employees / Provided with stock options' },
-      { title: '得到混沌等课程时刻充电', desc: 'Get courses like Chaos / Recharge at all times' },
-      { title: '办公室零食畅吃', desc: 'Office snacks / Eat freely' },
-      { title: '不定期各类网红下午茶', desc: 'Irregular various / Internet-famous afternoon tea' },
-      { title: '节日有各种关怀福利', desc: 'Holidays have various / Care benefits' },
-      { title: '自家产品免费体验', desc: 'Own products / Free experience' },
-      { title: '超丰富团建活动和聚餐', desc: 'Super rich / Team building activities and dinners' },
-      { title: '不定期旅游活动', desc: 'Irregular / Travel activities' }
+      { title: '法定的/五险一金', desc: '' },
+      { title: '每年定期体检/健康最重要', desc: '' },
+      { title: '超过法律规定的充足年假', desc: '' },
+      { title: '我们这儿上班不打卡', desc: '' },
+      { title: '如果加班会有补贴或调休', desc: '' },
+      { title: '租房享有租房补贴', desc: '' },
+      { title: '免费健身房游泳团课样样有', desc: '' },
+      { title: '完善的晋升机制', desc: '' },
+      { title: '优秀员工提供股票期权', desc: '' },
+      { title: '得到混沌等课程时刻充电', desc: '' },
+      { title: '办公室零食畅吃', desc: '' },
+      { title: '不定期各类网红下午茶', desc: '' },
+      { title: '节日有各种关怀福利', desc: '' },
+      { title: '自家产品免费体验', desc: '' },
+      { title: '超丰富团建活动和聚餐', desc: '' },
+      { title: '不定期旅游活动', desc: '' }
     ]
   } catch (error) {
     console.error('Error loading benefits:', error)
@@ -189,58 +191,99 @@ const whyJoin = computed(() => {
 // 员工故事部分已移除，待确认需求
 
 // 思维颗粒的生活 - 员工活动照片轮播
-// 使用About页面gallery中的员工活动照片
-const lifeImages = [
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433.JPG'),
-  getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433 2.JPG')
-]
+const lifeImages = computed(() => {
+  if (locale.value === 'zh') {
+    return [
+      '/images/careers-life/1.jpg',
+      '/images/careers-life/2.jpg',
+      '/images/careers-life/3.jpg',
+      '/images/careers-life/4.jpg',
+      '/images/careers-life/5.jpg',
+      '/images/careers-life/6.jpg',
+      '/images/careers-life/7.jpg',
+      '/images/careers-life/8.jpg',
+      '/images/careers-life/9.jpg',
+      '/images/careers-life/10.jpg'
+    ]
+  } else {
+    return [
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433.JPG'),
+      getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433 2.JPG')
+    ]
+  }
+})
 
 const activeLifeIndex = ref(0)
 
 const nextLifeImage = () => {
-  activeLifeIndex.value = (activeLifeIndex.value + 1) % lifeImages.length
+  activeLifeIndex.value = (activeLifeIndex.value + 1) % lifeImages.value.length
 }
 
 const prevLifeImage = () => {
-  activeLifeIndex.value = (activeLifeIndex.value - 1 + lifeImages.length) % lifeImages.length
+  activeLifeIndex.value = (activeLifeIndex.value - 1 + lifeImages.value.length) % lifeImages.value.length
 }
 
 // 员工故事
-const employeeStories = [
-  {
-    name: '员工A',
-    title: '电商运营经理',
-    quote: '在思维颗粒工作让我有机会与全球优秀品牌合作，每天都在学习新的东西，成长速度很快。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')
-  },
-  {
-    name: '员工B',
-    title: '品牌营销专员',
-    quote: '这里的工作氛围非常开放，同事们都很年轻有活力，大家一起为品牌创造价值，很有成就感。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')
-  },
-  {
-    name: '员工C',
-    title: '客户成功经理',
-    quote: '思维颗粒给了我很多学习和发展的机会，公司提供的福利待遇也很不错，是一个很好的平台。',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')
+const employeeStories = computed(() => {
+  if (locale.value === 'zh') {
+    return [
+      {
+        name: '陈光毅',
+        title: '运营总监',
+        quote: '吸引我的是公司融洽的氛围，公司未来的愿景和对我的信任。',
+        image: '/images/employee-stories/陈光毅.jpg'
+      },
+      {
+        name: 'Amber',
+        title: '媒介策划',
+        quote: '在工作中追求乐趣，在乐趣中找到自己。',
+        image: '/images/employee-stories/Amber.jpg'
+      },
+      {
+        name: '钟羽',
+        title: '资深设计师',
+        quote: '有趣的灵魂万里挑一，不设边界，无惧挑战。',
+        image: '/images/employee-stories/钟羽.jpg'
+      }
+    ]
+  } else {
+    return [
+      {
+        name: '员工A',
+        title: '电商运营经理',
+        quote: '在思维颗粒工作让我有机会与全球优秀品牌合作，每天都在学习新的东西，成长速度很快。',
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')
+      },
+      {
+        name: '员工B',
+        title: '品牌营销专员',
+        quote: '这里的工作氛围非常开放，同事们都很年轻有活力，大家一起为品牌创造价值，很有成就感。',
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')
+      },
+      {
+        name: '员工C',
+        title: '客户成功经理',
+        quote: '思维颗粒给了我很多学习和发展的机会，公司提供的福利待遇也很不错，是一个很好的平台。',
+        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')
+      }
+    ]
   }
-]
+})
 
 const activeStoryIndex = ref(0)
 
 const nextStory = () => {
-  activeStoryIndex.value = (activeStoryIndex.value + 1) % employeeStories.length
+  activeStoryIndex.value = (activeStoryIndex.value + 1) % employeeStories.value.length
 }
 
 const prevStory = () => {
-  activeStoryIndex.value = (activeStoryIndex.value - 1 + employeeStories.length) % employeeStories.length
+  activeStoryIndex.value = (activeStoryIndex.value - 1 + employeeStories.value.length) % employeeStories.value.length
 }
 
 </script>
@@ -253,53 +296,46 @@ const prevStory = () => {
       :title="t('careers.title')"
       :subtitle="t('careers.subtitle')"
       background-type="image"
-      :background-image="'/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'"
+      :background-image="locale === 'en' ? '/images/careers-hero-1.jpg' : '/images/careers-hero-2.jpg'"
     />
 
     <!-- Culture Section -->
-    <section class="careers-culture section">
+    <section v-if="locale === 'zh'" class="careers-culture section">
       <div class="container">
         <h2 class="section-title text-center">{{ t('careers.culture') }}</h2>
+        <div class="culture-tags">
+          <span class="culture-tag">真实 - Real</span>
+          <span class="culture-tag">成长 - Grow</span>
+          <span class="culture-tag">创意 - Creative</span>
+          <span class="culture-tag">专业 - Professional</span>
+          <span class="culture-tag">责任 - Responsibility</span>
+        </div>
         <div class="culture-grid">
           <div class="culture-item">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')" 
-              alt="Team collaboration"
+              src="/images/careers-culture/1.jpg" 
+              alt="真实 - Real"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG')" 
-              alt="Office environment"
+              src="/images/careers-culture/2.jpg" 
+              alt="成长 - Grow"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" 
-              alt="Team activities"
+              src="/images/careers-culture/3.jpg" 
+              alt="专业 - Professional"
               loading="lazy"
             />
           </div>
           <div class="culture-item">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" 
-              alt="Work life"
-              loading="lazy"
-            />
-          </div>
-          <div class="culture-item">
-            <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')" 
-              alt="Team culture"
-              loading="lazy"
-            />
-          </div>
-          <div class="culture-item">
-            <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/极限飞盘IMG_1433.JPG')" 
-              alt="Team activity"
+              src="/images/careers-culture/4.jpg" 
+              alt="责任 - Responsibility"
               loading="lazy"
             />
           </div>
@@ -308,7 +344,7 @@ const prevStory = () => {
     </section>
 
     <!-- Benefits -->
-    <section class="careers-benefits section">
+    <section class="careers-benefits section" :data-locale="locale">
       <div class="container">
         <h2 class="section-title text-center">{{ t('careers.benefits.title') }}</h2>
         <div class="benefits-grid">
@@ -423,7 +459,114 @@ const prevStory = () => {
               </div>
             </div>
             <h3 class="benefit-card__title">{{ benefit.title }}</h3>
-            <p class="benefit-card__desc">{{ benefit.desc }}</p>
+            <p v-if="locale !== 'zh'" class="benefit-card__desc">{{ benefit.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Life at Sweekli -->
+    <section class="careers-life section">
+      <div class="container">
+        <h2 class="section-title text-center">{{ t('careers.lifeAtSweekli.title') }}</h2>
+        <div class="life-carousel">
+          <div class="life-carousel__wrapper">
+            <TransitionGroup name="fade-slide" tag="div" class="life-carousel__track">
+              <div 
+                v-for="(image, index) in lifeImages" 
+                :key="index"
+                v-show="index === activeLifeIndex"
+                class="life-carousel__item"
+              >
+                <img :src="image" :alt="`Life at Sweekli ${index + 1}`" loading="lazy" />
+              </div>
+            </TransitionGroup>
+            <button class="life-carousel__btn life-carousel__btn--prev" @click="prevLifeImage" aria-label="Previous">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <button class="life-carousel__btn life-carousel__btn--next" @click="nextLifeImage" aria-label="Next">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+            <div class="life-carousel__dots">
+              <button 
+                v-for="(_, index) in lifeImages" 
+                :key="index"
+                class="life-carousel__dot"
+                :class="{ 'is-active': index === activeLifeIndex }"
+                @click="activeLifeIndex = index"
+                :aria-label="`Image ${index + 1}`"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Join -->
+    <section class="careers-why-join section">
+      <div class="container">
+        <h2 class="section-title text-center">{{ t('careers.whyJoin.title') }}</h2>
+        <div class="why-join-list">
+          <div 
+            v-for="(reason, index) in whyJoin" 
+            :key="index"
+            class="why-join-item"
+            :class="{ 'why-join-item--zh': locale === 'zh' }"
+            :style="locale === 'zh' ? { backgroundColor: ['#ffebe6', '#e2f0e3', '#ffebe6', '#eddff0', '#dce8ff'][index] } : {}"
+          >
+            <span class="why-join-item__text">{{ reason }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Employee Stories -->
+    <section class="careers-stories section">
+      <div class="container">
+        <h2 class="section-title text-center">{{ t('careers.employeeStories.title') }}</h2>
+        <div class="stories-carousel">
+          <div class="stories-carousel__wrapper">
+            <div class="stories-carousel__track">
+              <div 
+                v-for="(story, index) in employeeStories" 
+                :key="index"
+                v-show="activeStoryIndex === index"
+                class="story-card"
+              >
+                <div class="story-card__image">
+                  <img :src="story.image" :alt="story.name" loading="lazy" />
+                </div>
+                <div class="story-card__content">
+                  <h3 class="story-card__name">{{ story.name }}</h3>
+                  <p class="story-card__title">{{ story.title }}</p>
+                  <p class="story-card__quote">{{ story.quote }}</p>
+                </div>
+              </div>
+            </div>
+            <button class="stories-carousel__btn stories-carousel__btn--prev" @click="prevStory" aria-label="Previous">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <button class="stories-carousel__btn stories-carousel__btn--next" @click="nextStory" aria-label="Next">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+            <div class="stories-carousel__dots">
+              <button 
+                v-for="(_, index) in employeeStories" 
+                :key="index"
+                class="stories-carousel__dot"
+                :class="{ 'is-active': index === activeStoryIndex }"
+                @click="activeStoryIndex = index"
+                :aria-label="`Story ${index + 1}`"
+              ></button>
+            </div>
           </div>
         </div>
       </div>
@@ -483,114 +626,6 @@ const prevStory = () => {
             </div>
             <h3 class="location-item__name">{{ locale === 'en' ? 'Seoul' : '首尔' }}</h3>
             <p class="location-item__address">{{ locale === 'en' ? 'Coming Soon' : '即将开业' }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Life at Sweekli -->
-    <section class="careers-life section">
-      <div class="container">
-        <h2 class="section-title text-center">{{ t('careers.lifeAtSweekli.title') }}</h2>
-        <div class="life-carousel">
-          <div class="life-carousel__wrapper">
-            <TransitionGroup name="fade-slide" tag="div" class="life-carousel__track">
-              <div 
-                v-for="(image, index) in lifeImages" 
-                :key="index"
-                v-show="index === activeLifeIndex"
-                class="life-carousel__item"
-              >
-                <img :src="image" :alt="`Life at Sweekli ${index + 1}`" loading="lazy" />
-              </div>
-            </TransitionGroup>
-            <button class="life-carousel__btn life-carousel__btn--prev" @click="prevLifeImage" aria-label="Previous">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-            <button class="life-carousel__btn life-carousel__btn--next" @click="nextLifeImage" aria-label="Next">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-            <div class="life-carousel__dots">
-              <button 
-                v-for="(_, index) in lifeImages" 
-                :key="index"
-                class="life-carousel__dot"
-                :class="{ 'is-active': index === activeLifeIndex }"
-                @click="activeLifeIndex = index"
-                :aria-label="`Image ${index + 1}`"
-              ></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Join -->
-    <section class="careers-why-join section">
-      <div class="container">
-        <h2 class="section-title text-center">{{ t('careers.whyJoin.title') }}</h2>
-        <div class="why-join-list">
-          <div 
-            v-for="(reason, index) in whyJoin" 
-            :key="index"
-            class="why-join-item"
-          >
-            <div class="why-join-item__icon">
-              <span class="why-join-item__number">{{ index + 1 }}</span>
-            </div>
-            <span class="why-join-item__text">{{ reason }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Employee Stories -->
-    <section class="careers-stories section">
-      <div class="container">
-        <h2 class="section-title text-center">{{ t('careers.employeeStories.title') }}</h2>
-        <div class="stories-carousel">
-          <div class="stories-carousel__wrapper">
-            <div class="stories-carousel__track">
-              <div 
-                v-for="(story, index) in employeeStories" 
-                :key="index"
-                v-show="activeStoryIndex === index"
-                class="story-card"
-              >
-                <div class="story-card__image">
-                  <img :src="story.image" :alt="story.name" loading="lazy" />
-                </div>
-                <div class="story-card__content">
-                  <h3 class="story-card__name">{{ story.name }}</h3>
-                  <p class="story-card__title">{{ story.title }}</p>
-                  <p class="story-card__quote">{{ story.quote }}</p>
-                </div>
-              </div>
-            </div>
-            <button class="stories-carousel__btn stories-carousel__btn--prev" @click="prevStory" aria-label="Previous">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-            <button class="stories-carousel__btn stories-carousel__btn--next" @click="nextStory" aria-label="Next">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-            <div class="stories-carousel__dots">
-              <button 
-                v-for="(_, index) in employeeStories" 
-                :key="index"
-                class="stories-carousel__dot"
-                :class="{ 'is-active': index === activeStoryIndex }"
-                @click="activeStoryIndex = index"
-                :aria-label="`Story ${index + 1}`"
-              ></button>
-            </div>
           </div>
         </div>
       </div>
@@ -667,7 +702,7 @@ const prevStory = () => {
                       {{ t('careers.applyPlatform.text') }}
                     </p>
                     <a 
-                      href="https://www.zhipin.com/gongsir/xxx.html"
+                      href="https://www.zhipin.com/gongsi/6610e8248c51d6341nR63di6.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="btn btn--secondary btn--small"
@@ -709,6 +744,27 @@ const prevStory = () => {
   color: var(--color-primary);
 }
 
+/* Culture Tags */
+.culture-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-8);
+}
+
+.culture-tag {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
 /* Culture Grid */
 .culture-grid {
   display: grid;
@@ -718,14 +774,15 @@ const prevStory = () => {
 
 @media (min-width: 768px) {
   .culture-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .culture-item {
   border-radius: var(--radius-xl);
   overflow: hidden;
-  aspect-ratio: 1;
+  aspect-ratio: 4/3;
+  background: var(--color-gray-50);
 }
 
 .culture-item img {
@@ -756,12 +813,34 @@ const prevStory = () => {
   }
 }
 
+/* 中文版：4列布局 */
+@media (min-width: 768px) {
+  .careers-benefits:lang(zh) .benefits-grid,
+  .careers-benefits[data-locale="zh"] .benefits-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 .benefit-card {
   background: var(--color-white);
   padding: var(--spacing-6);
   border-radius: var(--radius-xl);
   text-align: center;
   transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 中文版：去掉desc后，调整间距 */
+.careers-benefits[data-locale="zh"] .benefit-card__icon-wrapper {
+  margin-bottom: var(--spacing-4);
+}
+
+.careers-benefits[data-locale="zh"] .benefit-card__title {
+  margin-bottom: 0;
+  margin-top: var(--spacing-4);
 }
 
 .benefit-card:hover {
@@ -1140,54 +1219,39 @@ const prevStory = () => {
 }
 
 .why-join-list {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-3);
 }
 
 .why-join-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-4);
-  background: var(--color-white);
-  padding: var(--spacing-6);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-base);
-}
-
-.why-join-item:hover {
-  transform: translateX(8px);
-  box-shadow: var(--shadow-md);
-}
-
-.why-join-item__icon {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(111, 123, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
-  border-radius: var(--radius-lg);
-  color: var(--color-accent-purple);
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: 9999px;
+  transition: all var(--transition-base);
+  white-space: normal;
+  word-wrap: break-word;
 }
 
-.why-join-item__number {
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent-purple);
-  line-height: 1;
+.why-join-item--zh {
+  color: var(--color-primary);
+}
+
+.why-join-item--zh .why-join-item__text {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
 }
 
 .why-join-item__text {
   font-size: var(--font-size-base);
   color: var(--color-primary);
-  line-height: 1.6;
-  flex: 1;
+  line-height: 1.5;
 }
 
 /* Employee Stories */

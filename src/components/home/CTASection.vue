@@ -77,7 +77,7 @@ useIntersectionObserver(
   position: relative;
   padding: var(--spacing-32) 0;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  background: linear-gradient(90deg, #5867ac 0%, #8a88e4 100%);
 }
 
 /* Animated gradient blobs */
@@ -189,15 +189,16 @@ useIntersectionObserver(
 }
 
 .cta__btn--primary {
-  background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-purple-dark) 100%);
+  background: linear-gradient(135deg, #3a4598 0%, #252f7a 100%);
   color: var(--color-white);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all var(--transition-base);
 }
 
 .cta__btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #323d87 0%, #1e2668 100%);
 }
 
 .cta__btn--primary span {
@@ -218,13 +219,14 @@ useIntersectionObserver(
 }
 
 .cta__btn--secondary {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: var(--color-white);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .cta__btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .cta__btn--secondary {

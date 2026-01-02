@@ -15,17 +15,17 @@ const reasons = computed(() => {
       {
         title: 'World\'s Most Dynamic Consumer Markets',
         desc: 'China and the APAC region represent billions of consumers, with a fast-growing middle class and strong demand for high-quality international brands',
-        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-01.png')
+        icon: '/images/why-china-icon-1.png'
       },
       {
         title: 'Unique E-commerce Ecosystem',
         desc: 'Navigate complex platforms like Tmall, JD, Douyin, and WeChat with our platform expertise and established relationships.',
-        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-02.png')
+        icon: '/images/why-china-icon-2.png'
       },
       {
         title: 'Cultural & Regulatory Complexity',
-        desc: 'We handle cross-border compliance, localization, and cultural adaptation — all the things that trip up brands going solo.',
-        icon: getImagePath('/images/Sweekli 英文 PDF内图片素材/3 icon/icon-03.png')
+        desc: 'We handle cross-border compliance, localization, and cultural adaptation - helping brands grow by leveraging China and APAC model, not Western logic.',
+        icon: '/images/why-china-icon-3.png'
       }
     ]
   } else {
@@ -79,7 +79,7 @@ useIntersectionObserver(
           <div class="why-china__image">
             <img 
               ref="imageRef"
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
+              :src="locale === 'en' ? '/images/why-china-main.jpg' : getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
               alt="China Market" 
               loading="lazy"
               class="parallax-image"
@@ -123,7 +123,7 @@ useIntersectionObserver(
 @media (min-width: 1024px) {
   .why-china__grid {
     grid-template-columns: 1fr 1fr;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 }
 
@@ -133,6 +133,14 @@ useIntersectionObserver(
   transform: translateX(-40px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .why-china__left {
+    height: 100%;
+  }
 }
 
 .why-china__left.is-visible {
@@ -172,11 +180,15 @@ useIntersectionObserver(
   border-radius: var(--radius-2xl);
   overflow: hidden;
   box-shadow: var(--shadow-xl);
+  flex: 1;
+  min-height: 0;
+  display: flex;
 }
 
 .why-china__image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 

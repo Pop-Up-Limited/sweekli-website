@@ -21,43 +21,43 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'Wildflower', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png'),
-        image: getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png')
+        logo: '/images/brands-showcase/brand-1-logo.png',
+        image: '/images/brands-showcase/1-wildflower.png'
       },
       { 
         name: 'Case-Mate', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate 1.png')
-      },
-      { 
-        name: 'Twelve South', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth 1.png')
-      },
-      { 
-        name: 'Satechi', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi  1.png')
-      },
-      { 
-        name: 'Native Union', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Native Union 1.png')
-      },
-      { 
-        name: 'iDeal of Sweden', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Ideal of Sweden 1.png')
-      },
-      { 
-        name: 'Holdit', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit 1.png')
+        logo: '/images/brands-showcase/brand-2-logo.png',
+        image: '/images/brands-showcase/2-case-mate.png'
       },
       { 
         name: 'String Ting', 
-        logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting 1.png')
+        logo: '/images/brands-showcase/brand-3-logo.png',
+        image: '/images/brands-showcase/3-string-ting.png'
+      },
+      { 
+        name: 'Holdit', 
+        logo: '/images/brands-showcase/brand-4-logo.png',
+        image: '/images/brands-showcase/4-holdit.png'
+      },
+      { 
+        name: 'iDeal of Sweden', 
+        logo: '/images/brands-showcase/brand-5-logo.png',
+        image: '/images/brands-showcase/5-ideal-of-sweden.png'
+      },
+      { 
+        name: 'Native Union', 
+        logo: '/images/brands-showcase/brand-7-logo.png',
+        image: '/images/brands-showcase/7-native-union.png'
+      },
+      { 
+        name: 'Satechi', 
+        logo: '/images/brands-showcase/brand-8-logo.png',
+        image: '/images/brands-showcase/8-satechi.png'
+      },
+      { 
+        name: 'Twelve South', 
+        logo: '/images/brands-showcase/brand-9-logo.png',
+        image: '/images/brands-showcase/9-twelve-south.png'
       }
     ]
   },
@@ -66,18 +66,18 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'Notabag', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/notabag1.png')
+        logo: '/images/brands-showcase/brand-10-logo.png',
+        image: '/images/brands-showcase/10-notabag.png'
       },
       { 
         name: 'Urth', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/Urth 1.png')
+        logo: '/images/brands-showcase/brand-11-logo.png',
+        image: '/images/brands-showcase/11-urth.png'
       },
       { 
         name: 'Spingle Move', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/2 Bags&Footwear 包袋鞋履/SPINGLE1.png')
+        logo: '/images/brands-showcase/brand-12-logo.png',
+        image: '/images/brands-showcase/12-spingle.png'
       }
     ]
   },
@@ -86,18 +86,18 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'suckUK', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/suckUK.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/suck uk 1.png')
+        logo: '/images/brands-showcase/brand-13-logo.png',
+        image: '/images/brands-showcase/13-suckuk.png'
       },
       { 
         name: 'OTOTO', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/OTOTO.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/OTOTO 1.png')
+        logo: '/images/brands-showcase/brand-14-logo.png',
+        image: '/images/brands-showcase/14-ototo.png'
       },
       { 
         name: 'Fressko', 
-        logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/3 Gift&Lifestyle/Fressko.png'),
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/3 Gift&Lifestyle 家居生活/Fressko 1.png')
+        logo: '/images/brands-showcase/brand-15-logo.png',
+        image: '/images/brands-showcase/15-fressko.png'
       }
     ]
   }
@@ -113,7 +113,7 @@ const categories = computed(() => [
       :title="t('brandsPage.hero.title')"
       :subtitle="t('brandsPage.hero.subtitle')"
       background-type="image"
-      :background-image="'/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Wildflower.png'"
+      :background-image="'/images/brands-hero-2.jpg'"
     />
 
     <!-- Brand Categories -->
@@ -175,71 +175,24 @@ const categories = computed(() => [
   color: var(--color-primary);
 }
 
-/* Brands Grid */
 .brands-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-6);
 }
 
-@media (min-width: 640px) {
-  .brands-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+/* Brands Grid */
 
-@media (min-width: 1024px) {
-  .brands-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Adjust logo sizes for specific brands */
-/* Native Union logo - 250x80 ratio (3.125:1) */
-.brand-card:nth-child(5) .brand-card__logo img {
-  max-width: 250px;
-  max-height: 80px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Responsive adjustments for Native Union logo */
-@media (max-width: 639px) {
-  .brand-card:nth-child(5) .brand-card__logo img {
-    max-width: 180px;
-    max-height: 58px;
-  }
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  .brand-card:nth-child(5) .brand-card__logo img {
-    max-width: 200px;
-    max-height: 64px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .brand-card:nth-child(5) .brand-card__logo img {
-    max-width: 250px;
-    max-height: 80px;
-  }
-}
-
-.brand-card:nth-child(7) .brand-card__logo img,
-.brand-card:nth-child(8) .brand-card__logo img {
-  max-width: 100px;
-  max-height: 45px;
-}
 
 .brand-card {
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
+  background: transparent;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: all var(--transition-base);
+  max-width: 280px;
 }
 
 .brand-card:hover {
@@ -258,7 +211,6 @@ const categories = computed(() => [
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top; /* 裁剪图片，只显示上半部分，避免显示图片下半部分的logo */
   transition: transform var(--transition-slow);
 }
 
@@ -270,13 +222,14 @@ const categories = computed(() => [
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-6);
-  min-height: 80px;
+  padding: var(--spacing-2) var(--spacing-4);
+  min-height: 60px;
+  background: transparent;
 }
 
 .brand-card__logo img {
-  max-width: 120px;
-  max-height: 50px;
+  max-width: 100%;
+  max-height: 70px;
   object-fit: contain;
   filter: grayscale(100%);
   opacity: 0.7;

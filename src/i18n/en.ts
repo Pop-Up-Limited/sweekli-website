@@ -42,11 +42,11 @@ export default {
       },
       launch: {
         title: 'Launch',
-        desc: 'We launch, price, promote, and manage your presence across online platforms and retail channels.'
+        desc: 'We place your brand where it really matters – across prestigious retailers, leading online platforms and influencer networks.'
       },
       grow: {
         title: 'Grow',
-        desc: 'Scale your presence with data-driven optimization.'
+        desc: 'Scale your presence with data-driven optimization - taking your brand as far as it can go.'
       }
     }
   },
@@ -100,6 +100,7 @@ export default {
     tagline: 'Your Trusted Gateway to China and APAC Consumer Market',
     quickLinks: 'Quick Links',
     contact: 'Contact',
+    customerService: 'Customer Service',
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     rights: 'All rights reserved.',
@@ -157,7 +158,7 @@ export default {
   services: {
     hero: {
       title: 'End-to-End Solutions',
-      subtitle: 'From market entry strategy to daily operations, we handle every aspect of your China and APAC e-commerce journey.'
+      subtitle: 'We provide end-to-end market entry, e-commerce operations, retail distribution, marketing and PR services.'
     },
     items: {
       strategy: {
@@ -167,13 +168,13 @@ export default {
       },
       ecommerce: {
         title: 'E-commerce Operations',
-        desc: 'Full-service management of your online stores across all major Chinese platforms.',
-        features: ['Tmall & JD store management', 'Product listing optimization', 'Customer service in Chinese']
+        desc: 'Full-service management of your online stores across all major China and APAC platforms.',
+        features: ['Tmall, JD and other e-commerce store setup, management and daily operation', 'Constant optimization of product listings, content and visual', 'Advertising buying, data optimization of traffic and conversion', 'Customer service in local language']
       },
       marketing: {
         title: 'Digital Marketing',
-        desc: 'Integrated marketing campaigns that resonate with Chinese consumers.',
-        features: ['KOL/Influencer partnerships', 'Social media management', 'Livestream commerce']
+        desc: 'Integrated marketing campaigns that resonate with target consumers.',
+        features: ['Influencer/KOL partnerships', 'Press & Celebrity partnerships', 'Social media account management', 'Livestream commerce']
       },
       distribution: {
         title: 'Omnichannel Distribution',
@@ -242,11 +243,11 @@ export default {
     },
     offices: {
       title: 'Our Offices',
-      shenzhen: 'Shenzhen HQ',
-      shanghai: 'Shanghai, China',
+      shenzhen: 'Shenzhen',
+      shanghai: 'Shanghai',
       hongkong: 'Hong Kong',
-      taipei: 'Taipei, Taiwan',
-      seoul: 'Seoul, South Korea (Coming Soon)'
+      taipei: 'Taipei',
+      seoul: 'Seoul (Coming Soon)'
     }
   },
 

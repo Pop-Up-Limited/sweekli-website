@@ -26,8 +26,8 @@ const stories = computed(() => [
       ? '"Their platform expertise and market insights have been invaluable for our expansion into China."'
       : '"他们的平台专业知识和市场洞察力对我们进入中国至关重要。"',
     result: locale.value === 'en' ? 'Top 10 on Tmall' : '天猫前10名',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png'),
-    productImage: getImagePath('/images/Sweekli 英文 PDF内图片素材/4 E-Commerce Case Studies/1.jpg')
+    image: '/images/success-stories/case-mate-logo.png',
+    productImage: '/images/success-stories/case-mate.jpg'
   },
   {
     brand: 'Native Union',
@@ -35,8 +35,8 @@ const stories = computed(() => [
       ? '"The team at Sweekli truly understands both Western brands and Chinese consumers."'
       : '"Sweekli团队真正理解西方品牌和中国消费者。"',
     result: locale.value === 'en' ? '150% Revenue Increase' : '收入增长150%',
-    image: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png'),
-    productImage: getImagePath('/images/Sweekli 英文 PDF内图片素材/1  Success Stories/Native Union 0.png')
+    image: '/images/success-stories/native-union-logo.png',
+    productImage: '/images/success-stories/native-union.jpg'
   }
 ])
 
@@ -223,8 +223,8 @@ useIntersectionObserver(
 }
 
 .story-card__logo {
-  max-width: 140px;
-  max-height: 50px;
+  max-width: 220px;
+  max-height: 80px;
   object-fit: contain;
   margin-bottom: var(--spacing-6);
   filter: grayscale(100%);

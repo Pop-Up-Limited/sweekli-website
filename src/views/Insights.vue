@@ -103,7 +103,8 @@ onMounted(async () => {
       :label="locale === 'en' ? 'INSIGHTS' : '行业洞察'"
       :title="t('insights.hero.title')"
       :subtitle="t('insights.hero.subtitle')"
-      background-type="gradient"
+      background-type="image"
+      :background-image="'/images/insights-hero-1.jpg'"
     />
 
     <!-- Articles Grid -->

@@ -188,7 +188,7 @@ onUnmounted(() => {
 }
 
 .logo-img {
-  height: 19.2px;
+  height: 24px;
   width: auto;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -199,7 +199,7 @@ onUnmounted(() => {
 }
 
 .header.is-scrolled .logo-img {
-  height: 16.8px;
+  height: 21px;
 }
 
 /* Navigation */

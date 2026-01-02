@@ -126,13 +126,17 @@ export async function verifyProduct(code: string) {
 
   switch (config.provider) {
     case 'custom':
-      return fetch(config.custom.endpoint, {
-        method: config.custom.method as RequestInit['method'],
+      // 使用cha12315.com API
+      // API文档: https://cha12315.com/api/wiki.html
+      // 根据API文档，请求格式为: POST, Content-Type: application/json, body: {"code": "验证码"}
+      const apiUrl = config.custom.endpoint || 'https://cha12315.com/api/wiki.html'
+      return fetch(apiUrl, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          [config.custom.requestFormat.code]: code,
+          code: code.trim(),
         }),
       })
 

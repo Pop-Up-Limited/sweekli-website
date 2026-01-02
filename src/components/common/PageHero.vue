@@ -9,10 +9,12 @@ interface Props {
   subtitle?: string
   backgroundImage?: string
   backgroundType?: 'image' | 'gradient'
+  showLogo?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  backgroundType: 'gradient'
+  backgroundType: 'gradient',
+  showLogo: false
 })
 
 const heroRef = ref<HTMLElement | null>(null)
@@ -39,7 +41,9 @@ useIntersectionObserver(
       />
       <div v-else class="hero-gradient"></div>
       <div class="hero-pattern"></div>
-      <div v-if="backgroundType === 'image'" class="page-hero__overlay"></div>
+      <div v-if="backgroundType === 'image' && showLogo" class="page-hero__logo">
+        <img src="/sweekli-logo-white.png" alt="Sweekli" />
+      </div>
     </div>
     <div class="container page-hero__content" :class="{ 'is-visible': isHeroVisible }">
       <span v-if="label" class="page-hero__label">{{ label }}</span>
@@ -100,15 +104,28 @@ useIntersectionObserver(
   50% { transform: scale(1.05) rotate(1deg); }
 }
 
-.page-hero__overlay {
+.page-hero__logo {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(40, 46, 69, 0.9) 0%, rgba(111, 123, 212, 0.7) 100%);
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.page-hero__logo img {
+  width: 60%;
+  max-width: 800px;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .page-hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
   color: var(--color-white);
   max-width: 800px;

@@ -39,25 +39,25 @@ const steps = computed(() => {
         num: '01',
         title: 'The Right Match Matters.',
         desc: 'We choose our partners carefully. You bring global strength. We deliver China and APAC expertise. If there\'s alignment, we act.',
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/2 Our Solutions/650x650px-1_01.jpg')
+        image: '/images/how-it-works/step-01.jpg'
       },
       {
         num: '02',
         title: 'Choose Your Model.',
         desc: 'We either buy your products and handle everything, OR sell on your behalf for a commission while you cover the costs. No complexity. Full transparency.',
-        image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/1 Distribution/1_副本.jpg')
+        image: '/images/how-it-works/step-02.jpg'
       },
       {
         num: '03',
         title: 'Launch',
-        desc: 'We launch, price, promote, and manage your presence across online platforms and retail channels.',
+        desc: 'We place your brand where it really matters – across prestigious retailers, leading online platforms and influencer networks.',
         image: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Solutions/2 E-Commerce/PC.jpg')
       },
       {
         num: '04',
         title: 'Grow',
-        desc: 'Scale your presence with data-driven optimization.',
-        image: getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')
+        desc: 'Scale your presence with data-driven optimization - taking your brand as far as it can go.',
+        image: '/images/how-it-works/step-04.jpg'
       }
     ]
   } else {

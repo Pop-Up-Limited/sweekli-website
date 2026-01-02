@@ -55,7 +55,7 @@ const socialLinks = computed(() => [
         <div class="footer__brand">
           <RouterLink to="/" class="footer__logo">
             <img 
-              src="/画板 67.svg" 
+              src="/sweekli-logo-white.png" 
               alt="Sweekli"
               class="footer__logo-img"
             />
@@ -90,7 +90,7 @@ const socialLinks = computed(() => [
                   </svg>
                 </a>
                 <!-- Desktop hover popup -->
-                <div class="footer__wechat-popup">
+                <div class="footer__wechat-popup" @click.stop>
                   <img :src="social.qrCode" alt="WeChat QR Code" />
                 </div>
               </div>
@@ -102,7 +102,7 @@ const socialLinks = computed(() => [
         <div class="footer__col">
           <h4 class="footer__title">{{ t('footer.quickLinks') }}</h4>
           <ul class="footer__list">
-            <li v-for="link in quickLinks" :key="link.path">
+            <li v-for="link in quickLinks" :key="link.path" v-show="locale !== 'zh' || link.path !== '/insights'">
               <RouterLink :to="link.path" class="footer__link">{{ link.label }}</RouterLink>
             </li>
           </ul>
@@ -115,30 +115,17 @@ const socialLinks = computed(() => [
             <li>
               <a href="mailto:contact@sweekli.com" class="footer__link">contact@sweekli.com</a>
             </li>
-            <li>
-              <a href="tel:+8675586525700" class="footer__link">+86 755 86525700</a>
-            </li>
             <li class="footer__address">
               {{ locale === 'en' 
-                ? 'Shenzhen HQ - Block 6, Cloud Park, Bantian Street, Shenzhen'
-                : '深圳总部 - 深圳市坂田街道云里6号' }}
-            </li>
-            <li class="footer__address">
-              {{ locale === 'en' 
-                ? 'Shanghai - Floor 2, 588 East Yan\'an Road, Shanghai'
-                : '上海 - 上海市延安东路588号2楼' }}
-            </li>
-            <li class="footer__address">
-              {{ locale === 'en' 
-                ? 'Hong Kong - 11F, 200 Hennessy Road, Wan Chai, Hong Kong'
-                : '香港 - 香港湾仔轩尼诗道200号11楼' }}
+                ? 'Shenzhen / Shanghai / Hong Kong / Taipei / Seoul'
+                : '深圳 / 上海 / 香港 / 台北 / 首尔' }}
             </li>
           </ul>
         </div>
 
-        <!-- Verify Product Link -->
+        <!-- Customer Service / Verify Product Link -->
         <div class="footer__col">
-          <h4 class="footer__title">{{ locale === 'en' ? 'Quick Links' : '快速链接' }}</h4>
+          <h4 class="footer__title">{{ t('footer.customerService') }}</h4>
           <ul class="footer__list">
             <li>
               <RouterLink to="/authentication" class="footer__link">{{ t('footer.verifyProduct') }}</RouterLink>
@@ -224,7 +211,7 @@ const socialLinks = computed(() => [
 }
 
 .footer__logo-img {
-  height: 19.2px;
+  height: 24px;
   width: auto;
 }
 
@@ -313,7 +300,8 @@ const socialLinks = computed(() => [
   border-top-color: var(--color-white);
 }
 
-.footer__wechat-wrapper:hover .footer__wechat-popup {
+.footer__wechat-wrapper:hover .footer__wechat-popup,
+.footer__wechat-popup:hover {
   opacity: 1;
   visibility: visible;
 }

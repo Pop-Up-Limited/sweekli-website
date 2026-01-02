@@ -23,7 +23,9 @@ useSEO({
       :label="locale === 'en' ? 'GET IN TOUCH' : '联系我们'"
       :title="t('contact.hero.title')"
       :subtitle="t('contact.hero.subtitle')"
-      background-type="gradient"
+      background-type="image"
+      :background-image="locale === 'en' ? '/images/contact-hero-1.jpg' : '/images/contact-hero-2.jpg'"
+      :show-logo="false"
     />
 
     <!-- Contact Section -->
@@ -37,67 +39,76 @@ useSEO({
 
           <!-- Contact Info -->
           <div class="contact-info">
-            <h3 class="contact-info__title">{{ t('contact.offices.title') }}</h3>
-            
-            <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.shenzhen') }}</h4>
-              <p class="office-card__address">
-                {{ locale === 'en' 
-                  ? 'Block 6, Cloud Park, Bantian Street, Shenzhen'
-                  : '深圳市坂田街道云里6号'
-                }}
-              </p>
-              <a href="mailto:contact@sweekli.com" class="office-card__email">contact@sweekli.com</a>
-              <a href="tel:+8675586525700" class="office-card__phone">+86 755 86525700</a>
-            </div>
+            <template v-if="locale === 'zh'">
+              <!-- 中文版：三个联系方法 -->
+              <div class="contact-method">
+                <h3 class="contact-method__title">消费者联系</h3>
+                <p class="contact-method__desc">产品咨询、售后服务等</p>
+                <a href="mailto:service@sweekli.com" class="contact-method__email">service@sweekli.com</a>
+              </div>
 
-            <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.shanghai') }}</h4>
-              <p class="office-card__address">
-                {{ locale === 'en' 
-                  ? 'Floor 2, 588 East Yan\'an Road, Shanghai'
-                  : '上海市延安东路588号2楼'
-                }}
-              </p>
-              <a href="mailto:shanghai@sweekli.com" class="office-card__email">shanghai@sweekli.com</a>
-            </div>
+              <div class="contact-method">
+                <h3 class="contact-method__title">市场合作联系</h3>
+                <p class="contact-method__desc">媒体合作、品牌合作等</p>
+                <a href="mailto:marketing@sweekli.com" class="contact-method__email">marketing@sweekli.com</a>
+              </div>
 
-            <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.hongkong') }}</h4>
-              <p class="office-card__address">
-                {{ locale === 'en'
-                  ? '11F, 200 Hennessy Road, Wan Chai, Hong Kong'
-                  : '香港湾仔轩尼诗道200号11楼'
-                }}
-              </p>
-              <a href="mailto:hk@sweekli.com" class="office-card__email">hk@sweekli.com</a>
-            </div>
+              <div class="contact-method">
+                <h3 class="contact-method__title">销售合作联系</h3>
+                <p class="contact-method__desc">品牌代理、渠道合作等</p>
+                <a href="mailto:sales@sweekli.com" class="contact-method__email">sales@sweekli.com</a>
+              </div>
 
-            <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.taipei') }}</h4>
-              <p class="office-card__address">
-                {{ locale === 'en'
-                  ? '2F, No. 83, Section 1, Chongqing South Road, Taipei, Taiwan'
-                  : '台北市重庆南路一段83号2楼'
-                }}
-              </p>
-              <a href="mailto:taipei@sweekli.com" class="office-card__email">taipei@sweekli.com</a>
-            </div>
+              <div class="contact-info__offices">
+                <h3 class="contact-info__title">{{ t('contact.offices.title') }}</h3>
+                <div class="offices-list">
+                  <span class="office-location">{{ t('contact.offices.shenzhen') }}</span>
+                  <span class="office-location">{{ t('contact.offices.shanghai') }}</span>
+                  <span class="office-location">{{ t('contact.offices.hongkong') }}</span>
+                  <span class="office-location">{{ t('contact.offices.taipei') }}</span>
+                  <span class="office-location">{{ t('contact.offices.seoul') }}</span>
+                </div>
+              </div>
+            </template>
 
-            <div class="office-card">
-              <h4 class="office-card__name">{{ t('contact.offices.seoul') }}</h4>
-              <p class="office-card__address">
-                {{ locale === 'en'
-                  ? 'Coming Soon'
-                  : '即将开放'
-                }}
-              </p>
-            </div>
+            <template v-else>
+              <!-- 英文版：保持原有结构 -->
+              <h3 class="contact-info__title">{{ t('contact.offices.title') }}</h3>
+              
+              <div class="office-card">
+                <h4 class="office-card__name">{{ t('contact.offices.shenzhen') }}</h4>
+                <p class="office-card__address">Shenzhen</p>
+                <a href="mailto:contact@sweekli.com" class="office-card__email">contact@sweekli.com</a>
+              </div>
 
-            <div class="contact-info__general">
-              <h4>{{ locale === 'en' ? 'General Inquiries' : '一般咨询' }}</h4>
-              <a href="mailto:contact@sweekli.com">contact@sweekli.com</a>
-            </div>
+              <div class="office-card">
+                <h4 class="office-card__name">{{ t('contact.offices.shanghai') }}</h4>
+                <p class="office-card__address">Shanghai</p>
+                <a href="mailto:shanghai@sweekli.com" class="office-card__email">shanghai@sweekli.com</a>
+              </div>
+
+              <div class="office-card">
+                <h4 class="office-card__name">{{ t('contact.offices.hongkong') }}</h4>
+                <p class="office-card__address">Hong Kong</p>
+                <a href="mailto:hk@sweekli.com" class="office-card__email">hk@sweekli.com</a>
+              </div>
+
+              <div class="office-card">
+                <h4 class="office-card__name">{{ t('contact.offices.taipei') }}</h4>
+                <p class="office-card__address">Taipei</p>
+                <a href="mailto:taipei@sweekli.com" class="office-card__email">taipei@sweekli.com</a>
+              </div>
+
+              <div class="office-card">
+                <h4 class="office-card__name">{{ t('contact.offices.seoul') }}</h4>
+                <p class="office-card__address">Seoul (Coming Soon)</p>
+              </div>
+
+              <div class="contact-info__general">
+                <h4>General Inquiries</h4>
+                <a href="mailto:contact@sweekli.com">contact@sweekli.com</a>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -275,6 +286,60 @@ useSEO({
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-medium);
   color: var(--color-primary);
+}
+
+/* 中文版联系方法 */
+.contact-method {
+  background: var(--color-gray-50);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--spacing-6);
+}
+
+.contact-method__title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.contact-method__desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-3);
+}
+
+.contact-method__email {
+  font-size: var(--font-size-base);
+  color: var(--color-accent-purple);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  display: block;
+}
+
+.contact-method__email:hover {
+  color: var(--color-primary);
+}
+
+.contact-info__offices {
+  margin-top: var(--spacing-8);
+  padding-top: var(--spacing-8);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.offices-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+}
+
+.office-location {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-gray-100);
+  border-radius: var(--radius-lg);
 }
 
 /* Transitions */

@@ -85,9 +85,9 @@ export const saasConfig = {
   authentication: {
     provider: 'custom', // 'custom' | 'third-party'
     
-    // 自定义 API
+    // 自定义 API - cha12315.com
     custom: {
-      endpoint: '', // 你的验真 API endpoint
+      endpoint: 'https://cha12315.com/api/wiki.html', // cha12315.com API endpoint
       method: 'POST',
       // 请求格式
       requestFormat: {

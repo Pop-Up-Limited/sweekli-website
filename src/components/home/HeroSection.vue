@@ -12,22 +12,22 @@ const titleWords = computed(() => {
 
 // 生成随机位置偏移和大小 - 每次页面加载都生成新的随机值
 const generateRandomOffsets = () => {
-  // 生成三个不同的大小，确保有明显对比（最小180px，最大400px）
+  // 生成三个不同的大小，确保有明显对比（最小280px，最大600px），更饱满
   const sizes = []
-  sizes.push(180 + Math.random() * 220) // 180-400px
-  sizes.push(180 + Math.random() * 220)
-  sizes.push(180 + Math.random() * 220)
+  // 第一个圆圈：最大，400-600px
+  sizes.push(400 + Math.random() * 200) // 400-600px
+  // 第二个圆圈：中等，320-480px
+  sizes.push(320 + Math.random() * 160) // 320-480px
+  // 第三个圆圈：最小，280-400px
+  sizes.push(280 + Math.random() * 120) // 280-400px
   
-  // 确保至少有一个明显不同的大小（差异至少120px）
+  // 确保大小差异明显（差异至少150px）
   const minSize = Math.min(...sizes)
   const maxSize = Math.max(...sizes)
-  if (maxSize - minSize < 120) {
-    const midIndex = sizes.indexOf(Math.max(...sizes.filter(s => s !== maxSize && s !== minSize)))
-    if (midIndex >= 0) {
-      sizes[midIndex] = minSize + 120 + Math.random() * 100
-    } else {
-      sizes[0] = minSize + 120 + Math.random() * 100
-    }
+  if (maxSize - minSize < 150) {
+    sizes[0] = 500 + Math.random() * 100 // 确保最大
+    sizes[1] = 350 + Math.random() * 100 // 中等
+    sizes[2] = 280 + Math.random() * 70  // 最小
   }
   
   return [
@@ -188,8 +188,8 @@ onMounted(() => {
 }
 
 .particle--1 {
-  width: var(--particle-size, 300px);
-  height: var(--particle-size, 300px);
+  width: var(--particle-size, 500px);
+  height: var(--particle-size, 500px);
   background: #8FB5DA;
   top: 10%;
   left: 5%;
@@ -197,8 +197,8 @@ onMounted(() => {
 }
 
 .particle--2 {
-  width: var(--particle-size, 280px);
-  height: var(--particle-size, 280px);
+  width: var(--particle-size, 400px);
+  height: var(--particle-size, 400px);
   background: #CC6E6F;
   top: 15%;
   right: 5%;
@@ -206,8 +206,8 @@ onMounted(() => {
 }
 
 .particle--3 {
-  width: var(--particle-size, 260px);
-  height: var(--particle-size, 260px);
+  width: var(--particle-size, 320px);
+  height: var(--particle-size, 320px);
   background: #F8C569;
   bottom: 15%;
   left: 50%;
@@ -219,22 +219,22 @@ onMounted(() => {
   .particle--1 {
     top: 5%;
     left: 0%;
-    width: calc(var(--particle-size, 300px) * 0.7);
-    height: calc(var(--particle-size, 300px) * 0.7);
+    width: calc(var(--particle-size, 500px) * 0.7);
+    height: calc(var(--particle-size, 500px) * 0.7);
   }
   
   .particle--2 {
     top: 5%;
     right: 0%;
-    width: calc(var(--particle-size, 280px) * 0.7);
-    height: calc(var(--particle-size, 280px) * 0.7);
+    width: calc(var(--particle-size, 400px) * 0.7);
+    height: calc(var(--particle-size, 400px) * 0.7);
   }
   
   .particle--3 {
     bottom: 10%;
     left: 50%;
-    width: calc(var(--particle-size, 260px) * 0.7);
-    height: calc(var(--particle-size, 260px) * 0.7);
+    width: calc(var(--particle-size, 320px) * 0.7);
+    height: calc(var(--particle-size, 320px) * 0.7);
   }
 }
 

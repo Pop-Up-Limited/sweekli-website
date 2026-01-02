@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
-import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 
@@ -42,7 +41,7 @@ useIntersectionObserver(
         </div>
         <div class="join-us-section__image">
           <img 
-            :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG')" 
+            :src="locale === 'zh' ? '/images/join-us.jpg' : '/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'" 
             alt="Join Us"
             loading="lazy"
           />

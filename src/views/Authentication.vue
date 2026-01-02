@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import { verifyProduct as verifyProductAPI } from '@/utils/saas-integration'
+import { Html5Qrcode } from 'html5-qrcode'
 
 const { t, locale } = useI18n()
 
@@ -13,10 +14,9 @@ const errorMessage = ref('')
 
 // Camera scanning
 const showCamera = ref(false)
-const videoRef = ref<HTMLVideoElement | null>(null)
 const streamRef = ref<MediaStream | null>(null)
 const isScanning = ref(false)
-const scanResult = ref('')
+let html5QrCode: Html5Qrcode | null = null
 
 // SEO配置
 useHead({
@@ -42,11 +42,32 @@ const verifyProduct = async () => {
   
   try {
     const response = await verifyProductAPI(code.value.trim())
-    const data = await response.json()
+    let data
+    const contentType = response.headers.get('content-type')
     
-    if (response.ok && data.success !== false) {
-      // 根据 API 响应判断结果
-      result.value = data.authentic === true ? 'authentic' : 'invalid'
+    // 处理不同的响应格式
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json()
+    } else {
+      const text = await response.text()
+      try {
+        data = JSON.parse(text)
+      } catch {
+        // 如果不是JSON，尝试解析为其他格式
+        data = { success: false, message: text || 'Invalid response format' }
+      }
+    }
+    
+    // 根据cha12315.com API响应格式判断
+    // API文档: https://cha12315.com/api/wiki.html
+    // 响应格式: { authentic: true/false, ... }
+    if (response.ok && data.authentic === true) {
+      result.value = 'authentic'
+    } else if (data.authentic === false || data.code === 400 || data.message?.includes('Invalid') || data.message?.includes('无效')) {
+      result.value = 'invalid'
+      errorMessage.value = data.message || (locale.value === 'en' 
+        ? 'Invalid Code' 
+        : '无效的验证码')
     } else {
       result.value = 'invalid'
       errorMessage.value = data.message || (locale.value === 'en' 
@@ -73,24 +94,58 @@ const reset = () => {
 // Camera functions
 const startCamera = async () => {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' } // Use back camera on mobile
-    })
-    streamRef.value = stream
-    if (videoRef.value) {
-      videoRef.value.srcObject = stream
-      showCamera.value = true
-      isScanning.value = true
-    }
+    showCamera.value = true
+    isScanning.value = true
+    
+    // 等待DOM更新
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
+    // 使用html5-qrcode库进行扫描
+    html5QrCode = new Html5Qrcode('reader')
+    
+    // 尝试获取可用的摄像头
+    const devices = await Html5Qrcode.getCameras()
+    const backCamera = devices.find(device => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear')) || devices[devices.length - 1]
+    const cameraId = backCamera?.id || { facingMode: 'environment' }
+    
+    await html5QrCode.start(
+      cameraId,
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.0
+      },
+      (decodedText) => {
+        // 扫描成功
+        code.value = decodedText
+        stopCamera()
+        verifyProduct()
+      },
+      (errorMessage) => {
+        // 扫描失败，继续扫描（忽略错误）
+      }
+    )
   } catch (error) {
     console.error('Camera access error:', error)
-    errorMessage.value = locale.value === 'en'
+    const errorMsg = locale.value === 'en'
       ? 'Unable to access camera. Please enter code manually.'
       : '无法访问摄像头，请手动输入验证码。'
+    errorMessage.value = errorMsg
+    showCamera.value = false
+    isScanning.value = false
   }
 }
 
-const stopCamera = () => {
+const stopCamera = async () => {
+  if (html5QrCode && html5QrCode.isScanning) {
+    try {
+      await html5QrCode.stop()
+      await html5QrCode.clear()
+    } catch (error) {
+      console.error('Error stopping camera:', error)
+    }
+    html5QrCode = null
+  }
   if (streamRef.value) {
     streamRef.value.getTracks().forEach(track => track.stop())
     streamRef.value = null
@@ -101,17 +156,6 @@ const stopCamera = () => {
 
 // Check if mobile device
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (typeof window !== 'undefined' && window.innerWidth < 768)
-
-const scanQRCode = () => {
-  // QR code scanning logic would go here
-  // For now, this is a placeholder - you may need to integrate a QR code library
-  // like jsQR or html5-qrcode
-  if (scanResult.value) {
-    code.value = scanResult.value
-    stopCamera()
-    verifyProduct()
-  }
-}
 
 onMounted(() => {
   // Cleanup on unmount
@@ -194,15 +238,7 @@ onUnmounted(() => {
                   {{ locale === 'en' ? 'Scan QR Code' : '扫描二维码' }}
                 </h3>
               </div>
-              <video 
-                ref="videoRef"
-                class="auth-camera__video"
-                autoplay
-                playsinline
-              ></video>
-              <div class="auth-camera__overlay">
-                <div class="auth-camera__frame"></div>
-              </div>
+              <div id="reader" class="auth-camera__reader"></div>
               <p class="auth-camera__hint">
                 {{ locale === 'en' 
                   ? 'Position the QR code within the frame'
@@ -424,31 +460,19 @@ onUnmounted(() => {
   text-align: center;
 }
 
-.auth-camera__video {
+.auth-camera__reader {
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  background: var(--color-gray-900);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.auth-camera__reader video {
   width: 100%;
   height: auto;
   display: block;
-  background: var(--color-gray-900);
-}
-
-.auth-camera__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.auth-camera__frame {
-  width: 250px;
-  height: 250px;
-  border: 3px solid var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 }
 
 .auth-camera__hint {

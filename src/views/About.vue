@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { getImagePath } from '@/utils/imagePath'
 import { useSEO } from '@/utils/seo'
 import PageHero from '@/components/common/PageHero.vue'
@@ -19,7 +19,7 @@ const values = computed(() => {
   if (locale.value === 'en') {
     return [
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        icon: getImagePath('/images/about-values/icon-1.png'),
         title: t('about.values.customerCentric.title'),
         desc: t('about.values.customerCentric.desc')
       },
@@ -29,7 +29,7 @@ const values = computed(() => {
         desc: t('about.values.inclusive.desc')
       },
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        icon: '/images/about-values/icon-3.png',
         title: t('about.values.integrity.title'),
         desc: t('about.values.integrity.desc')
       },
@@ -39,7 +39,7 @@ const values = computed(() => {
         desc: t('about.values.peopleFirst.desc')
       },
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        icon: getImagePath('/images/about-values/icon-5.png'),
         title: t('about.values.innovation.title'),
         desc: t('about.values.innovation.desc')
       },
@@ -52,7 +52,7 @@ const values = computed(() => {
   } else {
     return [
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-47.png'),
+        icon: getImagePath('/images/about-values/icon-1.png'),
         title: t('about.values.customerCentric.title'),
         desc: t('about.values.customerCentric.desc')
       },
@@ -62,7 +62,7 @@ const values = computed(() => {
         desc: t('about.values.inclusive.desc')
       },
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-49.png'),
+        icon: '/images/about-values/icon-3.png',
         title: t('about.values.integrity.title'),
         desc: t('about.values.integrity.desc')
       },
@@ -72,7 +72,7 @@ const values = computed(() => {
         desc: t('about.values.peopleFirst.desc')
       },
       {
-        icon: getImagePath('/images/Sweekli 官网介绍 图片素材/3 About/Our Values icon/icon 2-48.png'),
+        icon: getImagePath('/images/about-values/icon-5.png'),
         title: t('about.values.innovation.title'),
         desc: t('about.values.innovation.desc')
       },
@@ -107,6 +107,17 @@ const stats = computed(() => {
   }
 })
 
+const galleryImages = computed(() => [
+  '/images/about-gallery/12.jpg',
+  '/images/about-gallery/13.jpg',
+  '/images/about-gallery/IMG_0056.JPG',
+  '/images/about-gallery/IMG_2366(20200712-182231).JPG',
+  '/images/about-gallery/IMG_3760.JPG',
+  '/images/about-gallery/IMG_4325.JPG',
+  '/images/about-gallery/微信图片_20250722105626.jpg',
+  '/images/about-gallery/极限飞盘IMG_1433 2.JPG'
+])
+
 </script>
 
 <template>
@@ -117,7 +128,7 @@ const stats = computed(() => {
       :title="t('about.hero.title')"
       :subtitle="t('about.hero.subtitle')"
       background-type="image"
-      :background-image="'/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC05476.JPG'"
+      :background-image="'/images/about-hero-1.jpg'"
     />
 
     <!-- Stats Section -->
@@ -147,7 +158,7 @@ const stats = computed(() => {
           </div>
           <div class="about-card__image">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0056.JPG')" 
+              :src="locale === 'en' ? '/images/about-mission.jpg' : '/images/about-mission-zh.jpg'" 
               alt="Mission"
               loading="lazy"
             />
@@ -167,7 +178,7 @@ const stats = computed(() => {
           </div>
           <div class="about-card__image">
             <img 
-              :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_0527.JPG')" 
+              :src="locale === 'en' ? '/images/about-story.jpg' : '/images/about-story-zh.jpg'" 
               alt="Our Story"
               loading="lazy"
             />
@@ -199,7 +210,8 @@ const stats = computed(() => {
     <section class="about-section about-where-we-work">
       <div class="container">
         <div class="about-where-we-work__header">
-          <span class="about-where-we-work__label">{{ t('about.whereWeWork.title') }}</span>
+          <span class="about-where-we-work__label">{{ locale === 'en' ? 'LOCATIONS' : '工作地点' }}</span>
+          <h2 class="about-where-we-work__title">{{ t('about.whereWeWork.title') }}</h2>
         </div>
         <div class="about-where-we-work__grid">
           <div 
@@ -222,24 +234,12 @@ const stats = computed(() => {
     <!-- Team Gallery -->
     <section class="about-gallery">
       <div class="gallery-track">
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" alt="Team" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" alt="Office" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4336.JPG')" alt="Culture" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/DSC04807.JPG')" alt="Work" loading="lazy" />
-        </div>
-        <!-- Duplicate for seamless loop -->
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_3760.JPG')" alt="Team" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img :src="getImagePath('/images/Sweekli 中文 PDF内图片素材/4 公司文化/IMG_4325.JPG')" alt="Office" loading="lazy" />
+        <div 
+          v-for="(image, index) in [...galleryImages, ...galleryImages]" 
+          :key="`gallery-${index}`"
+          class="gallery-item"
+        >
+          <img :src="image" :alt="`Team Photo ${index + 1}`" loading="lazy" />
         </div>
       </div>
     </section>
@@ -433,6 +433,7 @@ const stats = computed(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform var(--transition-slow);
 }
 
@@ -505,6 +506,14 @@ const stats = computed(() => {
   color: var(--color-accent-purple);
   text-transform: uppercase;
   letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-3);
+}
+
+.about-where-we-work__title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
 }
 
 .about-where-we-work__grid {

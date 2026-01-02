@@ -99,9 +99,10 @@ export default {
 
   // 页脚
   footer: {
-    tagline: 'Your Trusted Gateway to China and APAC Consumer Market',
+    tagline: '全球生活方式品牌中国与亚太市场增长平台',
     quickLinks: '快速链接',
     contact: '联系方式',
+    customerService: '客户服务',
     privacy: '隐私政策',
     terms: '服务条款',
     rights: '版权所有',
@@ -116,11 +117,11 @@ export default {
     },
     mission: {
       title: '我们的使命',
-      content: '为我们的品牌合作伙伴提供端到端的能力，推动增长、增加销售并扩大影响力——成为中国和亚太地区最值得信赖的长期合作伙伴。'
+      content: '为消费者提供兼具设计美学于科技创新力的高品质产品，让生活更美好、更精致。'
     },
     story: {
       title: '我们的故事',
-      content: '思维颗粒成立于2015年，旨在帮助全球生活方式、时尚和科技品牌在中国和亚太市场导航并取得成功。凭借10年的实践经验，我们提供端到端的解决方案——从市场进入和电子商务到零售分销、营销和公关——支持品牌在当地成长和扩展。'
+      content: '思维颗粒成立于2015年，是一家专注于全球生活方式品牌运营的公司，致力于将世界范围内兼具设计感、品质于创新力的产品带给国内消费者。我们为海外品牌提供品牌运营、品牌代理、电商管理、内容营销、渠道拓展于本地化策略等全链路服务，帮助品牌在中国于亚太地区建立影响力并实现持续增长。'
     },
     values: {
       title: '我们的价值观',
@@ -249,11 +250,11 @@ export default {
     },
     offices: {
       title: '我们的办公室',
-      shenzhen: '深圳总部',
-      shanghai: '中国上海',
+      shenzhen: '深圳',
+      shanghai: '上海',
       hongkong: '香港',
-      taipei: '台北，台湾',
-      seoul: '首尔，韩国（即将开放）'
+      taipei: '台北',
+      seoul: '首尔（即将开放）'
     }
   },
 
@@ -274,7 +275,7 @@ export default {
   // 招聘页面（仅中文版）
   careers: {
     title: '加入我们',
-    subtitle: '在快速发展的跨境电商公司中开启您的职业生涯。',
+    subtitle: '我们的愿景是成为一家最懂提升客户生活品质，并提供一留产品和服务的企业。',
     positions: '开放职位',
     culture: '企业文化',
     apply: '立即申请',

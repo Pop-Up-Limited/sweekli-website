@@ -3,27 +3,28 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
-import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
 
-// Brand data with logo paths
+// Brand data with logo paths - using new unified size logos
 const brands = computed(() => [
-  { name: 'wildflower', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Wildflower-Logo-wf-02.png') },
-  { name: 'CASE·MATE', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/case-mate.png') },
-  { name: 'String Ting', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/String Ting.png') },
-  { name: 'holdit', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Holdit.png') },
-  { name: 'IDEAL OF SWEDEN', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/iDeal of Sweden.png') },
-  { name: 'VICXXO', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/vicxxo.png') },
-  { name: 'twelvesouth', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/twelvesouth.png') },
-  { name: 'SATECHI', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/Satechi .png') },
-  { name: 'Native Union', logo: getImagePath('/images/Sweekli 中文 PDF内图片素材/2 合作品牌/1 Tech Accessories 数码配件/native union.png') },
-  { name: 'notabag', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/notabag.png') },
-  { name: 'URTH', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/Urth .png') },
-  { name: 'SPINGLE', logo: getImagePath('/images/Sweekli 官网介绍 图片素材/4 Brands/2 Bags&Footwear 包袋鞋履/SPINGLE.png') }
+  { name: 'brand1', logo: '/images/brands/1.png' },
+  { name: 'brand2', logo: '/images/brands/2.png' },
+  { name: 'brand3', logo: '/images/brands/3.png' },
+  { name: 'brand4', logo: '/images/brands/4.png' },
+  { name: 'brand5', logo: '/images/brands/5.png' },
+  { name: 'brand6', logo: '/images/brands/6.png' },
+  { name: 'brand7', logo: '/images/brands/7.png' },
+  { name: 'brand8', logo: '/images/brands/8.png' },
+  { name: 'brand9', logo: '/images/brands/9.png' },
+  { name: 'brand10', logo: '/images/brands/10.png' },
+  { name: 'brand11', logo: '/images/brands/11.png' },
+  { name: 'brand12', logo: '/images/brands/12.png' },
+  { name: 'brand13', logo: '/images/brands/13.png' },
+  { name: 'brand14', logo: '/images/brands/14.png' }
 ])
 
 useIntersectionObserver(
@@ -90,6 +91,7 @@ useIntersectionObserver(
   font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
   margin-bottom: var(--spacing-12);
+  text-align: center;
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
@@ -112,9 +114,9 @@ useIntersectionObserver(
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-bottom: var(--spacing-12);
-  overflow: visible;
-  padding: var(--spacing-4) 0;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  overflow: hidden;
+  padding: 0;
+  background: var(--color-white);
   opacity: 0;
   transition: opacity 0.8s ease 0.3s;
 }
@@ -125,8 +127,10 @@ useIntersectionObserver(
 
 .brands__track {
   display: flex;
-  gap: var(--spacing-10);
+  gap: var(--spacing-12);
+  align-items: center;
   animation: marquee 40s linear infinite;
+  padding: 0;
 }
 
 .brands__track:hover {
@@ -148,27 +152,22 @@ useIntersectionObserver(
   align-items: center;
   justify-content: center;
   height: 80px;
-  min-width: 160px;
-  padding: var(--spacing-4) var(--spacing-6);
+  padding: var(--spacing-2) var(--spacing-8);
   background: var(--color-white);
-  border-radius: var(--radius-2xl);
-  border: 1px solid var(--color-gray-100);
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .brand-item:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(111, 123, 212, 0.1);
-  border-color: var(--color-accent-purple-light);
+  transform: translateY(-2px);
 }
 
 .brand-item img {
-  max-height: 100%;
-  max-width: 140px;
+  height: 60px;
+  width: auto;
+  max-width: 180px;
   object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.6;
+  opacity: 0.7;
   transition: filter 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -187,6 +186,7 @@ useIntersectionObserver(
 
 /* CTA */
 .brands__cta {
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;

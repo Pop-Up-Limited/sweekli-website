@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 
 const { locale } = useI18n()
@@ -10,6 +10,7 @@ const isVisible = ref(false)
 
 // Animated counter logic
 const animatedValues = ref<number[]>([0, 0, 0, 0])
+let animationStarted = false
 
 const stats = computed(() => {
   if (locale.value === 'en') {
@@ -62,6 +63,10 @@ const stats = computed(() => {
 })
 
 const animateCounters = () => {
+  // 重置动画状态
+  animationStarted = false
+  animatedValues.value = [0, 0, 0, 0]
+  
   const duration = 2000
   const startTime = performance.now()
 
@@ -72,7 +77,9 @@ const animateCounters = () => {
     // Easing function for smooth animation
     const easeOutQuart = 1 - Math.pow(1 - progress, 4)
     
-    animatedValues.value = stats.value.map((stat) => {
+    // 使用当前locale的stats值
+    const currentStats = stats.value
+    animatedValues.value = currentStats.map((stat) => {
       if (stat.suffix === '%') {
         return Math.floor(stat.value * easeOutQuart)
       }
@@ -98,6 +105,21 @@ useIntersectionObserver(
   },
   { threshold: 0.3 }
 )
+
+// 监听locale变化，立即更新数值并重新动画
+watch(() => locale.value, () => {
+  // 立即更新为当前语言对应的最终值
+  const currentStats = stats.value
+  animatedValues.value = currentStats.map((stat) => stat.value)
+  
+  // 如果section可见，重新动画
+  if (isVisible.value) {
+    // 重置动画状态
+    animationStarted = false
+    // 从当前值开始动画到最终值
+    animateCounters()
+  }
+})
 </script>
 
 <template>
@@ -122,20 +144,10 @@ useIntersectionObserver(
 
 <style scoped>
 .stats {
-  background: linear-gradient(180deg, #faf8f3 0%, #f5f3ed 50%, #f0ede6 100%);
+  background: linear-gradient(90deg, #5867ac 0%, #8a88e4 100%);
   padding: var(--spacing-24) 0;
   position: relative;
   overflow: hidden;
-}
-
-.stats::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(111, 123, 212, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(249, 194, 110, 0.06) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 .stats__container {
@@ -175,7 +187,7 @@ useIntersectionObserver(
   font-family: var(--font-family-display);
   font-size: clamp(3rem, 6vw, 4.5rem);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  color: #ffebec;
   line-height: 1;
   margin-bottom: var(--spacing-3);
   letter-spacing: -0.03em;
@@ -184,7 +196,7 @@ useIntersectionObserver(
 .stat-item__label {
   display: block;
   font-size: var(--font-size-base);
-  color: var(--color-gray-600);
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: var(--font-weight-medium);
