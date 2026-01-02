@@ -21,43 +21,43 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'Wildflower', 
-        logo: '/images/brands-showcase/brand-1-logo.png',
-        image: '/images/brands-showcase/1-wildflower.png'
+        logo: getImagePath('/images/brands-showcase/brand-1-logo.png'),
+        image: getImagePath('/images/brands-showcase/1-wildflower.png')
       },
       { 
         name: 'Case-Mate', 
-        logo: '/images/brands-showcase/brand-2-logo.png',
-        image: '/images/brands-showcase/2-case-mate.png'
+        logo: getImagePath('/images/brands-showcase/brand-2-logo.png'),
+        image: getImagePath('/images/brands-showcase/2-case-mate.png')
       },
       { 
         name: 'String Ting', 
-        logo: '/images/brands-showcase/brand-3-logo.png',
-        image: '/images/brands-showcase/3-string-ting.png'
+        logo: getImagePath('/images/brands-showcase/brand-3-logo.png'),
+        image: getImagePath('/images/brands-showcase/3-string-ting.png')
       },
       { 
         name: 'Holdit', 
-        logo: '/images/brands-showcase/brand-4-logo.png',
-        image: '/images/brands-showcase/4-holdit.png'
+        logo: getImagePath('/images/brands-showcase/brand-4-logo.png'),
+        image: getImagePath('/images/brands-showcase/4-holdit.png')
       },
       { 
         name: 'iDeal of Sweden', 
-        logo: '/images/brands-showcase/brand-5-logo.png',
-        image: '/images/brands-showcase/5-ideal-of-sweden.png'
+        logo: getImagePath('/images/brands-showcase/brand-5-logo.png'),
+        image: getImagePath('/images/brands-showcase/5-ideal-of-sweden.png')
       },
       { 
         name: 'Native Union', 
-        logo: '/images/brands-showcase/brand-7-logo.png',
-        image: '/images/brands-showcase/7-native-union.png'
+        logo: getImagePath('/images/brands-showcase/brand-7-logo.png'),
+        image: getImagePath('/images/brands-showcase/7-native-union.png')
       },
       { 
         name: 'Satechi', 
-        logo: '/images/brands-showcase/brand-8-logo.png',
-        image: '/images/brands-showcase/8-satechi.png'
+        logo: getImagePath('/images/brands-showcase/brand-8-logo.png'),
+        image: getImagePath('/images/brands-showcase/8-satechi.png')
       },
       { 
         name: 'Twelve South', 
-        logo: '/images/brands-showcase/brand-9-logo.png',
-        image: '/images/brands-showcase/9-twelve-south.png'
+        logo: getImagePath('/images/brands-showcase/brand-9-logo.png'),
+        image: getImagePath('/images/brands-showcase/9-twelve-south.png')
       }
     ]
   },
@@ -66,18 +66,18 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'Notabag', 
-        logo: '/images/brands-showcase/brand-10-logo.png',
-        image: '/images/brands-showcase/10-notabag.png'
+        logo: getImagePath('/images/brands-showcase/brand-10-logo.png'),
+        image: getImagePath('/images/brands-showcase/10-notabag.png')
       },
       { 
         name: 'Urth', 
-        logo: '/images/brands-showcase/brand-11-logo.png',
-        image: '/images/brands-showcase/11-urth.png'
+        logo: getImagePath('/images/brands-showcase/brand-11-logo.png'),
+        image: getImagePath('/images/brands-showcase/11-urth.png')
       },
       { 
         name: 'Spingle Move', 
-        logo: '/images/brands-showcase/brand-12-logo.png',
-        image: '/images/brands-showcase/12-spingle.png'
+        logo: getImagePath('/images/brands-showcase/brand-12-logo.png'),
+        image: getImagePath('/images/brands-showcase/12-spingle.png')
       }
     ]
   },
@@ -86,18 +86,18 @@ const categories = computed(() => [
     brands: [
       { 
         name: 'suckUK', 
-        logo: '/images/brands-showcase/brand-13-logo.png',
-        image: '/images/brands-showcase/13-suckuk.png'
+        logo: getImagePath('/images/brands-showcase/brand-13-logo.png'),
+        image: getImagePath('/images/brands-showcase/13-suckuk.png')
       },
       { 
         name: 'OTOTO', 
-        logo: '/images/brands-showcase/brand-14-logo.png',
-        image: '/images/brands-showcase/14-ototo.png'
+        logo: getImagePath('/images/brands-showcase/brand-14-logo.png'),
+        image: getImagePath('/images/brands-showcase/14-ototo.png')
       },
       { 
         name: 'Fressko', 
-        logo: '/images/brands-showcase/brand-15-logo.png',
-        image: '/images/brands-showcase/15-fressko.png'
+        logo: getImagePath('/images/brands-showcase/brand-15-logo.png'),
+        image: getImagePath('/images/brands-showcase/15-fressko.png')
       }
     ]
   }

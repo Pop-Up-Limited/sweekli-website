@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { RouterLink } from 'vue-router'
+import { getImagePath } from '@/utils/imagePath'
 
 const { locale } = useI18n()
 
@@ -11,20 +12,20 @@ const isVisible = ref(false)
 
 // Brand data with logo paths - using new unified size logos
 const brands = computed(() => [
-  { name: 'brand1', logo: '/images/brands-showcase/brand-1-logo.png' },
-  { name: 'brand2', logo: '/images/brands-showcase/brand-2-logo.png' },
-  { name: 'brand3', logo: '/images/brands-showcase/brand-3-logo.png' },
-  { name: 'brand4', logo: '/images/brands-showcase/brand-4-logo.png' },
-  { name: 'brand5', logo: '/images/brands-showcase/brand-5-logo.png' },
-  { name: 'brand6', logo: '/images/brands-showcase/brand-6-logo.png' },
-  { name: 'brand7', logo: '/images/brands-showcase/brand-7-logo.png' },
-  { name: 'brand8', logo: '/images/brands-showcase/brand-8-logo.png' },
-  { name: 'brand9', logo: '/images/brands-showcase/brand-9-logo.png' },
-  { name: 'brand10', logo: '/images/brands-showcase/brand-10-logo.png' },
-  { name: 'brand11', logo: '/images/brands-showcase/brand-11-logo.png' },
-  { name: 'brand12', logo: '/images/brands-showcase/brand-12-logo.png' },
-  { name: 'brand13', logo: '/images/brands-showcase/brand-13-logo.png' },
-  { name: 'brand14', logo: '/images/brands-showcase/brand-14-logo.png' }
+  { name: 'brand1', logo: getImagePath('/images/brands-showcase/brand-1-logo.png') },
+  { name: 'brand2', logo: getImagePath('/images/brands-showcase/brand-2-logo.png') },
+  { name: 'brand3', logo: getImagePath('/images/brands-showcase/brand-3-logo.png') },
+  { name: 'brand4', logo: getImagePath('/images/brands-showcase/brand-4-logo.png') },
+  { name: 'brand5', logo: getImagePath('/images/brands-showcase/brand-5-logo.png') },
+  { name: 'brand6', logo: getImagePath('/images/brands-showcase/brand-6-logo.png') },
+  { name: 'brand7', logo: getImagePath('/images/brands-showcase/brand-7-logo.png') },
+  { name: 'brand8', logo: getImagePath('/images/brands-showcase/brand-8-logo.png') },
+  { name: 'brand9', logo: getImagePath('/images/brands-showcase/brand-9-logo.png') },
+  { name: 'brand10', logo: getImagePath('/images/brands-showcase/brand-10-logo.png') },
+  { name: 'brand11', logo: getImagePath('/images/brands-showcase/brand-11-logo.png') },
+  { name: 'brand12', logo: getImagePath('/images/brands-showcase/brand-12-logo.png') },
+  { name: 'brand13', logo: getImagePath('/images/brands-showcase/brand-13-logo.png') },
+  { name: 'brand14', logo: getImagePath('/images/brands-showcase/brand-14-logo.png') }
 ])
 
 useIntersectionObserver(
